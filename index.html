@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MCQ Practice for WBSLST English Literature</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; background: #f9f9f9; }
+    h1, h2 { text-align: center; }
+    .mcq { background: #fff; margin-bottom: 20px; padding: 15px; border: 1px solid #ccc; border-radius: 5px; }
+    .question { font-weight: bold; }
+    .options { list-style-type: none; padding: 0; }
+    .options li { margin: 5px 0; }
+    .correct { color: green; font-weight: bold; }
+    .incorrect { color: red; font-weight: bold; }
+    button { margin-top: 10px; padding: 8px 12px; cursor: pointer; }
+    #finalResult { font-weight: bold; text-align: center; margin-top: 20px; font-size: 1.2em; }
+  </style>
+</head>
+<body>
+
+<h1>WBSLST English Literature and Grammar MCQ Practice</h1>
+
+<div id="quiz"></div>
+<button id="submitQuiz">Submit Quiz</button>
+
+<div id="finalResult"></div>
+
+<script>
+const mcqs = [
+  { question: "1. In which poem is 'If Winter comes, can Spring be far behind'?", options: ["To a Skylark", "Ode to the West Wind", "The Darkling Thrush", "Ulysses"], answer: 1 },
+  { question: "2. Rhyme scheme of 'Ode to the West Wind'?", options: ["ABAB CDCD", "Terza Rima", "AABBCC", "Free Verse"], answer: 1 },
+  { question: "3. Who wrote 'A thing of beauty is a joy forever'?", options: ["John Keats", "Shelley", "Wordsworth", "Yeats"], answer: 0 },
+  { question: "4. 'The world is too much with us' critiques what theme?", options: ["Materialism", "Romantic Love", "War", "Nature Worship"], answer: 0 },
+  { question: "5. 'Season of mists and mellow fruitfulness' uses:", options: ["Simile", "Personification", "Alliteration", "Metaphor"], answer: 2 },
+  { question: "6. Published in 1798 by Wordsworth and Coleridge:", options: ["The World is Too Much With Us", "Lyrical Ballads", "Lucy Poems", "The Prelude"], answer: 1 },
+  { question: "7. 'The child is the father of the man' figure of speech:", options: ["Metaphor", "Paradox", "Irony", "Hyperbole"], answer: 1 },
+  { question: "8. Year of 'Dream Children: A Reverie'?", options: ["1822", "1812", "1832", "1808"], answer: 0 },
+  { question: "9. Author of 'Principles of Good Writing'?", options: ["L.A. Hill", "Charles Lamb", "G.B. Shaw", "E. Bates"], answer: 0 },
+  { question: "10. 'Ulysses' is in which collection?", options: ["In Memoriam", "Maud", "Poems 1842", "Idylls of the King"], answer: 2 },
+  { question: "11. Poem with 'Is there anybody there' repeated?", options: ["The Listeners", "The Darkling Thrush", "The Wild Swans at Coole", "Strange Meeting"], answer: 0 },
+  { question: "12. Dramatist of 'Justice':", options: ["John Galsworthy", "Goldsmith", "Shaw", "Synge"], answer: 0 },
+  { question: "13. 'My heart aches, and a drowsy numbness pains' in:", options: ["To Autumn", "Ode to a Nightingale", "To a Skylark", "Ulysses"], answer: 1 },
+  { question: "14. Theme of 'The Lagoon':", options: ["Colonialism", "Loyalty and Betrayal", "Love and Nature", "War"], answer: 1 },
+  { question: "15. Year of 'The Gift of the Magi' publication:", options: ["1902", "1905", "1910", "1899"], answer: 1 },
+  { question: "16. Author of 'The Ox':", options: ["Somerset Maugham", "E. Bates", "O. Henry", "Joseph Conrad"], answer: 1 },
+  { question: "17. 'The Last Ride Together' is a:", options: ["Dramatic Monologue", "Lyric", "Elegy", "Sonnet"], answer: 0 },
+  { question: "18. 'brimming with the melody of love' from:", options: ["To a Skylark", "Ode to a Nightingale", "To Autumn", "The Wild Swans at Coole"], answer: 0 },
+  { question: "19. 'And into the heather' from:", options: ["The Wild Swans at Coole", "The Listeners", "Strange Meeting", "The Darkling Thrush"], answer: 3 },
+  { question: "20. 'She Stoops to Conquer' era:", options: ["Elizabethan", "Victorian", "Restoration", "18th Century"], answer: 3 }
+];
+
+const quizContainer = document.getElementById('quiz');
+const finalResultContainer = document.getElementById('finalResult');
+
+mcqs.forEach((mcq, index) => {
+  const mcqDiv = document.createElement('div');
+  mcqDiv.classList.add('mcq');
+
+  const question = document.createElement('div');
+  question.classList.add('question');
+  question.textContent = mcq.question;
+  mcqDiv.appendChild(question);
+
+  const optionsList = document.createElement('ul');
+  optionsList.classList.add('options');
+
+  mcq.options.forEach((option, optIndex) => {
+    const li = document.createElement('li');
+    const radio = document.createElement('input');
+    radio.type = 'radio';
+    radio.name = `q${index}`;
+    radio.value = optIndex;
+
+    li.appendChild(radio);
+    li.append(` ${option}`);
+    optionsList.appendChild(li);
+  });
+
+  mcqDiv.appendChild(optionsList);
+  quizContainer.appendChild(mcqDiv);
+});
+
+document.getElementById('submitQuiz').addEventListener('click', () => {
+  let score = 0;
+  let resultHTML = '';
+
+  mcqs.forEach((mcq, index) => {
+    const selectedOption = document.querySelector(`input[name="q${index}"]:checked`);
+    const userAnswer = selectedOption ? mcq.options[selectedOption.value] : "Not Answered";
+    const correctAnswer = mcq.options[mcq.answer];
+
+    if (selectedOption && parseInt(selectedOption.value) === mcq.answer) {
+      score++;
+    }
+
+    resultHTML += `
+      <div>
+        <strong>Q${index +1}: ${mcq.question}</strong><br>
+        Your Answer: ${userAnswer}<br>
+        Correct Answer: <span class="correct">${correctAnswer}</span><br><br>
+      </div>
+    `;
+  });
+
+  const percentage = (score / mcqs.length) * 100;
+  let feedback = percentage >= 90 ? "Excellent Performance!" :
+                 percentage >= 60 ? "Good effort, but can improve." :
+                 "Needs more preparation. Keep practicing!";
+
+  finalResultContainer.innerHTML = `
+    <h2>Quiz Results</h2>
+    ${resultHTML}
+    <p><strong>Score: ${score}/${mcqs.length}</strong></p>
+    <p>Percentage: ${percentage.toFixed(2)}%</p>
+    <p>Feedback: ${feedback}</p>
+  `;
+});
+</script>
+
+</body>
+</html>
