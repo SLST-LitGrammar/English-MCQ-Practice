@@ -51,5 +51,5 @@ Want to contribute MCQs or suggest improvements? Feel free to raise an issue or 
 
 ## 📬 Contact
 For queries or collaboration:
-- Email: *your-email@example.com*
+- Email: NA
 - GitHub Profile: [SLST-LitGrammar](https://github.com/SLST-LitGrammar)
