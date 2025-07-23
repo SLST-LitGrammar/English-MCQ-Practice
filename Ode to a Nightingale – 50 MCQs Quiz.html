@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Ode to a Nightingale – 50 Tough Questions</title>
+  <style>
+    body { font-family: Arial; padding: 20px; background: #f4f4f4; }
+    h1 { color: #2c3e50; }
+    .question { margin-bottom: 20px; padding: 15px; background: #fff; border-radius: 8px; }
+    button { padding: 10px 20px; font-size: 16px; }
+    #timer { font-weight: bold; color: red; font-size: 20px; margin-bottom: 20px; }
+    #result { font-size: 22px; font-weight: bold; color: green; }
+  </style>
+</head>
+<body>
+  <h1>Ode to a Nightingale – 50 MCQs Quiz</h1>
+  <div id="timer">Time left: 30:00</div>
+  <form id="quizForm"></form>
+  <button onclick="submitQuiz()">Submit</button>
+  <div id="result"></div>
+
+  <script>
+    const questions = [
+      {
+        q: "1. Who is the poet of 'Ode to a Nightingale'?",
+        options: ["William Wordsworth", "John Keats", "Percy Shelley", "T.S. Eliot"],
+        answer: "John Keats"
+      },
+      {
+        q: "2. The line 'My heart aches, and a drowsy numbness pains' conveys:",
+        options: ["Euphoria", "Intellectual excitement", "A deathlike stupor", "Romantic joy"],
+        answer: "A deathlike stupor"
+      },
+      {
+        q: "3. What does the nightingale symbolize in the poem?",
+        options: ["Immortality", "Reality", "Time", "Artifice"],
+        answer: "Immortality"
+      },
+      {
+        q: "4. 'Lethe-wards had sunk' refers to:",
+        options: ["A river of joy", "A mythological bird", "A river of forgetfulness", "A Roman deity"],
+        answer: "A river of forgetfulness"
+      },
+      {
+        q: "5. The phrase 'viewless wings of Poesy' means:",
+        options: ["Wings of the imagination", "Literal wings", "Bird wings", "The poet's arms"],
+        answer: "Wings of the imagination"
+      },
+      {
+        q: "6. What kind of drink is described as 'a draught of vintage'?",
+        options: ["Beer", "Milk", "Wine", "Tea"],
+        answer: "Wine"
+      },
+      {
+        q: "7. The phrase 'tender is the night' was later used by:",
+        options: ["Tennyson", "Shakespeare", "F. Scott Fitzgerald", "Shelley"],
+        answer: "F. Scott Fitzgerald"
+      },
+      {
+        q: "8. What does the speaker wish to escape from?",
+        options: ["Old age and mortality", "Bird song", "Poetry", "Fame"],
+        answer: "Old age and mortality"
+      },
+      {
+        q: "9. Who is Ruth in the poem's biblical reference?",
+        options: ["A Greek muse", "A goddess", "A Moabite widow", "A Roman empress"],
+        answer: "A Moabite widow"
+      },
+      {
+        q: "10. 'Where youth grows pale, and spectre-thin, and dies' conveys:",
+        options: ["Eternal youth", "Decay and death", "Joy and music", "Hope"],
+        answer: "Decay and death"
+      },
+      {
+        q: "11. What sense dominates stanza V?",
+        options: ["Sight", "Hearing", "Touch", "Smell"],
+        answer: "Smell"
+      },
+      {
+        q: "12. What is meant by 'embalmed darkness'?",
+        options: ["Light that soothes", "Pleasant, fragrant darkness", "Death", "Memory"],
+        answer: "Pleasant, fragrant darkness"
+      },
+      {
+        q: "13. What type of diction does the poem use overall?",
+        options: ["Scientific", "Colloquial", "Archaic and lyrical", "Satirical"],
+        answer: "Archaic and lyrical"
+      },
+      {
+        q: "14. What does the poet wish for in stanza VI?",
+        options: ["Eternal life", "Instant fame", "Peace through death", "Success"],
+        answer: "Peace through death"
+      },
+      {
+        q: "15. 'Now more than ever seems it rich to die' means:",
+        options: ["He wants to become rich", "It is a good time to die", "Death feels heavy", "He fears death"],
+        answer: "It is a good time to die"
+      },
+      {
+        q: "16. What is 'easeful Death'?",
+        options: ["A slow death", "A painless death", "A romantic idea", "A deadly poison"],
+        answer: "A painless death"
+      },
+      {
+        q: "17. 'Thou wast not born for death, immortal Bird!' implies:",
+        options: ["The bird is biologically immortal", "The bird symbolizes eternal song", "Birds live long", "Reincarnation"],
+        answer: "The bird symbolizes eternal song"
+      },
+      {
+        q: "18. Whose voice is said to be heard by Ruth?",
+        options: ["Her own", "The nightingale's", "Keats'", "The gods’"],
+        answer: "The nightingale's"
+      },
+      {
+        q: "19. The nightingale’s voice travels to:",
+        options: ["The future", "The countryside only", "All times and places", "Only the sky"],
+        answer: "All times and places"
+      },
+      {
+        q: "20. What does 'magic casements' refer to?",
+        options: ["Shining swords", "Windows in fairy tales", "Ancient castles", "Moonlit fields"],
+        answer: "Windows in fairy tales"
+      },
+      {
+        q: "21. What literary device is used in 'the sad heart of Ruth'?",
+        options: ["Allusion", "Irony", "Metonymy", "Onomatopoeia"],
+        answer: "Allusion"
+      },
+      {
+        q: "22. 'Was it a vision, or a waking dream?' suggests:",
+        options: ["Hope", "Sleep", "Uncertainty", "Love"],
+        answer: "Uncertainty"
+      },
+      {
+        q: "23. What is the final word of the poem?",
+        options: ["Sleep", "Night", "Adieu", "Bird"],
+        answer: "Adieu"
+      },
+      {
+        q: "24. Who is Hippocrene?",
+        options: ["A Greek fountain", "A flower", "A goddess", "A nymph"],
+        answer: "A Greek fountain"
+      },
+      {
+        q: "25. The tone of the poem transitions from:",
+        options: ["Joy to grief", "Confusion to clarity", "Despair to transcendence", "Desire to disillusionment"],
+        answer: "Desire to disillusionment"
+      },
+      {
+        q: "26. Which of the following is NOT a theme in the poem?",
+        options: ["Mortality", "Imagination", "Industrial progress", "Art vs. Life"],
+        answer: "Industrial progress"
+      },
+      {
+        q: "27. What kind of poem is 'Ode to a Nightingale'?",
+        options: ["Sestina", "Ballad", "Pindaric ode", "Horatian ode"],
+        answer: "Horatian ode"
+      },
+      {
+        q: "28. The line 'Thou light-winged Dryad of the trees' addresses:",
+        options: ["The moon", "The bird", "A goddess", "The breeze"],
+        answer: "The bird"
+      },
+      {
+        q: "29. What happens to the speaker’s sense of sight in the dark?",
+        options: ["It improves", "It fades", "It grows sharper", "He sees ghosts"],
+        answer: "It fades"
+      },
+      {
+        q: "30. Why does the poet envy the nightingale?",
+        options: ["Its colorful feathers", "Its connection to gods", "Its eternal song", "Its physical speed"],
+        answer: "Its eternal song"
+      },
+      {
+        q: "31. What is the setting of the poem?",
+        options: ["A battlefield", "A forest glade", "A city tower", "A seaside cliff"],
+        answer: "A forest glade"
+      },
+      {
+        q: "32. What is the dominant mood in stanza VI?",
+        options: ["Jealousy", "Longing", "Ecstasy", "Fear"],
+        answer: "Longing"
+      },
+      {
+        q: "33. In which stanza does the speaker most desire death?",
+        options: ["Stanza III", "Stanza V", "Stanza VI", "Stanza VIII"],
+        answer: "Stanza VI"
+      },
+      {
+        q: "34. What does the speaker rely on to reach the nightingale?",
+        options: ["Love", "Wings of Poesy", "Wings of night", "The moonlight"],
+        answer: "Wings of Poesy"
+      },
+      {
+        q: "35. Why does the speaker reject wine as an escape?",
+        options: ["He is poor", "He prefers poetry", "It dulls the senses", "He fears Bacchus"],
+        answer: "He prefers poetry"
+      },
+      {
+        q: "36. 'Thou art pouring forth thy soul abroad / In such an ecstasy!' is an example of:",
+        options: ["Allusion", "Enjambment", "Metaphor", "Apostrophe"],
+        answer: "Apostrophe"
+      },
+      {
+        q: "37. 'And haply the Queen-Moon is on her throne' is a reference to:",
+        options: ["Elizabeth I", "Selene/Luna", "Hera", "Mary, Queen of Scots"],
+        answer: "Selene/Luna"
+      },
+      {
+        q: "38. The word 'haply' most nearly means:",
+        options: ["Sadly", "Surely", "Perhaps", "Frequently"],
+        answer: "Perhaps"
+      },
+      {
+        q: "39. What does the speaker say about 'Love' in stanza III?",
+        options: ["It is everlasting", "It leads to happiness", "It is filled with pain", "It is divine"],
+        answer: "It is filled with pain"
+      },
+      {
+        q: "40. What does 'fancy cannot cheat so well' mean?",
+        options: ["Imagination is unreliable", "Poetry is strong", "Reality is better", "Sleep is cheating"],
+        answer: "Imagination is unreliable"
+      },
+      {
+        q: "41. What does the nightingale's song transcend?",
+        options: ["Nature", "Culture", "Time", "Emotion"],
+        answer: "Time"
+      },
+      {
+        q: "42. The poet refers to what legendary sufferer?",
+        options: ["Ruth", "Orpheus", "Cain", "Achilles"],
+        answer: "Ruth"
+      },
+      {
+        q: "43. What breaks the speaker’s imaginative journey?",
+        options: ["The bird’s flight", "A sudden fear", "Daylight", "The fading song"],
+        answer: "The fading song"
+      },
+      {
+        q: "44. Why does the speaker feel disillusioned at the end?",
+        options: ["Because he falls asleep", "Because the bird dies", "Because he returns to reality", "Because love is lost"],
+        answer: "Because he returns to reality"
+      },
+      {
+        q: "45. Which poetic technique is used throughout the poem?",
+        options: ["Free verse", "Iambic pentameter", "Haiku", "Sonnet rhyme"],
+        answer: "Iambic pentameter"
+      },
+      {
+        q: "46. What does 'viewless wings of Poesy' mean?",
+        options: ["Hidden truth", "Invisible wings of imagination", "Fame", "Bird feathers"],
+        answer: "Invisible wings of imagination"
+      },
+      {
+        q: "47. 'With beaded bubbles winking at the brim' shows which device?",
+        options: ["Personification", "Assonance", "Alliteration", "Metonymy"],
+        answer: "Personification"
+      },
+      {
+        q: "48. Which season is hinted at in the poem?",
+        options: ["Spring", "Autumn", "Summer", "Winter"],
+        answer: "Summer"
+      },
+      {
+        q: "49. What contrast lies at the heart of the poem?",
+        options: ["Mind vs body", "Reality vs imagination", "Night vs day", "Love vs hate"],
+        answer: "Reality vs imagination"
+      },
+      {
+        q: "50. What happens when the poem ends?",
+        options: ["The speaker falls asleep", "He forgets the bird", "He questions if it was real", "He sees the nightingale"],
+        answer: "He questions if it was real"
+      }
+    ];
+
+    let timeLeft = 1800; // 30 minutes in seconds
+    const timerElement = document.getElementById("timer");
+
+    function startTimer() {
+      const timerInterval = setInterval(() => {
+        if (timeLeft <= 0) {
+          clearInterval(timerInterval);
+          submitQuiz();
+        } else {
+          const minutes = Math.floor(timeLeft / 60);
+          const seconds = timeLeft % 60;
+          timerElement.textContent = `Time left: ${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+          timeLeft--;
+        }
+      }, 1000);
+    }
+
+    function loadQuiz() {
+      const form = document.getElementById("quizForm");
+      questions.forEach((q, index) => {
+        const div = document.createElement("div");
+        div.className = "question";
+        div.innerHTML = `<p><strong>${index + 1}. ${q.q}</strong></p>` +
+          q.options.map(opt => `
+            <label>
+              <input type="radio" name="q${index}" value="${opt}" required> ${opt}
+            </label><br>`
+          ).join("");
+        form.appendChild(div);
+      });
+    }
+
+    function submitQuiz() {
+      const form = document.forms["quizForm"];
+      let score = 0;
+      questions.forEach((q, index) => {
+        const userAnswer = form[`q${index}`].value;
+        if (userAnswer === q.answer) score++;
+      });
+      document.getElementById("result").textContent = `You scored ${score} out of ${questions.length}`;
+    }
+
+    loadQuiz();
+    startTimer();
+  </script>
+</body>
+</html>
