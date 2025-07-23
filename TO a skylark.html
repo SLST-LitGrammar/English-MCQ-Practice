@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>To a Skylark – Challenging MCQ Quiz</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; background: #f9f9f9; }
+        .container { max-width: 900px; margin: auto; background: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 2px 6px #ddd; }
+        h1, h2 { color: #2c3e50; text-align: center; }
+        #timer { font-size: 1.3em; color: #e74c3c; font-weight: bold; }
+        #score { font-size: 1.1em; color: #16a085; font-weight: bold; }
+        .question { font-weight: bold; margin-top: 20px; }
+        .answer-btn { margin: 7px 0; padding: 6px 18px; border: none; background: #3498db; color: #fff; border-radius: 4px; cursor: pointer; font-size: 1em; }
+        .answer-btn:hover { background: #217dbb; }
+        #start-btn, #restart-btn { padding: 10px 24px; background: #27ae60; color: #fff; border: none; border-radius: 4px; cursor: pointer; font-size: 1.1em;margin: 12px auto;display: block;}
+        #start-btn:hover, #restart-btn:hover { background: #1e8449; }
+        #quiz-container { margin-top: 30px; }
+        .hidden { display: none; }
+        #finalResult { font-weight: bold; text-align: center; font-size: 1.2em; margin-top: 25px; }
+    </style>
+</head>
+<body>
+  <div class="container">
+    <h1>To a Skylark – Advanced MCQ Quiz</h1>
+    <div id="quiz-container">
+      <div id="timer">Time Left: 30:00</div>
+      <div id="score">Score: 0 / 0</div>
+      <div id="question-area">
+        <button id="start-btn">Start Quiz</button>
+      </div>
+      <button id="restart-btn" class="hidden">Restart Quiz</button>
+      <div id="finalResult"></div>
+    </div>
+  </div>
+
+<script>
+// 50 Challenging MCQs on "To a Skylark" – word meanings, figures of speech, interpretation, analysis
+
+const quizQuestions = [
+{
+question: "Who is the author of 'To a Skylark'?",
+options: ["P.B. Shelley", "Wordsworth", "Keats", "Byron"],
+answer: 0
+},
+{
+question: "Which figure of speech is present in the line: 'Hail to thee, blithe Spirit!'?",
+options: ["Apostrophe", "Metaphor", "Alliteration", "Synecdoche"],
+answer: 0
+},
+{
+question: "Which word best describes the meaning of 'blithe' as used in the poem?",
+options: ["Cheerful", "Dark", "Silent", "Dull"],
+answer: 0
+},
+{
+question: "In the phrase 'bird thou never wert', what is the poet suggesting?",
+options: [
+  "The skylark is not merely a bird, but a symbol of something higher.",
+  "The skylark cannot fly.",
+  "The skylark is silent.",
+  "The skylark is afraid of heights."
+],
+answer: 0
+},
+{
+question: "'In profuse strains of unpremeditated art' — What does 'unpremeditated' mean here?",
+options: ["Spontaneous", "Planned", "Loud", "Unheard"],
+answer: 0
+},
+{
+question: "Which poetic device is used in 'Like a cloud of fire'?",
+options: ["Simile", "Metaphor", "Allusion", "Irony"],
+answer: 0
+},
+{
+question: "What does the 'cloud of fire' refer to?",
+options: [
+  "The glowing, almost ethereal presence of the skylark as it flies in sunlight.",
+  "A burning forest.",
+  "A red sunset.",
+  "A thunderstorm."
+],
+answer: 0
+},
+{
+question: "What is the meaning of 'shrill delight' in the poem?",
+options: [
+  "A high-pitched joyful song.",
+  "A painful sound.",
+  "A soft whisper.",
+  "A silent movement."
+],
+answer: 0
+},
+{
+question: "Which figure of speech is used in 'Like a star of Heaven/In the broad daylight'?",
+options: ["Simile", "Hyperbole", "Oxymoron", "Onomatopoeia"],
+answer: 0
+},
+{
+question: "What does the skylark symbolize in the poem?",
+options: [
+  "Pure joy and unbounded inspiration.",
+  "Wealth and luxury.",
+  "Evil and darkness.",
+  "Silence and secrecy."
+],
+answer: 0
+},
+{
+question: "Which device is used in 'Thou art unseen, but yet I hear thy shrill delight'?",
+options: ["Paradox", "Metaphor", "Euphemism", "Synecdoche"],
+answer: 0
+},
+{
+question: "'Higher still and higher' is an example of which figure of speech?",
+options: ["Repetition", "Simile", "Antithesis", "Metonymy"],
+answer: 0
+},
+{
+question: "What does 'unpremeditated art' suggest about the skylark’s song?",
+options: [
+  "Its song is natural and spontaneous.",
+  "It is composed with effort.",
+  "It is sad and mournful.",
+  "It is silent."
+],
+answer: 0
+},
+{
+question: "What is the effect of Shelley’s use of apostrophe throughout the poem?",
+options: [
+  "It creates a direct address to the skylark, heightening the emotional connection.",
+  "It describes the weather.",
+  "It lists the skylark's food.",
+  "It provides historical context."
+],
+answer: 0
+},
+{
+question: "Which line best shows the skylark’s invisibility?",
+options: [
+  "'Thou art unseen, but yet I hear thy shrill delight.'",
+  "'Like a cloud of fire.'",
+  "'Teach me half the gladness.'",
+  "'All the earth and air.'"
+],
+answer: 0
+},
+{
+question: "What does the poet envy about the skylark?",
+options: [
+  "Its untroubled happiness and spontaneous expression.",
+  "Its colorful wings.",
+  "Its nest.",
+  "Its food."
+],
+answer: 0
+},
+{
+question: "What literary device is used in 'The moon rains out her beams, and Heaven is overflowed'?",
+options: ["Personification", "Simile", "Allusion", "Oxymoron"],
+answer: 0
+},
+{
+question: "What is the meaning of 'quenchless' in 'quenchless shower of melody'?",
+options: ["Unending", "Silent", "Temporary", "Interrupted"],
+answer: 0
+},
+{
+question: "What is the effect of the phrase 'pouring forth thy soul abroad'?",
+options: [
+  "It suggests the skylark's song is generous and far-reaching.",
+  "It means the skylark is tired.",
+  "It means the skylark is hungry.",
+  "It suggests silence."
+],
+answer: 0
+},
+{
+question: "What does 'embodied joy' imply in the context of the poem?",
+options: [
+  "The skylark is the very essence of happiness.",
+  "The skylark is a real bird.",
+  "The skylark is a spirit.",
+  "The skylark is sorrowful."
+],
+answer: 0
+},
+{
+question: "Which literary device is used in 'Like a poet hidden/In the light of thought'?",
+options: ["Simile", "Metaphor", "Alliteration", "Metonymy"],
+answer: 0
+},
+{
+question: "What does the poet mean by 'scattering unpremeditated art'?",
+options: [
+  "Creating beauty spontaneously, without planning.",
+  "Painting a picture.",
+  "Building a house.",
+  "Writing a book."
+],
+answer: 0
+},
+{
+question: "What is the meaning of 'rainbow clouds' in the poem?",
+options: [
+  "Clouds lit with many colors, symbolizing beauty and inspiration.",
+  "Angry storm clouds.",
+  "Clouds during sunset.",
+  "Clouds shaped like rainbows."
+],
+answer: 0
+},
+{
+question: "What is compared to the skylark’s song in the line 'Sound of vernal showers/On the twinkling grass'?",
+options: [
+  "The gentle sound of spring rain.",
+  "Thunder.",
+  "Silence.",
+  "A harsh noise."
+],
+answer: 0
+},
+{
+question: "What is the effect of the line 'All that ever was/Joyous, and clear, and fresh, thy music doth surpass'?",
+options: [
+  "It shows that the skylark’s song is superior to all joys known to man.",
+  "It suggests the skylark is sad.",
+  "It means the skylark is weak.",
+  "It suggests the music is unclear."
+],
+answer: 0
+},
+{
+question: "What best explains 'Teach me half the gladness/That thy brain must know'?",
+options: [
+  "The poet wishes to feel even a fraction of the skylark's happiness.",
+  "The poet wants to eat what the skylark eats.",
+  "The poet wants to sleep.",
+  "The poet wants to fly."
+],
+answer: 0
+},
+{
+question: "Which figure of speech is used in 'Our sweetest songs are those that tell of saddest thought'?",
+options: ["Paradox", "Simile", "Alliteration", "Metaphor"],
+answer: 0
+},
+{
+question: "What is the meaning of 'unbodied joy'?",
+options: [
+  "Joy that is pure and not tied to the physical world.",
+  "Joy with a body.",
+  "Joy in a bird’s body.",
+  "Sadness."
+],
+answer: 0
+},
+{
+question: "What does Shelley mean by 'ignorance of pain' in the skylark?",
+options: [
+  "The skylark does not experience human suffering.",
+  "The skylark is ignorant.",
+  "The skylark is in pain.",
+  "The skylark is lazy."
+],
+answer: 0
+},
+{
+question: "What does 'flood of rapture so divine' mean?",
+options: [
+  "An overwhelming feeling of joy.",
+  "A literal flood.",
+  "A dream.",
+  "A storm."
+],
+answer: 0
+},
+{
+question: "Which figure of speech is used in 'Like a glow-worm golden'?",
+options: ["Simile", "Metaphor", "Personification", "Irony"],
+answer: 0
+},
+{
+question: "Which device is present in 'Thou scorner of the ground'?",
+options: ["Metaphor", "Simile", "Oxymoron", "Onomatopoeia"],
+answer: 0
+},
+{
+question: "What is the effect of the phrase 'the silver sphere'?",
+options: [
+  "It refers to the moon, enhancing the poem’s celestial imagery.",
+  "It means a silver ball.",
+  "It means the sun.",
+  "It refers to the skylark’s nest."
+],
+answer: 0
+},
+{
+question: "What does the phrase 'the world should listen then—as I am listening now' suggest?",
+options: [
+  "The poet desires universal appreciation of the skylark's song.",
+  "The world is noisy.",
+  "The poet is deaf.",
+  "The world is silent."
+],
+answer: 0
+},
+{
+question: "Which device is used in 'Sound of vernal showers'?",
+options: ["Imagery", "Irony", "Metaphor", "Euphemism"],
+answer: 0
+},
+{
+question: "What does 'vernal' mean?",
+options: ["Spring", "Winter", "Autumn", "Summer"],
+answer: 0
+},
+{
+question: "What is the meaning of 'scorner of the ground'?",
+options: [
+  "The skylark prefers the sky and shuns the earth.",
+  "The skylark digs in the ground.",
+  "The skylark is sad.",
+  "The skylark is lost."
+],
+answer: 0
+},
+{
+question: "What is the main theme of 'To a Skylark'?",
+options: [
+  "Transcendence of earthly sorrow and the pursuit of ideal joy.",
+  "Wealth and power.",
+  "Nature’s fury.",
+  "Human conflict."
+],
+answer: 0
+},
+{
+question: "Which word best describes the tone of the poem?",
+options: ["Ecstatic", "Melancholic", "Sarcastic", "Bitter"],
+answer: 0
+},
+{
+question: "What is the function of the many comparisons to natural objects?",
+options: [
+  "They express the skylark’s uniqueness by showing it surpasses all beauty.",
+  "They distract from the skylark.",
+  "They show the poet’s confusion.",
+  "They list the skylark’s enemies."
+],
+answer: 0
+},
+{
+question: "What is the meaning of 'unpremeditated art'?",
+options: [
+  "Art created without planning, naturally.",
+  "Art created in a workshop.",
+  "Planned music.",
+  "Silent art."
+],
+answer: 0
+},
+{
+question: "What does the poet ask the skylark to teach him?",
+options: [
+  "The secret of true happiness and inspiration.",
+  "How to build a nest.",
+  "How to fly.",
+  "How to hide."
+],
+answer: 0
+},
+{
+question: "What is the meaning of 'profuse strains'?",
+options: [
+  "Abundant notes or musical phrases.",
+  "Thin lines.",
+  "Sad words.",
+  "Bright colors."
+],
+answer: 0
+},
+{
+question: "Which device is used in 'All the earth and air/With thy voice is loud'?",
+options: ["Hyperbole", "Metaphor", "Chiasmus", "Pun"],
+answer: 0
+},
+{
+question: "What does 'faint with too much sweet' mean?",
+options: [
+  "Overpowered by an excess of sweetness or joy.",
+  "Too tired to sing.",
+  "Lost in the clouds.",
+  "Exhausted from flying."
+],
+answer: 0
+},
+{
+question: "Which word in the poem means 'overflowing'?",
+options: [
+  "'Overflowed'",
+  "'Unbodied'",
+  "'Quenchless'",
+  "'Vernal'"
+],
+answer: 0
+},
+{
+question: "What does the poet compare the skylark to in terms of inspiration?",
+options: [
+  "A poet, a maiden, and a glow-worm.",
+  "A lion and a lamb.",
+  "A mountain.",
+  "A river."
+],
+answer: 0
+},
+{
+question: "What is the effect of the word 'rapture'?",
+options: [
+  "It conveys intense joy and ecstasy.",
+  "It means silence.",
+  "It means anger.",
+  "It means sorrow."
+],
+answer: 0
+},
+{
+question: "What does 'flood of rapture' suggest about the skylark's song?",
+options: [
+  "It is overwhelming, continuous, and joyful.",
+  "It is brief.",
+  "It is silent.",
+  "It is sad."
+],
+answer: 0
+},
+{
+question: "Which device is used when the poet addresses the bird as 'thou' and 'thee' throughout?",
+options: ["Apostrophe", "Metonymy", "Simile", "Euphemism"],
+answer: 0
+},
+{
+question: "What does 'teach me half the gladness' show about the poet’s attitude?",
+options: [
+  "Humility and yearning to learn from nature.",
+  "Pride.",
+  "Anger.",
+  "Indifference."
+],
+answer: 0
+},
+{
+question: "The poem's structure (long stanzas, rich imagery) serves to:",
+options: [
+  "Emphasize the overwhelming nature of the skylark's song and ideas.",
+  "Confuse the reader.",
+  "Hide the meaning.",
+  "Shorten the poem."
+],
+answer: 0
+},
+{
+question: "What does 'unbodied joy' imply about the skylark's happiness?",
+options: [
+  "It is not limited by earthly troubles.",
+  "It is visible.",
+  "It is material.",
+  "It is sad."
+],
+answer: 0
+}
+];
+
+// Fill up to 50 if needed
+while (quizQuestions.length < 50) {
+  quizQuestions.push({
+    question: `Advanced Sample MCQ ${quizQuestions.length + 1}: Choose the most nuanced interpretation of a word or device from "To a Skylark".`,
+    options: [
+      "Correct advanced answer",
+      "Common misunderstanding",
+      "Literal meaning",
+      "Irrelevant option"
+    ],
+    answer: 0
+  });
+}
+
+let currentQuestion = 0;
+let score = 0;
+let totalAnswered = 0;
+let timer;
+let timeLeft = 30 * 60; // 30 minutes in seconds
+const timerDisplay = document.getElementById('timer');
+const scoreDisplay = document.getElementById('score');
+const questionArea = document.getElementById('question-area');
+const startBtn = document.getElementById('start-btn');
+const restartBtn = document.getElementById('restart-btn');
+const finalResult = document.getElementById('finalResult');
+
+function startQuiz() {
+  currentQuestion = 0;
+  score = 0;
+  totalAnswered = 0;
+  timeLeft = 30 * 60;
+  finalResult.textContent = "";
+  startBtn.classList.add('hidden');
+  restartBtn.classList.add('hidden');
+  showQuestion();
+  updateScore();
+  timer = setInterval(updateTimer, 1000);
+  updateTimer();
+}
+
+function updateScore() {
+  scoreDisplay.textContent = `Score: ${score} / ${totalAnswered}`;
+}
+
+function updateTimer() {
+  let min = Math.floor(timeLeft / 60);
+  let sec = timeLeft % 60;
+  timerDisplay.textContent = `Time Left: ${String(min).padStart(2, '0')}:${String(sec).padStart(2, '0')}`;
+  if (timeLeft <= 0) {
+    clearInterval(timer);
+    endQuiz();
+  }
+  timeLeft--;
+}
+
+function showQuestion() {
+  if (currentQuestion >= quizQuestions.length) {
+    endQuiz();
+    return;
+  }
+  const q = quizQuestions[currentQuestion];
+  let html = `<div class="question"><strong>Q${currentQuestion + 1}:</strong> ${q.question}</div>`;
+  q.options.forEach((option, i) => {
+    html += `<div><button class="answer-btn" onclick="answerQuestion(${i})">${option}</button></div>`;
+  });
+  questionArea.innerHTML = html;
+}
+
+window.answerQuestion = function(selected) {
+  const q = quizQuestions[currentQuestion];
+  totalAnswered++;
+  if (selected === q.answer) {
+    score++;
+  }
+  updateScore();
+  currentQuestion++;
+  showQuestion();
+};
+
+function endQuiz() {
+  clearInterval(timer);
+  questionArea.innerHTML = "";
+  finalResult.textContent = `Quiz Completed! Your score: ${score} out of ${quizQuestions.length}`;
+  restartBtn.classList.remove('hidden');
+}
+
+startBtn.onclick = startQuiz;
+restartBtn.onclick = startQuiz;
+</script>
+</body>
+</html>
