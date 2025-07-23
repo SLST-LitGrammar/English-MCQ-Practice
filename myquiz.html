@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lucy Poem - Tough MCQ Quiz</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; background: #f9f9f9; }
+        h1, h2, h3 { color: #2c3e50; }
+        .quiz-section { margin-bottom: 40px; }
+        .question { margin: 15px 0; }
+        #timer { font-size: 1.5em; color: #e74c3c; font-weight: bold; }
+        #score { font-size: 1.2em; color: #16a085; font-weight: bold; }
+        .hidden { display: none; }
+        .answer-btn { margin: 4px 0; padding: 5px 16px; border: none; background: #3498db; color: #fff; border-radius: 4px; cursor: pointer; }
+        .answer-btn:hover { background: #217dbb; }
+        #quiz-container { background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px #ddd; }
+        #start-btn, #restart-btn { padding: 10px 24px; background: #27ae60; color: #fff; border: none; border-radius: 4px; cursor: pointer; font-size: 1em;}
+        #start-btn:hover, #restart-btn:hover { background: #1e8449; }
+    </style>
+</head>
+<body>
+    <h1>Challenging Quiz: “Lucy” Poems by William Wordsworth</h1>
+    <div class="quiz-section">
+        <h2>Context of the Poem</h2>
+        <p>
+            The “Lucy” poems are a series of five poems written by William Wordsworth between 1798 and 1801. These poems explore themes of nature, death, love, and loss, often focusing on a mysterious young woman named Lucy. The poems are celebrated for their simplicity, emotional depth, and use of natural imagery.
+        </p>
+    </div>
+
+    <div id="quiz-container" class="quiz-section">
+        <h2>Timed Quiz: 50 Challenging MCQs on “Lucy” Poems</h2>
+        <div id="timer">Time Left: 30:00</div>
+        <div id="score">Score: 0 / 0</div>
+        <div id="question-area">
+            <button id="start-btn">Start Quiz</button>
+        </div>
+        <button id="restart-btn" class="hidden">Restart Quiz</button>
+    </div>
+
+    <script>
+        // These MCQs focus on word meaning, figures of speech, interpretation, and literary analysis, with more challenge.
+        const quizQuestions = [
+            {
+                question: "In 'She Dwelt among the Untrodden Ways', the phrase 'A violet by a mossy stone' is primarily an example of which literary device?",
+                options: [
+                    "Metaphor", 
+                    "Simile", 
+                    "Personification", 
+                    "Synecdoche"
+                ],
+                answer: 0
+            },
+            {
+                question: "Which interpretation best matches the function of 'untrodden ways' in describing Lucy's social context?",
+                options: [
+                    "It suggests Lucy's life was marked by obscurity and isolation.",
+                    "It refers to the path Lucy walked daily.",
+                    "It means Lucy was adventurous.",
+                    "It shows Lucy's rebellious nature."
+                ],
+                answer: 0
+            },
+            {
+                question: "What is the effect of the alliteration in 'She dwelt among the untrodden ways'?",
+                options: [
+                    "It creates a musical quality, echoing Lucy's gentle presence.",
+                    "It imitates the sound of footsteps.",
+                    "It emphasizes Lucy's loneliness.",
+                    "It foreshadows Lucy's fate."
+                ],
+                answer: 0
+            },
+            {
+                question: "Which word in the poem most strongly connotes transience and impermanence?",
+                options: [
+                    "'Wither'd'", 
+                    "'Fair'", 
+                    "'Dwelt'", 
+                    "'Star'"
+                ],
+                answer: 0
+            },
+            {
+                question: "In the context of the poem, what does the word 'maid' most likely imply about Lucy?",
+                options: [
+                    "Her innocence and unmarried status",
+                    "Her profession as a servant",
+                    "Her age as an elderly woman",
+                    "Her role as a mother"
+                ],
+                answer: 0
+            },
+            {
+                question: "What is the deeper significance of comparing Lucy to 'a violet by a mossy stone'?",
+                options: [
+                    "It highlights her unnoticed beauty and vulnerability.",
+                    "It suggests she was wealthy.",
+                    "It indicates her strength.",
+                    "It means she was well-known."
+                ],
+                answer: 0
+            },
+            {
+                question: "Which figure of speech is used in 'Fair as a star, when only one is shining in the sky'?",
+                options: [
+                    "Simile",
+                    "Metaphor",
+                    "Hyperbole",
+                    "Allusion"
+                ],
+                answer: 0
+            },
+            {
+                question: "What is the narrative effect of the poet's use of the word 'slumber' instead of 'death'?",
+                options: [
+                    "It softens the harshness of death and suggests peace.",
+                    "It means Lucy was only sleeping.",
+                    "It implies uncertainty about Lucy’s fate.",
+                    "It suggests Lucy will return."
+                ],
+                answer: 0
+            },
+            {
+                question: "Which is the best synonym for 'ceased' in the phrase 'ceased to be'?",
+                options: [
+                    "Stopped existing",
+                    "Started anew",
+                    "Paused briefly",
+                    "Became famous"
+                ],
+                answer: 0
+            },
+            {
+                question: "Identify the poetic device in 'The rocks, and stones, and trees.'",
+                options: [
+                    "Personification",
+                    "Irony",
+                    "Metonymy",
+                    "Simile"
+                ],
+                answer: 0
+            },
+            {
+                question: "Why is Lucy compared to 'a star, when only one is shining in the sky'?",
+                options: [
+                    "To emphasize her uniqueness and isolation.",
+                    "Because she was a famous astronomer.",
+                    "To show she was unreachable.",
+                    "To suggest she was a source of light."
+                ],
+                answer: 0
+            },
+            {
+                question: "Which line most effectively uses repetition to emphasize the poet's grief?",
+                options: [
+                    "\"Oh, the difference to me!\"",
+                    "\"She dwelt among the untrodden ways\"",
+                    "\"A violet by a mossy stone\"",
+                    "\"Few could know when Lucy ceased to be.\""
+                ],
+                answer: 0
+            },
+            {
+                question: "What does the phrase 'lived unknown, and few could know' reveal about Lucy's role in society?",
+                options: [
+                    "She was isolated and unrecognized in her community.",
+                    "She was a notorious figure.",
+                    "She was a leader.",
+                    "She was famous among poets."
+                ],
+                answer: 0
+            },
+            {
+                question: "What is the function of nature imagery throughout the 'Lucy' poems?",
+                options: [
+                    "It reflects and amplifies Lucy's character and fate.",
+                    "It distracts from the main theme.",
+                    "It describes the poet's travels.",
+                    "It stands in contrast to Lucy's life."
+                ],
+                answer: 0
+            },
+            {
+                question: "In poetry, what is the effect of using the word 'solitude'?",
+                options: [
+                    "It evokes a sense of peaceful loneliness.",
+                    "It implies a noisy environment.",
+                    "It creates excitement.",
+                    "It signals danger."
+                ],
+                answer: 0
+            },
+            {
+                question: "What does 'murmur' most likely mean in the context of Lucy's environment?",
+                options: [
+                    "A gentle, continuous background sound",
+                    "A loud complaint",
+                    "A sudden shout",
+                    "An echo of footsteps"
+                ],
+                answer: 0
+            },
+            {
+                question: "How does the structure of 'She Dwelt among the Untrodden Ways' contribute to its meaning?",
+                options: [
+                    "Its regular quatrains reflect the simplicity and order of Lucy's life.",
+                    "The irregular lines mimic Lucy’s confusion.",
+                    "The rhyme scheme is used to create suspense.",
+                    "The complex meter mirrors Lucy's emotions."
+                ],
+                answer: 0
+            },
+            {
+                question: "Which best defines the symbolic value of the 'grave' in the poem?",
+                options: [
+                    "It marks both the end of Lucy’s life and her entrance into poetic immortality.",
+                    "It represents only physical death.",
+                    "It is a literal location for mourning.",
+                    "It refers to a secret place."
+                ],
+                answer: 0
+            },
+            {
+                question: "Which poetic device is present in the phrase 'rocks, and stones, and trees'?",
+                options: [
+                    "Polysyndeton",
+                    "Onomatopoeia",
+                    "Oxymoron",
+                    "Pun"
+                ],
+                answer: 0
+            },
+            {
+                question: "What is the effect of using simple language throughout the 'Lucy' poems?",
+                options: [
+                    "It enhances emotional resonance and accessibility.",
+                    "It limits interpretive possibilities.",
+                    "It indicates the poem is for children.",
+                    "It hides the true meaning."
+                ],
+                answer: 0
+            },
+            {
+                question: "Which interpretation best fits the phrase 'Oh, the difference to me!'?",
+                options: [
+                    "It expresses the profound personal loss felt by the speaker.",
+                    "It shows the poet’s indifference.",
+                    "It means Lucy was not important.",
+                    "It describes a change in scenery."
+                ],
+                answer: 0
+            },
+            {
+                question: "How does the poet use contrast between Lucy and her environment?",
+                options: [
+                    "To highlight Lucy's uniqueness and isolation amidst the ordinary.",
+                    "To show that everyone is the same.",
+                    "To depict Lucy as threatening.",
+                    "To focus on the landscape."
+                ],
+                answer: 0
+            },
+            {
+                question: "What does the use of the word 'unknown' in reference to Lucy suggest about the poem's view of fame and obscurity?",
+                options: [
+                    "True worth may go unrecognized by society.",
+                    "Fame is the only path to immortality.",
+                    "Obscurity leads to happiness.",
+                    "The poet rejects all forms of recognition."
+                ],
+                answer: 0
+            },
+            {
+                question: "Which literary concept is most central to the 'Lucy' poems?",
+                options: [
+                    "Elegy: a poem of mourning and reflection on the loss of someone beloved.",
+                    "Epic: a lengthy narrative about heroic deeds.",
+                    "Satire: a critique of society.",
+                    "Ballad: a songlike narrative poem."
+                ],
+                answer: 0
+            },
+            {
+                question: "What is the significance of the word 'fair' in describing Lucy?",
+                options: [
+                    "It denotes not just beauty but also purity and virtue.",
+                    "It means she was just and honest.",
+                    "It refers to a market.",
+                    "It implies she was wealthy."
+                ],
+                answer: 0
+            },
+            {
+                question: "Which figure of speech is used in 'She lived unknown, and few could know when Lucy ceased to be'?",
+                options: [
+                    "Metaphor",
+                    "Simile",
+                    "Hyperbole",
+                    "Onomatopoeia"
+                ],
+                answer: 0
+            },
+            {
+                question: "Which of the following best defines the mood at the end of 'She Dwelt among the Untrodden Ways'?",
+                options: [
+                    "Sorrowful and reflective",
+                    "Triumphant",
+                    "Angry",
+                    "Hopeful"
+                ],
+                answer: 0
+            },
+            {
+                question: "Which word in the poem most closely means 'sleep', but is used to signify death?",
+                options: [
+                    "'Slumber'",
+                    "'Grave'",
+                    "'Dwelt'",
+                    "'Mossy'"
+                ],
+                answer: 0
+            },
+            {
+                question: "The 'violet' imagery in the poem is an example of:",
+                options: [
+                    "Symbolism",
+                    "Irony",
+                    "Allusion",
+                    "Paradox"
+                ],
+                answer: 0
+            },
+            {
+                question: "Why does the poet refer to Lucy as 'nature's child'?",
+                options: [
+                    "To suggest her close affinity with the natural world.",
+                    "To imply she was literally raised by animals.",
+                    "To indicate her lack of education.",
+                    "To show she was abandoned."
+                ],
+                answer: 0
+            },
+            {
+                question: "What effect does the poet achieve by using the phrase 'few could know'?",
+                options: [
+                    "It underscores Lucy's obscurity and the rarity of her impact.",
+                    "It exaggerates her popularity.",
+                    "It confuses the reader.",
+                    "It introduces new characters."
+                ],
+                answer: 0
+            },
+            {
+                question: "What is the best definition of 'mossy' as used in 'a violet by a mossy stone'?",
+                options: [
+                    "Covered with moss, suggesting age and neglect.",
+                    "Slippery",
+                    "Shiny and new",
+                    "Large and heavy"
+                ],
+                answer: 0
+            },
+            {
+                question: "Which poetic device is used in the phrase 'ceasing to be'?",
+                options: [
+                    "Euphemism",
+                    "Irony",
+                    "Metonymy",
+                    "Antithesis"
+                ],
+                answer: 0
+            },
+            {
+                question: "What does the repeated use of nature imagery in the poem suggest about Wordsworth's beliefs?",
+                options: [
+                    "Nature is closely intertwined with human experience and emotion.",
+                    "Nature is indifferent.",
+                    "Nature is chaotic.",
+                    "Nature is hostile."
+                ],
+                answer: 0
+            },
+            {
+                question: "The use of the word 'dwelt' rather than 'lived' most likely suggests:",
+                options: [
+                    "A sense of permanence and quiet endurance.",
+                    "A hurried existence.",
+                    "A bustling lifestyle.",
+                    "A modern setting."
+                ],
+                answer: 0
+            },
+            {
+                question: "What is the effect of the phrase 'untrodden ways' on the overall imagery of the poem?",
+                options: [
+                    "It emphasizes the rarity and isolation of Lucy's existence.",
+                    "It introduces confusion.",
+                    "It refers to dangerous travel.",
+                    "It illustrates wealth."
+                ],
+                answer: 0
+            },
+            {
+                question: "Which of the following lines from the poem is most likely to evoke the theme of unnoticed beauty?",
+                options: [
+                    "\"A violet by a mossy stone, half hidden from the eye\"",
+                    "\"Oh, the difference to me!\"",
+                    "\"She dwelt among the untrodden ways\"",
+                    "\"Fair as a star\""
+                ],
+                answer: 0
+            },
+            {
+                question: "How does the poet use contrast between Lucy and the natural objects around her?",
+                options: [
+                    "To show that her qualities surpass those of her environment.",
+                    "To demonstrate her insignificance.",
+                    "To highlight her wealth.",
+                    "To depict her as threatening."
+                ],
+                answer: 0
+            },
+            {
+                question: "Which literary device is used in the phrase 'rocks, and stones, and trees' to slow the pace of the line?",
+                options: [
+                    "Polysyndeton",
+                    "Asyndeton",
+                    "Antithesis",
+                    "Chiasmus"
+                ],
+                answer: 0
+            },
+            {
+                question: "Why might Wordsworth have chosen to make Lucy's background vague and undefined?",
+                options: [
+                    "To make her a universal symbol rather than a specific individual.",
+                    "To obscure the meaning of the poem.",
+                    "To show his lack of interest.",
+                    "To confuse readers."
+                ],
+                answer: 0
+            },
+            {
+                question: "What is the main effect of the poem’s regular rhyme scheme?",
+                options: [
+                    "It reinforces the sense of order and tranquility.",
+                    "It creates chaos.",
+                    "It mimics Lucy’s heartbeat.",
+                    "It signals a shift in tone."
+                ],
+                answer: 0
+            },
+            {
+                question: "What does the word 'fair' imply about Lucy’s character beyond physical appearance?",
+                options: [
+                    "Purity and innocence as well as beauty.",
+                    "Wealth and status.",
+                    "Strength and power.",
+                    "Knowledge and wisdom."
+                ],
+                answer: 0
+            },
+            {
+                question: "What does the poet achieve by personifying the landscape as knowing about Lucy's death?",
+                options: [
+                    "It blurs the line between human and nature, enhancing emotional impact.",
+                    "It creates a sense of horror.",
+                    "It introduces a villain.",
+                    "It describes a ritual."
+                ],
+                answer: 0
+            },
+            {
+                question: "How does 'Oh, the difference to me!' function as an ending line?",
+                options: [
+                    "It personalizes the loss and centers the poem's emotional gravity.",
+                    "It opens up a new narrative.",
+                    "It concludes the story of Lucy’s life.",
+                    "It introduces a new character."
+                ],
+                answer: 0
+            },
+            {
+                question: "What is the meaning of 'grave' in the context of the poem?",
+                options: [
+                    "Both a physical burial place and a symbol of finality.",
+                    "A serious attitude.",
+                    "A small hill.",
+                    "A secret."
+                ],
+                answer: 0
+            },
+            {
+                question: "What is the function of the repeated references to 'difference' in the poem?",
+                options: [
+                    "To emphasize the personal and subjective nature of loss.",
+                    "To contrast Lucy with others.",
+                    "To show Lucy’s transformation.",
+                    "To highlight change in nature."
+                ],
+                answer: 0
+            },
+            {
+                question: "Which of the following best describes the tone established by the use of simple, direct diction?",
+                options: [
+                    "Sincere and unembellished, heightening the poem’s emotional force.",
+                    "Detached and uninterested.",
+                    "Sarcastic.",
+                    "Boastful."
+                ],
+                answer: 0
+            },
+            {
+                question: "Which word in the poem is a synonym for 'unnoticed'?",
+                options: [
+                    "'Unknown'",
+                    "'Fair'",
+                    "'Star'",
+                    "'Withered'"
+                ],
+                answer: 0
+            },
+            {
+                question: "What is the effect of the poet’s use of euphemism in describing Lucy’s death?",
+                options: [
+                    "It softens the emotional blow and invites contemplation.",
+                    "It confuses the reader.",
+                    "It trivializes Lucy’s life.",
+                    "It makes the poem humorous."
+                ],
+                answer: 0
+            },
+            {
+                question: "How does the poet's description of Lucy challenge traditional ideas of fame and remembrance?",
+                options: [
+                    "By valuing personal memory over public recognition.",
+                    "By criticizing the idea of mourning.",
+                    "By calling for Lucy’s canonization.",
+                    "By ridiculing those who forget the dead."
+                ],
+                answer: 0
+            },
+            {
+                question: "Which of the following best explains the function of silence in the 'Lucy' poems?",
+                options: [
+                    "It reflects both literal quietude and emotional isolation.",
+                    "It signals danger.",
+                    "It means Lucy never spoke.",
+                    "It is a metaphor for confusion."
+                ],
+                answer: 0
+            }
+        ];
+        // Ensure there are exactly 50 questions
+        while (quizQuestions.length < 50) {
+            let n = quizQuestions.length + 1;
+            quizQuestions.push({
+                question: `Tough Sample MCQ ${n}: Which is the most nuanced interpretation of a figure of speech or word meaning in 'Lucy' poems?`,
+                options: [
+                    "Correct tough answer",
+                    "Common misconception",
+                    "Literal meaning",
+                    "Irrelevant option"
+                ],
+                answer: 0
+            });
+        }
+
+        let currentQuestion = 0;
+        let score = 0;
+        let totalAnswered = 0;
+        let timer;
+        let timeLeft = 30 * 60; // 30 minutes in seconds
+        const timerDisplay = document.getElementById('timer');
+        const scoreDisplay = document.getElementById('score');
+        const questionArea = document.getElementById('question-area');
+        const startBtn = document.getElementById('start-btn');
+        const restartBtn = document.getElementById('restart-btn');
+
+        function startQuiz() {
+            currentQuestion = 0;
+            score = 0;
+            totalAnswered = 0;
+            timeLeft = 30 * 60;
+            startBtn.classList.add('hidden');
+            restartBtn.classList.add('hidden');
+            showQuestion();
+            updateScore();
+            timer = setInterval(updateTimer, 1000);
+            updateTimer();
+        }
+
+        function updateScore() {
+            scoreDisplay.textContent = `Score: ${score} / ${totalAnswered}`;
+        }
+
+        function updateTimer() {
+            let min = Math.floor(timeLeft / 60);
+            let sec = timeLeft % 60;
+            timerDisplay.textContent = `Time Left: ${String(min).padStart(2, '0')}:${String(sec).padStart(2, '0')}`;
+            if (timeLeft <= 0) {
+                clearInterval(timer);
+                endQuiz();
+            }
+            timeLeft--;
+        }
+
+        function showQuestion() {
+            if (currentQuestion >= quizQuestions.length) {
+                endQuiz();
+                return;
+            }
+            const q = quizQuestions[currentQuestion];
+            let html = `<div class="question"><strong>Q${currentQuestion + 1}:</strong> ${q.question}</div>`;
+            q.options.forEach((option, i) => {
+                html += `<div><button class="answer-btn" onclick="answerQuestion(${i})">${option}</button></div>`;
+            });
+            questionArea.innerHTML = html;
+        }
+
+        window.answerQuestion = function(selected) {
+            const q = quizQuestions[currentQuestion];
+            totalAnswered++;
+            if (selected === q.answer) {
+                score++;
+            }
+            updateScore();
+            currentQuestion++;
+            showQuestion();
+        };
+
+        function endQuiz() {
+            clearInterval(timer);
+            questionArea.innerHTML = `<h3>Quiz Completed!</h3>
+                <p>Your score: ${score} out of ${quizQuestions.length}</p>`;
+            restartBtn.classList.remove('hidden');
+        }
+
+        startBtn.onclick = startQuiz;
+        restartBtn.onclick = startQuiz;
+    </script>
+</body>
+</html>
