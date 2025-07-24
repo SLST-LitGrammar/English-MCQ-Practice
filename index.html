@@ -43,9 +43,9 @@
     </li>
     <li><a href="world-is-too-much.html">The World is Too Much With Us</a></li>
     <li><a href="ode-west-wind.html">Ode to the West Wind</a></li>
-    <li><a href="to-a-skylark-quiz.html">To a Skylark</a></li>     <li><a href="ode-to-a-nightingale-50-questions.html">Ode to a Nightingale</a></li>
-    <li><a href="to-autumn.html">To Autumn</a></li>
-    <li><a href="ulysses.html">Ulysses</a></li>
+    <li><a href="to-a-skylark-quiz.html">To a Skylark</a></li>
+    <li><a href="ode-to-a-nightingale-50-questions.html">Ode to a Nightingale</a></li>
+    <li><a href="to-autumn-quiz.html">To Autumn</a></li>     <li><a href="ulysses.html">Ulysses</a></li>
     <li><a href="last-ride.html">The Last Ride Together</a></li>
     <li><a href="darkling-thrush.html">The Darkling Thrush</a></li>
     <li><a href="wild-swans.html">The Wild Swans at Coole</a></li>
@@ -86,6 +86,8 @@
 </div>
 
 <script>
+// This script block is for the generic quiz on the landing page, if you still want it.
+// If your landing page is just a navigation hub, you can remove this script.
 const mcqs = [
   { question: "In Keats' 'Ode to a Nightingale', what does the speaker wish for in order to join the nightingale?", options: ["A draught of vintage", "Wings of a dove", "Poetic inspiration", "The ability to fly"], answer: "A draught of vintage" },
   { question: "Which literary device is most prominent in the opening line of 'To Autumn': 'Season of mists and mellow fruitfulness'?", options: ["Alliteration", "Metaphor", "Personification", "Simile"], answer: "Alliteration" },
@@ -144,7 +146,9 @@ function calculateScore() {
 }
 
 document.getElementById('submitQuiz').addEventListener('click', calculateScore);
-window.onload = loadQuiz;
+// Only call loadQuiz if this section is meant to display a quiz directly.
+// If it's purely a navigation page, this can be removed.
+// window.onload = loadQuiz;
 </script>
 
 </body>
