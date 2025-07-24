@@ -1,148 +1,294 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>WBSLST English Literature MCQ Practice</title>
-  <style>
-    body { font-family: Arial, sans-serif; margin: 20px; background: #f9f9f9; display: flex; }
-    .content { width: 70%; }
-    .sidebar { width: 28%; margin-left: 2%; background: #fffbe6; border: 2px solid #ffd700; border-radius: 8px; padding: 15px; }
-    h1, h2 { text-align: center; }
-    .highlight { color: red; font-weight: bold; font-size: 1.2em; }
-    .mcq { background: #fff; margin-bottom: 20px; padding: 15px; border: 1px solid #ccc; border-radius: 5px; }
-    .question { font-weight: bold; }
-    .options { list-style-type: none; padding: 0; }
-    .options li { margin: 5px 0; }
-    button { margin-top: 10px; padding: 8px 12px; cursor: pointer; }
-    #finalResult { font-weight: bold; text-align: center; margin-top: 20px; font-size: 1.2em; }
-    .sidebar h2 { color: #d35400; }
-    .sidebar ul { list-style-type: square; padding-left: 20px; }
-    .sidebar a { text-decoration: none; color: #c0392b; }
-    .sidebar a:hover { text-decoration: underline; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WBSLST English Literature & Grammar MCQ Practice</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0; /* Remove default body margin */
+            background: #e0f2f7; /* Light Blue Background */
+            color: #333;
+            line-height: 1.6;
+            scroll-behavior: smooth;
+            display: flex; /* Use flexbox for main layout */
+            min-height: 100vh; /* Ensure body takes full viewport height */
+        }
+        .main-wrapper {
+            display: flex;
+            width: 100%;
+            max-width: 1200px; /* Max width for overall content */
+            margin: 30px auto; /* Center the wrapper */
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            border: 1px solid #b3e5fc; /* Light Blue Border */
+            overflow: hidden; /* Clear floats / contain children */
+        }
+        .content {
+            flex: 3; /* Takes 3 parts of available space */
+            padding: 30px 40px;
+            box-sizing: border-box; /* Include padding in width calculation */
+        }
+        .sidebar {
+            flex: 1; /* Takes 1 part of available space */
+            background: #f0f8ff; /* Alice Blue */
+            border-left: 1px solid #b3e5fc;
+            padding: 30px 20px;
+            box-sizing: border-box;
+        }
+        h1, h2 {
+            color: #01579b; /* Dark Blue */
+            text-align: center;
+            margin-bottom: 25px;
+            font-size: 2.2em;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+        }
+        .sidebar h2 {
+            font-size: 1.5em;
+            color: #0277bd; /* Darker Blue */
+            margin-top: 20px;
+            margin-bottom: 15px;
+            border-bottom: 1px dashed #b3e5fc;
+            padding-bottom: 5px;
+            text-align: left; /* Align sidebar headings left */
+        }
+        .highlight {
+            color: #e65100; /* Deep Orange for emphasis */
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+        .mcq {
+            background: #e3f2fd; /* Lighter Blue */
+            margin-bottom: 15px;
+            padding: 15px;
+            border: 1px solid #bbdefb;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+        .question {
+            font-weight: 600;
+            margin-bottom: 10px;
+            font-size: 1.05em;
+            color: #01579b;
+        }
+        .options {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+        .options li {
+            margin: 8px 0;
+        }
+        .options input[type="radio"] {
+            margin-right: 8px;
+            transform: scale(1.1); /* Slightly larger radio buttons */
+        }
+        .options label {
+            cursor: pointer;
+            display: block;
+            padding: 3px 0;
+        }
+        .options label:hover {
+            color: #0288d1; /* Blue on hover */
+        }
+        #submitQuiz {
+            display: block;
+            width: 200px;
+            padding: 12px 20px;
+            margin: 25px auto;
+            background: #007bb5; /* Cobalt Blue */
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+        #submitQuiz:hover {
+            background: #005a8b; /* Darker Cobalt Blue */
+            transform: translateY(-2px);
+        }
+        #finalResult {
+            font-weight: bold;
+            text-align: center;
+            margin-top: 20px;
+            font-size: 1.5em;
+            color: #01579b;
+        }
+        .sidebar ul {
+            list-style: none; /* Remove default bullet points */
+            padding: 0;
+            margin-bottom: 25px;
+        }
+        .sidebar ul li {
+            margin-bottom: 8px;
+        }
+        .sidebar ul li a {
+            display: block;
+            padding: 10px 15px;
+            background: #81d4fa; /* Light Sky Blue */
+            color: #01579b; /* Dark Blue */
+            text-decoration: none;
+            border-radius: 6px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            font-weight: 500;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+        }
+        .sidebar ul li a:hover {
+            background: #4fc3f7; /* Dodger Blue */
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .main-wrapper {
+                flex-direction: column; /* Stack columns vertically */
+                margin: 15px;
+            }
+            .content, .sidebar {
+                flex: none; /* Disable flex growth */
+                width: 100%; /* Take full width */
+                padding: 20px;
+            }
+            .sidebar {
+                border-left: none;
+                border-top: 1px solid #b3e5fc; /* Add top border for separation */
+                margin-top: 20px;
+            }
+            h1 { font-size: 1.8em; }
+            .sidebar h2 { text-align: center; } /* Center sidebar headings on small screens */
+        }
+    </style>
 </head>
 <body>
 
-<div class="content">
-  <h1><span class="highlight">FREE</span> WBSLST English Literature and Grammar MCQ Practice</h1>
+<div class="main-wrapper">
+    <div class="content">
+        <h1><span class="highlight">FREE</span> WBSLST English Literature and Grammar MCQ Practice</h1>
+        <div id="quiz"></div>
+        <button id="submitQuiz">Submit Quiz</button>
+        <div id="finalResult"></div>
+    </div>
 
-  <div id="quiz"></div>
-  <button id="submitQuiz">Submit Quiz</button>
+    <div class="sidebar">
+        <h2><span class="highlight">FREE</span> MCQ of Poetry</h2>
+        <ul>
+            <li><a href="Lucy Poems (MCQ Quiz).html" target="_blank">Lucy Poems (MCQ Quiz)</a></li>
+            <li><a href="THE DARKLING THRUS.HTML" target="_blank">The Darkling Thrush</a></li>
+            <li><a href="Ode to a Nightingale – 50 MCQs Quiz.html" target="_blank">Ode to a Nightingale</a></li>
+            <li><a href="Ode to the West Wind.html" target="_blank">Ode to the West Wind</a></li>
+            <li><a href="TO AUTUMN 50 mcq.html" target="_blank">To Autumn</a></li>
+            <li><a href="TO a skylark.html" target="_blank">To a Skylark</a></li>
+            <li><a href="Ulysses 50 challenging quiz.html" target="_blank">Ulysses</a></li>
+            <li><a href="The Last Ride Together.html" target="_blank">The Last Ride Together</a></li>
+            <li><a href="The Wild Swans at Coole 50 MCQ.HTML" target="_blank">The Wild Swans at Coole</a></li>
+            <li><a href="Strange Meeting 50 challenging quiz.html" target="_blank">Strange Meeting</a></li>
+            <li><a href="The Listeners 50 challenging quiz.html" target="_blank">The Listeners</a></li>
+            <li><a href="The World is Too Much With Us.html" target="_blank">The World is Too Much With Us</a></li>
+        </ul>
 
-  <div id="finalResult"></div>
-</div>
+        <h2><span class="highlight">FREE</span> MCQ of Drama</h2>
+        <ul>
+            <li><a href="She Stoops to Conquer 50 challenging quiz.html" target="_blank">She Stoops to Conquer</a></li>
+            <li><a href="Arms and the Man.html" target="_blank">Arms and the Man</a></li>
+            <li><a href="Justice.html" target="_blank">Justice</a></li>
+        </ul>
 
-<div class="sidebar">
-  <h2><span class="highlight">FREE</span> MCQ of Poetry</h2>
-  <ul>
-    <li>
-      <a href="myquiz.html" target="_blank">
-        Lucy Poems (MCQ Quiz)
-      </a>
-    </li>
-    <li><a href="world-is-too-much.html">The World is Too Much With Us</a></li>
-    <li><a href="ode-west-wind.html">Ode to the West Wind</a></li>
-    <li><a href="TO a skylark.html">To a Skylark</a></li>     <li><a href="Ode to a Nightingale – 50 MCQs Quiz.html">Ode to a Nightingale</a></li>     <li><a href="TO AUTUMN 50 mcq.html">To Autumn</a></li> <li><a href="Ulysses 50 challenging quiz.html">Ulysses</a></li>     <li><a href="last-ride.html">The Last Ride Together</a></li>
-    <li><a href="darkling-thrush.html">The Darkling Thrush</a></li>
-    <li><a href="wild-swans.html">The Wild Swans at Coole</a></li>
-    <li><a href="strange-meeting.html">Strange Meeting</a></li>
-    <li><a href="the-listeners.html">The Listeners</a></li>
-  </ul>
+        <h2><span class="highlight">FREE</span> MCQ of Short Story</h2>
+        <ul>
+            <li><a href="The Lagoon.html" target="_blank">The Lagoon</a></li>
+            <li><a href="The Lotus Eater.html" target="_blank">The Lotus Eater</a></li>
+            <li><a href="The Gift of the Magi.html" target="_blank">The Gift of the Magi</a></li>
+            <li><a href="The Ox.html" target="_blank">The Ox</a></li>
+        </ul>
 
-  <h2><span class="highlight">FREE</span> MCQ of Drama</h2>
-  <ul>
-    <li><a href="she-stoops.html">She Stoops to Conquer</a></li>
-    <li><a href="arms-and-man.html">Arms and the Man</a></li>
-    <li><a href="justice.html">Justice</a></li>
-  </ul>
+        <h2><span class="highlight">FREE</span> MCQ of Essay</h2>
+        <ul>
+            <li><a href="Dream Children A Reverie.html" target="_blank">Dream Children: A Reverie</a></li>
+            <li><a href="Principles of Good Writing.html" target="_blank">Principles of Good Writing</a></li>
+        </ul>
 
-  <h2><span class="highlight">FREE</span> MCQ of Short Story</h2>
-  <ul>
-    <li><a href="lagoon.html">The Lagoon</a></li>
-    <li><a href="lotus-eater.html">The Lotus Eater</a></li>
-    <li><a href="gift-magi.html">The Gift of the Magi</a></li>
-    <li><a href="the-ox.html">The Ox</a></li>
-  </ul>
-
-  <h2><span class="highlight">FREE</span> MCQ of Essay</h2>
-  <ul>
-    <li><a href="dream-children.html">Dream Children: A Reverie</a></li>
-    <li><a href="principles-writing.html">Principles of Good Writing</a></li>
-  </ul>
-
-  <h2><span class="highlight">FREE</span> MCQ of Grammar and Usage</h2>
-  <ul>
-    <li><a href="common-errors.html">Common Errors</a></li>
-    <li><a href="tense-voice.html">Tense, Voice, Mood</a></li>
-    <li><a href="articles-prepositions.html">Articles and Prepositions</a></li>
-    <li><a href="sentence-forms.html">Sentence Forms</a></li>
-    <li><a href="joining-splitting.html">Joining and Splitting Sentences</a></li>
-    <li><a href="narration.html">Narration (Direct & Indirect Speech)</a></li>
-  </ul>
+        <h2><span class="highlight">FREE</span> MCQ of Grammar and Usage</h2>
+        <ul>
+            <li><a href="Common Errors.html" target="_blank">Common Errors</a></li>
+            <li><a href="Tense Voice Mood.html" target="_blank">Tense, Voice, Mood</a></li>
+            <li><a href="Articles and Prepositions.html" target="_blank">Articles and Prepositions</a></li>
+            <li><a href="Sentence Forms.html" target="_blank">Sentence Forms</a></li>
+            <li><a href="Joining and Splitting Sentences.html" target="_blank">Joining and Splitting Sentences</a></li>
+            <li><a href="Narration Direct Indirect Speech.html" target="_blank">Narration (Direct & Indirect Speech)</a></li>
+        </ul>
+    </div>
 </div>
 
 <script>
-// This script block is for the generic quiz on the landing page.
 const mcqs = [
-  { question: "In Keats' 'Ode to a Nightingale', what does the speaker wish for in order to join the nightingale?", options: ["A draught of vintage", "Wings of a dove", "Poetic inspiration", "The ability to fly"], answer: "A draught of vintage" },
-  { question: "Which literary device is most prominent in the opening line of 'To Autumn': 'Season of mists and mellow fruitfulness'?", options: ["Alliteration", "Metaphor", "Personification", "Simile"], answer: "Alliteration" },
-  { question: "Ulysses, in Tennyson's poem, desires to embark on a new journey despite his old age because of:", options: ["A thirst for knowledge and experience", "A wish to escape his domestic life", "A command from the gods", "A desire for renewed fame"], answer: "A thirst for knowledge and experience" },
-  { question: "The line 'Drive my dead thoughts over the universe / Like withered leaves to quicken a new birth!' from 'Ode to the West Wind' primarily signifies:", options: ["The poet's desire for his ideas to spread and inspire", "A wish for destruction and decay", "A lament for lost inspiration", "A description of autumn's effects"], answer: "The poet's desire for his ideas to spread and inspire" },
-  { question: "In 'The Last Ride Together' by Robert Browning, what is the speaker's main consolation?", options: ["The shared experience of the ride itself", "The hope of future love", "The prospect of eternal salvation", "The material wealth he possesses"], answer: "The shared experience of the ride itself" },
-  { question: "'The World is Too Much With Us' laments humanity's disconnection from:", options: ["Nature", "Art", "Spirituality", "Each other"], answer: "Nature" },
-  { question: "In 'The Wild Swans at Coole', what emotion does the sight of the swans evoke in the speaker as he reflects on his own aging?", options: ["Nostalgia and melancholy", "Joy and inspiration", "Indifference", "Anger and frustration"], answer: "Nostalgia and melancholy" },
-  { question: "The 'Darkling Thrush' in Hardy's poem sings a song that, despite the bleak setting, conveys:", options: ["A message of hope and optimism", "A feeling of despair and futility", "A warning of impending doom", "A celebration of nature's indifference"], answer: "A message of hope and optimism" },
-  { question: "'Strange Meeting' by Wilfred Owen is set in:", options: ["The underworld/hell during wartime", "A hospital during wartime", "A trench on the battlefield", "A peaceful dream sequence"], answer: "The underworld/hell during wartime" },
-  { question: "In 'The Listeners', the 'phantom listeners' are most likely:", options: ["Spirits of the dead or unseen entities", "Animals in the forest", "Other travelers on the road", "The speaker's own anxieties"], answer: "Spirits of the dead or unseen entities" },
-  { question: "Fals, in Galsworthy's 'Justice', struggles primarily with the rigidity and impersonality of the:", options: ["Legal system", "Social class structure", "Educational system", "Political landscape"], answer: "Legal system" },
-  { question: "In 'Arms and the Man', Sergius's romantic ideals are often contrasted with Bluntschli's:", options: ["Pragmatism and realism", "Cowardice and cynicism", "Aggressiveness and ambition", "Naivete and innocence"], answer: "Pragmatism and realism" },
-  { question: "The central comedic device in 'She Stoops to Conquer' revolves around:", options: ["Mistaken identity and class deception", "Political intrigue and betrayal", "Supernatural occurrences", "Slapstick humor and physical gags"], answer: "Mistaken identity and class deception" },
-  { question: "The primary theme explored in Joseph Conrad's 'The Lagoon' is:", options: ["The isolation of human experience and the burden of secrets", "The beauty of nature and simple living", "The clash between colonizers and indigenous people", "The pursuit of wealth and adventure"], answer: "The isolation of human experience and the burden of secrets" },
-  { question: "In Somerset Maugham's 'The Lotus Eater', the protagonist's ultimate fate highlights the dangers of:", options: ["Escapism and rejection of responsibility", "Excessive ambition and greed", "Unrequited love and emotional repression", "Physical laziness and indulgence"], answer: "Escapism and rejection of responsibility" },
-  { question: "The 'gift' in 'The Gift of the Magi' is ironic because:", options: ["The gifts are useless to the recipients without the sacrificed possessions", "The gifts are extremely valuable but not appreciated", "The gifts are given out of spite, not love", "The gifts are stolen goods"], answer: "The gifts are useless to the recipients without the sacrificed possessions" },
-  { question: "H.E. Bates' 'The Ox' can be interpreted as an allegory for:", options: ["The plight of the working class and the impact of industrialization", "The power of nature over human endeavor", "The cyclical nature of life and death", "The simplicity and resilience of rural life"], answer: "The plight of the working class and the impact of industrialization" },
-  { question: "In 'Dream Children: A Reverie', Charles Lamb's narrative technique primarily involves:", options: ["Nostalgic recollection and bittersweet fantasy", "Sharp social satire and criticism", "Detailed historical analysis", "Abstract philosophical contemplation"], answer: "Nostalgic recollection and bittersweet fantasy" },
-  { question: "L.A. Hill's 'Principles of Good Writing' emphasizes the importance of:", options: ["Clarity, conciseness, and precision", "Flowery language and elaborate metaphors", "Emotional intensity over logical structure", "Writing primarily for an academic audience"], answer: "Clarity, conciseness, and precision" },
-  { question: "T.J. Fitikides' 'Common Errors in English' primarily focuses on rectifying mistakes in:", options: ["Grammar, syntax, and usage", "Literary analysis and interpretation", "Creative writing techniques", "Historical linguistic evolution"], answer: "Grammar, syntax, and usage" }
+    { question: "In Keats' 'Ode to a Nightingale', what does the speaker wish for in order to join the nightingale?", options: ["A draught of vintage", "Wings of a dove", "Poetic inspiration", "The ability to fly"], answerIndex: 0 },
+    { question: "Which literary device is most prominent in the opening line of 'To Autumn': 'Season of mists and mellow fruitfulness'?", options: ["Alliteration", "Metaphor", "Personification", "Simile"], answerIndex: 0 },
+    { question: "Ulysses, in Tennyson's poem, desires to embark on a new journey despite his old age because of:", options: ["A thirst for knowledge and experience", "A wish to escape his domestic life", "A command from the gods", "A desire for renewed fame"], answerIndex: 0 },
+    { question: "The line 'Drive my dead thoughts over the universe / Like withered leaves to quicken a new birth!' from 'Ode to the West Wind' primarily signifies:", options: ["The poet's desire for his ideas to spread and inspire", "A wish for destruction and decay", "A lament for lost inspiration", "A description of autumn's effects"], answerIndex: 0 },
+    { question: "In 'The Last Ride Together' by Robert Browning, what is the speaker's main consolation?", options: ["The shared experience of the ride itself", "The hope of future love", "The prospect of eternal salvation", "The material wealth he possesses"], answerIndex: 0 },
+    { question: "'The World is Too Much With Us' laments humanity's disconnection from:", options: ["Nature", "Art", "Spirituality", "Each other"], answerIndex: 0 },
+    { question: "In 'The Wild Swans at Coole', what emotion does the sight of the swans evoke in the speaker as he reflects on his own aging?", options: ["Nostalgia and melancholy", "Joy and inspiration", "Indifference", "Anger and frustration"], answerIndex: 0 },
+    { question: "The 'Darkling Thrush' in Hardy's poem sings a song that, despite the bleak setting, conveys:", options: ["A message of hope and optimism", "A feeling of despair and futility", "A warning of impending doom", "A celebration of nature's indifference"], answerIndex: 0 },
+    { question: "'Strange Meeting' by Wilfred Owen is set in:", options: ["The underworld/hell during wartime", "A hospital during wartime", "A trench on the battlefield", "A peaceful dream sequence"], answerIndex: 0 },
+    { question: "In 'The Listeners', the 'phantom listeners' are most likely:", options: ["Spirits of the dead or unseen entities", "Animals in the forest", "Other travelers on the road", "The speaker's own anxieties"], answerIndex: 0 },
+    { question: "Falk, in Galsworthy's 'Justice', struggles primarily with the rigidity and impersonality of the:", options: ["Legal system", "Social class structure", "Educational system", "Political landscape"], answerIndex: 0 },
+    { question: "In 'Arms and the Man', Sergius's romantic ideals are often contrasted with Bluntschli's:", options: ["Pragmatism and realism", "Cowardice and cynicism", "Aggressiveness and ambition", "Naivete and innocence"], answerIndex: 0 },
+    { question: "The central comedic device in 'She Stoops to Conquer' revolves around:", options: ["Mistaken identity and class deception", "Political intrigue and betrayal", "Supernatural occurrences", "Slapstick humor and physical gags"], answerIndex: 0 },
+    { question: "The primary theme explored in Joseph Conrad's 'The Lagoon' is:", options: ["The isolation of human experience and the burden of secrets", "The beauty of nature and simple living", "The clash between colonizers and indigenous people", "The pursuit of wealth and adventure"], answerIndex: 0 },
+    { question: "In Somerset Maugham's 'The Lotus Eater', the protagonist's ultimate fate highlights the dangers of:", options: ["Escapism and rejection of responsibility", "Excessive ambition and greed", "Unrequited love and emotional repression", "Physical laziness and indulgence"], answerIndex: 0 },
+    { question: "The 'gift' in 'The Gift of the Magi' is ironic because:", options: ["The gifts are useless to the recipients without the sacrificed possessions", "The gifts are extremely valuable but not appreciated", "The gifts are given out of spite, not love", "The gifts are stolen goods"], answerIndex: 0 },
+    { question: "H.E. Bates' 'The Ox' can be interpreted as an allegory for:", options: ["The plight of the working class and the impact of industrialization", "The power of nature over human endeavor", "The cyclical nature of life and death", "The simplicity and resilience of rural life"], answerIndex: 0 },
+    { question: "In 'Dream Children: A Reverie', Charles Lamb's narrative technique primarily involves:", options: ["Nostalgic recollection and bittersweet fantasy", "Sharp social satire and criticism", "Detailed historical analysis", "Abstract philosophical contemplation"], answerIndex: 0 },
+    { question: "L.A. Hill's 'Principles of Good Writing' emphasizes the importance of:", options: ["Clarity, conciseness, and precision", "Flowery language and elaborate metaphors", "Emotional intensity over logical structure", "Writing primarily for an academic audience"], answerIndex: 0 },
+    { question: "T.J. Fitikides' 'Common Errors in English' primarily focuses on rectifying mistakes in:", options: ["Grammar, syntax, and usage", "Literary analysis and interpretation", "Creative writing techniques", "Historical linguistic evolution"], answerIndex: 0 }
 ];
 
 function loadQuiz() {
-  const quizContainer = document.getElementById('quiz');
-  mcqs.forEach((mcq, index) => {
-    const mcqDiv = document.createElement('div');
-    mcqDiv.classList.add('mcq');
-    mcqDiv.innerHTML = `<p class='question'>${index + 1}. ${mcq.question}</p>`;
-    const optionsList = document.createElement('ul');
-    optionsList.classList.add('options');
+    const quizContainer = document.getElementById('quiz');
+    mcqs.forEach((mcq, index) => {
+        const mcqDiv = document.createElement('div');
+        mcqDiv.classList.add('mcq');
+        mcqDiv.innerHTML = `<p class='question'>${index + 1}. ${mcq.question}</p>`;
+        const optionsList = document.createElement('ul');
+        optionsList.classList.add('options');
 
-    mcq.options.forEach(option => {
-      const li = document.createElement('li');
-      li.innerHTML = `<input type='radio' name='q${index}' value='${option}'> ${option}`;
-      optionsList.appendChild(li);
-    });
+        mcq.options.forEach((option, optionIndex) => { // Added optionIndex
+            const li = document.createElement('li');
+            li.innerHTML = `<label><input type='radio' name='q${index}' value='${option}' data-option-index="${optionIndex}"> ${option}</label>`; // Added data-option-index
+            optionsList.appendChild(li);
+        });
 
-    mcqDiv.appendChild(optionsList);
-    quizContainer.appendChild(mcqDiv);
-  });
+        mcqDiv.appendChild(optionsList);
+        quizContainer.appendChild(mcqDiv);
+    });
 }
 
 function calculateScore() {
-  let score = 0;
-  mcqs.forEach((mcq, index) => {
-    const options = document.getElementsByName(`q${index}`);
-    options.forEach(option => {
-      if (option.checked && option.value === mcq.answer) {
-        score++;
-      }
-    });
-  });
+    let score = 0;
+    mcqs.forEach((mcq, index) => {
+        const options = document.getElementsByName(`q${index}`);
+        let selectedOptionIndex = -1;
+        options.forEach(option => {
+            if (option.checked) {
+                selectedOptionIndex = parseInt(option.dataset.optionIndex); // Get index
+            }
+        });
 
-  document.getElementById('finalResult').textContent = `Your Score: ${score} / ${mcqs.length}`;
+        if (selectedOptionIndex === mcq.answerIndex) { // Compare indices
+            score++;
+        }
+    });
+
+    document.getElementById('finalResult').textContent = `Your Score: ${score} / ${mcqs.length}`;
 }
 
 document.getElementById('submitQuiz').addEventListener('click', calculateScore);
-// This line ensures the 20 MCQs are loaded when the landing page loads.
 window.onload = loadQuiz;
 </script>
 
