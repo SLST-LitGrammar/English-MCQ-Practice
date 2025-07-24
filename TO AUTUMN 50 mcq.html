@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To Autumn – Challenging MCQ Quiz</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; background: #f9f9f9; }
+        .container { max-width: 900px; margin: auto; background: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 2px 6px #ddd; }
+        h1, h2 { color: #2c3e50; text-align: center; }
+        #timer { font-size: 1.3em; color: #e74c3c; font-weight: bold; }
+        #score { font-size: 1.1em; color: #16a085; font-weight: bold; }
+        .question { font-weight: bold; margin-top: 20px; }
+        .answer-btn { 
+            margin: 7px 0; 
+            padding: 6px 18px; 
+            border: none; 
+            background: #3498db; 
+            color: #fff; 
+            border-radius: 4px; 
+            cursor: pointer; 
+            font-size: 1em; 
+            width: 100%; /* Make buttons full width */
+            text-align: left; /* Align text to the left */
+        }
+        .answer-btn:hover { background: #217dbb; }
+        .answer-btn.correct { background: #28a745; } /* Green for correct */
+        .answer-btn.incorrect { background: #dc3545; } /* Red for incorrect */
+        #start-btn, #restart-btn { padding: 10px 24px; background: #27ae60; color: #fff; border: none; border-radius: 4px; cursor: pointer; font-size: 1.1em;margin: 12px auto;display: block;}
+        #start-btn:hover, #restart-btn:hover { background: #1e8449; }
+        #quiz-container { margin-top: 30px; }
+        .hidden { display: none; }
+        #finalResult { font-weight: bold; text-align: center; font-size: 1.2em; margin-top: 25px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>To Autumn – Challenging MCQ Quiz</h1>
+        <div id="quiz-container">
+            <div id="timer">Time Left: 30:00</div>
+            <div id="score">Score: 0 / 0</div>
+            <div id="question-area">
+                <button id="start-btn">Start Quiz</button>
+            </div>
+            <button id="restart-btn" class="hidden">Restart Quiz</button>
+            <div id="finalResult"></div>
+        </div>
+    </div>
+
+<script>
+const quizQuestions = [
+    {
+        q: "1. The opening line 'Season of mists and mellow fruitfulness' primarily uses which figure of speech?",
+        options: ["Alliteration", "Assonance", "Personification", "Metaphor"],
+        answer: 0
+    },
+    {
+        q: "2. What does 'mellow fruitfulness' imply about the autumn season?",
+        options: ["A gentle ripeness and abundance.", "A harsh, dry harvest.", "A state of decay and rot.", "A period of intense cold."],
+        answer: 0
+    },
+    {
+        q: "3. 'Close bosom-friend of the maturing sun' is an example of:",
+        options: ["Personification", "Simile", "Hyperbole", "Oxymoron"],
+        answer: 0
+    },
+    {
+        q: "4. What does 'conspiring with him how to load and bless' suggest about the relationship between Autumn and the sun?",
+        options: ["A harmonious collaboration in bringing forth the harvest.", "A secretive plot to destroy the crops.", "An accidental alignment of natural forces.", "A competition for dominance."],
+        answer: 0
+    },
+    {
+        q: "5. The 'vines around the thatch-eaves run' suggests:",
+        options: ["Wild, uncontrolled growth and abundance.", "Neat, cultivated agricultural practices.", "The decay of neglected structures.", "The start of winter's barrenness."],
+        answer: 0
+    },
+    {
+        q: "6. What is the meaning of 'gourds' in the context of the poem?",
+        options: ["Large, fleshy fruits like pumpkins or melons.", "Small, hard seeds.", "Vineyard tools.", "Dried leaves."],
+        answer: 0
+    },
+    {
+        q: "7. 'To swell the gourds, and plump the hazel shells' emphasizes:",
+        options: ["The physical expansion and fullness of the fruits.", "The emptiness of the harvest.", "The small size of the produce.", "The hardness of the shells."],
+        answer: 0
+    },
+    {
+        q: "8. 'With a sweet kernel' refers to:",
+        options: ["The edible part inside nuts.", "The hard outer shell of fruits.", "The core of an apple.", "The sugar content of grapes."],
+        answer: 0
+    },
+    {
+        q: "9. What does 'Drowsed with the fume of poppies' imply about the bees?",
+        options: ["They are overwhelmed and intoxicated by the abundance of nectar.", "They are actively working and energetic.", "They are dying from a lack of food.", "They are avoiding the flowers."],
+        answer: 0
+    },
+    {
+        q: "10. 'For summer has o'er-brimm'd their clammy cells' uses which figure of speech?",
+        options: ["Hyperbole", "Understatement", "Irony", "Litotes"],
+        answer: 0
+    },
+    {
+        q: "11. 'O'er-brimm'd their clammy cells' suggests:",
+        options: ["An overflowing abundance of honey.", "Empty, dry beehives.", "Bees suffering from a lack of moisture.", "Cells that are stuck together."],
+        answer: 0
+    },
+    {
+        q: "12. In the second stanza, Autumn is personified as various figures. Which is NOT one of them?",
+        options: ["A gleaner", "A reaper", "A fisherman", "A cider-presser"],
+        answer: 2
+    },
+    {
+        q: "13. 'Who hath not seen thee oft amid thy store?' – 'Store' here means:",
+        options: ["Harvested produce or bounty.", "A commercial shop.", "A secret hiding place.", "A collection of money."],
+        answer: 0
+    },
+    {
+        q: "14. When Autumn sits 'careless on a granary floor,' what is implied about her posture?",
+        options: ["Relaxed and at ease, content with the harvest.", "Anxious and worried about the crops.", "Tired and exhausted from labor.", "Proud and arrogant."],
+        answer: 0
+    },
+    {
+        q: "15. 'Thy hair soft-lifted by the winnowing wind' describes a process related to:",
+        options: ["Separating grain from chaff.", "Cutting down trees.", "Planting seeds.", "Collecting water."],
+        answer: 0
+    },
+    {
+        q: "16. What is a 'half-reap'd furrow'?",
+        options: ["A partially harvested row in a field.", "A completely harvested field.", "A field that has just been planted.", "A furrow filled with water."],
+        answer: 0
+    },
+    {
+        q: "17. 'Sound asleep, Drowsed with the fume of poppies' is an example of:",
+        options: ["Synesthesia", "Personification", "Both A and B", "Neither A nor B"],
+        answer: 2
+    },
+    {
+        q: "18. The 'hook' in 'thy hook Spares the next swath and all its twined flowers' refers to:",
+        options: ["A sickle or scythe used for harvesting.", "A tool for hanging clothes.", "A fishing hook.", "A garden hose."],
+        answer: 0
+    },
+    {
+        q: "19. What does 'twined flowers' suggest in this context?",
+        options: ["Flowers intertwined with the grain, left untouched by the reaper.", "Artificially arranged flowers.", "Flowers that have withered.", "Flowers used for weaving."],
+        answer: 0
+    },
+    {
+        q: "20. 'Or on a half-reap'd furrow sound asleep' implies Autumn is:",
+        options: ["Taking a break in the midst of her work.", "Lazy and neglecting her duties.", "Unaware of the passing of time.", "Distracted by the beauty of nature."],
+        answer: 0
+    },
+    {
+        q: "21. 'Thy hair soft-lifted by the winnowing wind' creates an image of:",
+        options: ["Gentle movement and natural grace.", "Disarray and chaos.", "Stillness and immobility.", "Harshness and severity."],
+        answer: 0
+    },
+    {
+        q: "22. The image of Autumn watching 'the last oozings hours by hours' from a cider-press suggests:",
+        options: ["Patience and the slow, complete extraction of nature's bounty.", "Impatience and a desire to rush the process.", "A wasteful and inefficient process.", "A rapid, uncontrolled flow."],
+        answer: 0
+    },
+    {
+        q: "23. 'Where are the songs of Spring? Ay, Where are they?' uses which rhetorical device?",
+        options: ["Rhetorical question", "Apostrophe", "Repetition", "All of the above"],
+        answer: 3
+    },
+    {
+        q: "24. What is the poet's implicit answer to the question 'Where are the songs of Spring?'",
+        options: ["Autumn has its own distinct and beautiful music.", "They are completely forgotten and irrelevant.", "They are superior to Autumn's sounds.", "They will return in due time, making Autumn inferior."],
+        answer: 0
+    },
+    {
+        q: "25. The shift from visual imagery in the first two stanzas to auditory imagery in the third stanza highlights:",
+        options: ["The changing sensory experiences of autumn from harvest to its unique sounds.", "The poet's increasing blindness.", "A sudden lack of natural beauty.", "The dominance of silence in autumn."],
+        answer: 0
+    },
+    {
+        q: "26. 'While barred clouds bloom the soft-dying day' uses 'bloom' metaphorically to mean:",
+        options: ["To color or flush with warm hues.", "To open up like a flower.", "To decay or wither.", "To darken and become stormy."],
+        answer: 0
+    },
+    {
+        q: "27. What is the significance of the 'soft-dying day'?",
+        options: ["It foreshadows the gentle transition from autumn to winter and the cycle of life.", "It suggests a sudden, violent end to the day.", "It refers to the quick setting of the sun.", "It describes a day without any light."],
+        answer: 0
+    },
+    {
+        q: "28. 'And touch the stubble-plains with rosy hue' describes:",
+        options: ["The warm, reddish light of the setting sun on harvested fields.", "The color of newly planted crops.", "A type of flower found in stubble.", "The appearance of snow on the plains."],
+        answer: 0
+    },
+    {
+        q: "29. What are 'gnats' in the context of the poem?",
+        options: ["Small, biting insects, often seen in swarms.", "Tiny birds.", "Types of wild berries.", "Autumn leaves."],
+        answer: 0
+    },
+    {
+        q: "30. 'Wailful choir' for the gnats implies:",
+        options: ["Their buzzing sound, interpreted as a mournful song.", "A group of people singing sadly.", "A joyous celebration of insects.", "The sound of wind through trees."],
+        answer: 0
+    },
+    {
+        q: "31. 'Borne aloft or sinking as the light wind lives or dies' exemplifies:",
+        options: ["The delicate movement of gnats influenced by the gentle breeze.", "The strong, violent winds of autumn.", "The static nature of the air.", "The rapid flight of birds."],
+        answer: 0
+    },
+    {
+        q: "32. What does 'mourn' in 'small gnats mourn' primarily personify?",
+        options: ["The sound of the gnats as a lament or sorrowful hum.", "The gnats' literal grief.", "The sound of autumn rain.", "The rustling of leaves."],
+        answer: 0
+    },
+    {
+        q: "33. 'Hedge-crickets sing' refers to:",
+        options: ["The chirping sound of crickets near hedges.", "Birds singing in a hedge.", "The sound of leaves rustling.", "The silence of the evening."],
+        answer: 0
+    },
+    {
+        q: "34. The 'red-breast' is a common name for which bird?",
+        options: ["Robin", "Sparrow", "Crow", "Nightingale"],
+        answer: 0
+    },
+    {
+        q: "35. 'With a treble soft' describes the robin's song as:",
+        options: ["High-pitched and gentle.", "Loud and harsh.", "Deep and resonant.", "Non-existent."],
+        answer: 0
+    },
+    {
+        q: "36. The description of the robin from 'orchard-croft' to 'garden-croft' suggests:",
+        options: ["The robin's movement across different parts of a rural landscape.", "The robin's migration.", "The robin's search for food in a specific location.", "The robin's ability to fly very high."],
+        answer: 0
+    },
+    {
+        q: "37. What does 'treble' typically refer to in music?",
+        options: ["The highest part in musical harmony; high-pitched.", "The lowest part in musical harmony; low-pitched.", "A rhythmic beat.", "A type of instrument."],
+        answer: 0
+    },
+    {
+        q: "38. 'Hedge-crickets sing; and now with treble soft the red-breast whistles from a garden-croft' evokes a sense of:",
+        options: ["A subtle, tranquil soundscape of late autumn.", "Loud, boisterous noises.", "Complete silence.", "A cacophony of jarring sounds."],
+        answer: 0
+    },
+    {
+        q: "39. The 'lambs loud bleat from hilly bourn' suggests:",
+        options: ["The sound of young sheep from hillsides, conveying a sense of distance and pastoral life.", "A flock of noisy birds.", "The sound of water flowing.", "The silence of distant lands."],
+        answer: 0
+    },
+    {
+        q: "40. What is a 'bourn' in this context?",
+        options: ["A small stream or boundary.", "A type of tree.", "A large mountain.", "A deep valley."],
+        answer: 0
+    },
+    {
+        q: "41. 'Full-grown lambs' in autumn suggests:",
+        options: ["The continued thriving of life even as the season progresses towards winter.", "Lambs that are ready for slaughter.", "Lambs that are still very young.", "Lambs that are struggling to survive."],
+        answer: 0
+    },
+    {
+        q: "42. The swallows gathering 'twitter in the skies' is a sign of:",
+        options: ["Their preparation for migration.", "Their search for food.", "Their joy in the warm weather.", "Their nesting season."],
+        answer: 0
+    },
+    {
+        q: "43. 'Light wind lives or dies' is an example of:",
+        options: ["Personification", "Paradox", "Metaphor", "Synecdoche"],
+        answer: 0
+    },
+    {
+        q: "44. What does the inclusion of migratory birds like swallows signify in the poem?",
+        options: ["The subtle, inevitable transition towards colder seasons.", "The arrival of spring.", "The unchanging nature of autumn.", "The dominance of human activity."],
+        answer: 0
+    },
+    {
+        q: "45. The poem's central theme revolves around:",
+        options: ["The beauty and bounty of autumn as a season of fulfillment, not just decay.", "The inevitable sadness of aging and death.", "The harshness of nature.", "The superiority of spring over autumn."],
+        answer: 0
+    },
+    {
+        q: "46. Keats avoids overt melancholy about the passing of autumn by emphasizing:",
+        options: ["Its unique sounds, sights, and rich abundance.", "The coming of winter.", "The sorrow of dying leaves.", "The memory of summer."],
+        answer: 0
+    },
+    {
+        q: "47. The poem is structured as an ode, which means it is:",
+        options: ["A lyrical poem expressing exalted emotion in a formal style, often addressed to a specific subject.", "A short, narrative poem.", "A dramatic monologue.", "A satirical verse."],
+        answer: 0
+    },
+    {
+        q: "48. The phrase 'Thy hair soft-lifted by the winnowing wind' is an example of **visual imagery** combined with:",
+        options: ["Tactile imagery (sense of touch).", "Auditory imagery (sense of sound).", "Olfactory imagery (sense of smell).", "Gustatory imagery (sense of taste)."],
+        answer: 0
+    },
+    {
+        q: "49. Which of the following best describes the overall tone of 'To Autumn'?",
+        options: ["Serene and appreciative.", "Melancholic and regretful.", "Energetic and celebratory.", "Indifferent and detached."],
+        answer: 0
+    },
+    {
+        q: "50. The poem ultimately celebrates autumn as a season of:",
+        options: ["Maturity, fulfillment, and gentle transition.", "Harshness, barrenness, and impending doom.", "Stagnation and decay.", "Rebirth and new beginnings."],
+        answer: 0
+    }
+];
+
+let currentQuestionIndex = 0;
+let score = 0;
+let timer;
+let timeLeft = 30 * 60; // 30 minutes in seconds
+let quizStarted = false; // Flag to track if quiz has started
+
+const timerDisplay = document.getElementById('timer');
+const scoreDisplay = document.getElementById('score');
+const questionArea = document.getElementById('question-area');
+const startBtn = document.getElementById('start-btn');
+const restartBtn = document.getElementById('restart-btn');
+const finalResult = document.getElementById('finalResult');
+
+function startQuiz() {
+    currentQuestionIndex = 0;
+    score = 0;
+    timeLeft = 30 * 60;
+    quizStarted = true;
+    finalResult.textContent = "";
+    startBtn.classList.add('hidden');
+    restartBtn.classList.add('hidden');
+    
+    // Clear previous question/options
+    questionArea.innerHTML = ''; 
+    
+    displayQuestion();
+    updateScore();
+    clearInterval(timer); // Clear any existing timer
+    timer = setInterval(updateTimer, 1000);
+    updateTimer(); // Call once immediately to show initial time
+}
+
+function updateScore() {
+    scoreDisplay.textContent = `Score: ${score} / ${currentQuestionIndex}`;
+}
+
+function updateTimer() {
+    let min = Math.floor(timeLeft / 60);
+    let sec = timeLeft % 60;
+    timerDisplay.textContent = `Time Left: ${String(min).padStart(2, '0')}:${String(sec).padStart(2, '0')}`;
+    if (timeLeft <= 0) {
+        clearInterval(timer);
+        endQuiz();
+    } else {
+        timeLeft--;
+    }
+}
+
+function displayQuestion() {
+    if (currentQuestionIndex >= quizQuestions.length) {
+        endQuiz();
+        return;
+    }
+
+    const q = quizQuestions[currentQuestionIndex];
+    let html = `<div class="question"><strong>Q${currentQuestionIndex + 1}:</strong> ${q.q}</div>`;
+    q.options.forEach((option, i) => {
+        html += `<div><button class="answer-btn" data-index="${i}">${option}</button></div>`;
+    });
+    questionArea.innerHTML = html;
+
+    // Add event listeners to the new buttons
+    document.querySelectorAll('.answer-btn').forEach(button => {
+        button.addEventListener('click', handleAnswerClick);
+    });
+}
+
+function handleAnswerClick(event) {
+    if (!quizStarted) return; // Prevent answering before quiz starts
+    
+    const selectedAnswerIndex = parseInt(event.target.dataset.index);
+    const q = quizQuestions[currentQuestionIndex];
+    const allButtons = document.querySelectorAll('.answer-btn');
+
+    // Disable all buttons for the current question
+    allButtons.forEach(button => {
+        button.disabled = true;
+    });
+
+    if (selectedAnswerIndex === q.answer) {
+        score++;
+        event.target.classList.add('correct');
+    } else {
+        event.target.classList.add('incorrect');
+        // Optionally show the correct answer
+        allButtons[q.answer].classList.add('correct');
+    }
+
+    updateScore();
+
+    // Move to the next question after a short delay
+    setTimeout(() => {
+        currentQuestionIndex++;
+        displayQuestion();
+    }, 1000); // 1 second delay
+}
+
+function endQuiz() {
+    clearInterval(timer);
+    quizStarted = false; // Mark quiz as ended
+    questionArea.innerHTML = "";
+    finalResult.textContent = `Quiz Completed! Your score: ${score} out of ${quizQuestions.length}`;
+    restartBtn.classList.remove('hidden');
+    timerDisplay.textContent = "Time Left: 00:00"; // Ensure timer shows 00:00
+}
+
+startBtn.onclick = startQuiz;
+restartBtn.onclick = startQuiz;
+</script>
+</body>
+</html>
