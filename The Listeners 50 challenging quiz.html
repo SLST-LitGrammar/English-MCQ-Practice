@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Listeners – 50 Challenging MCQ Quiz</title>
+    <style>
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            margin: 20px; 
+            background: #f0f5f5; /* Light bluish-grey */
+            color: #333;
+            line-height: 1.6;
+        }
+        .container { 
+            max-width: 900px; 
+            margin: 30px auto; 
+            background: #ffffff; 
+            padding: 30px 40px; 
+            border-radius: 12px; 
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); 
+            border: 1px solid #dcdcdc;
+        }
+        h1 { 
+            color: #4682b4; /* Steel Blue */
+            text-align: center; 
+            margin-bottom: 30px;
+            font-size: 2.2em;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+        }
+        #timer, #score { 
+            font-size: 1.4em; 
+            font-weight: bold; 
+            text-align: center; 
+            margin-bottom: 15px; 
+            padding: 8px 15px;
+            border-radius: 6px;
+            display: inline-block;
+            width: 48%; /* Adjust width for side-by-side */
+            box-sizing: border-box;
+        }
+        #timer { 
+            color: #b22222; /* Firebrick */
+            background: #ffe0e0; /* Light Reddish */
+            border: 1px solid #ffc0cb; /* Pink */
+            float: left; /* Align to left */
+        }
+        #score { 
+            color: #008080; /* Teal */
+            background: #e0ffff; /* Light Cyan */
+            border: 1px solid #afeeee; /* Pale Turquoise */
+            float: right; /* Align to right */
+        }
+        .info-bar {
+            overflow: hidden; /* Clear floats */
+            margin-bottom: 25px;
+        }
+        .question { 
+            font-weight: 600; 
+            margin-top: 30px; 
+            margin-bottom: 15px;
+            font-size: 1.15em;
+            color: #2f4f4f; /* Dark Slate Gray */
+        }
+        .answer-btn { 
+            margin: 8px 0; 
+            padding: 12px 20px; 
+            border: 1px solid #b0c4de; /* Light Steel Blue */
+            background: #6a5acd; /* Slate Blue */
+            color: #fff; 
+            border-radius: 6px; 
+            cursor: pointer; 
+            font-size: 1em; 
+            width: 100%; 
+            text-align: left; 
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+        }
+        .answer-btn:hover:not(.correct):not(.incorrect) { 
+            background: #483d8b; /* Dark Slate Blue */
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+        .answer-btn.correct { 
+            background: #28a745; 
+            border-color: #218838;
+            box-shadow: 0 2px 8px rgba(40, 167, 69, 0.4);
+            animation: pulse-green 0.5s forwards;
+        }
+        .answer-btn.incorrect { 
+            background: #dc3545; 
+            border-color: #c82333;
+            box-shadow: 0 2px 8px rgba(220, 53, 69, 0.4);
+            animation: shake 0.3s;
+        }
+        .answer-btn:disabled {
+            cursor: not-allowed;
+            opacity: 0.8;
+        }
+
+        #start-btn, #restart-btn { 
+            padding: 15px 30px; 
+            background: #5f9ea0; /* Cadet Blue */
+            color: #fff; 
+            border: none; 
+            border-radius: 8px; 
+            cursor: pointer; 
+            font-size: 1.2em;
+            margin: 30px auto;
+            display: block;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 4px 10px rgba(95, 158, 160, 0.3);
+        }
+        #start-btn:hover, #restart-btn:hover { 
+            background: #4682b4; /* Steel Blue */
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(70, 130, 180, 0.4);
+        }
+        #quiz-container { margin-top: 30px; }
+        .hidden { display: none; }
+        #finalResult { 
+            font-weight: bold; 
+            text-align: center; 
+            font-size: 1.8em; 
+            margin-top: 40px; 
+            color: #4682b4; /* Steel Blue */
+        }
+
+        @keyframes pulse-green {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes shake {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            50% { transform: translateX(5px); }
+            75% { transform: translateX(-5px); }
+            100% { transform: translateX(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>The Listeners – 50 Challenging MCQ Quiz</h1>
+        <div id="quiz-container">
+            <div class="info-bar">
+                <div id="timer">Time Left: 30:00</div>
+                <div id="score">Score: 0 / 0</div>
+            </div>
+            <div style="clear: both;"></div> <div id="question-area">
+                <button id="start-btn">Start Quiz</button>
+            </div>
+            <button id="restart-btn" class="hidden">Restart Quiz</button>
+            <div id="finalResult"></div>
+        </div>
+    </div>
+
+<script>
+const quizQuestions = [
+    {
+        q: "1. 'The Listeners' was first published in which year?",
+        options: ["A) 1906", "B) 1910", "C) 1912", "D) 1917"],
+        answer: 2 // C (1912)
+    },
+    {
+        q: "2. The poem is a prominent example of which literary movement or style?",
+        options: ["A) Romanticism", "B) Georgian Poetry", "C) Modernism", "D) Surrealism"],
+        answer: 1 // B (Often associated with Georgian poetry's focus on nature and clear language, but also has strong symbolic elements)
+    },
+    {
+        q: "3. What is the primary characteristic of the atmosphere established in the opening stanza?",
+        options: ["A) Warmth and comfort", "B) Bustling activity", "C) Profound silence and mystery", "D) Joyful anticipation"],
+        answer: 2 // C
+    },
+    {
+        q: "4. The Traveller's purpose in knocking at the door is initially:",
+        options: ["A) To seek shelter from a storm.", "B) To deliver a message.", "C) Unstated, adding to the mystery.", "D) To awaken the inhabitants."],
+        answer: 2 // C
+    },
+    {
+        q: "5. What is the 'fern-frond' that brushes the Traveller's head?",
+        options: ["A) A type of feather.", "B) A leafy part of a fern plant.", "C) A small bird.", "D) A spider's web."],
+        answer: 1 // B
+    },
+    {
+        q: "6. The Traveller's horse is described as 'champing the grasses / Of the forest's ferny floor.' 'Champing' means:",
+        options: ["A) Gently nibbling.", "B) Chewing noisily.", "C) Running quickly.", "D) Standing silently."],
+        answer: 1 // B
+    },
+    {
+        q: "7. 'A bird flew up out of the turret, / From the ivy-mantled wall.' A 'turret' is typically:",
+        options: ["A) A small, ornamental tower on a building.", "B) A type of tree.", "C) A large window.", "D) A garden gate."],
+        answer: 0 // A
+    },
+    {
+        q: "8. The 'voice from the leaves' that 'Stirred and awoke' is an example of:",
+        options: ["A) Simile", "B) Metaphor", "C) Personification", "D) Onomatopoeia"],
+        answer: 2 // C
+    },
+    {
+        q: "9. The silence is repeatedly emphasized. What is its quality?",
+        options: ["A) Empty and void.", "B) Living and oppressive.", "C) Peaceful and soothing.", "D) Brief and fleeting."],
+        answer: 1 // B (Living and oppressive, almost a character itself)
+    },
+    {
+        q: "10. What does the Traveller say after the silence seems to grow deeper?",
+        options: ["A) 'I'll try another door.'", "B) 'Tell them I came, and no one answered, / That I kept my word.'", "C) 'Is anyone home?'", "D) 'I'm leaving now.'"],
+        answer: 1 // B
+    },
+    {
+        q: "11. The 'host of phantom listeners' are unseen, but their presence is suggested by:",
+        options: ["A) Footsteps on the stairs.", "B) A silent, watchful atmosphere.", "C) Whispering sounds.", "D) Shadows in the windows."],
+        answer: 1 // B
+    },
+    {
+        q: "12. What action do the phantom listeners *not* take?",
+        options: ["A) They stood listening.", "B) They thronged the faint moonbeams.", "C) They answered the Traveller.", "D) They heard his words."],
+        answer: 2 // C
+    },
+    {
+        q: "13. The phrase 'their stillness answering his cry' is an example of:",
+        options: ["A) Paradox", "B) Oxymoron", "C) Alliteration", "D) Aural imagery"],
+        answer: 0 // A (A stillness answering is a paradox)
+    },
+    {
+        q: "14. The 'tranquillity' of the silence implies a lack of:",
+        options: ["A) Movement.", "B) Sound or response.", "C) Emotion.", "D) Darkness."],
+        answer: 1 // B
+    },
+    {
+        q: "15. The 'heavy silence' that 'hushed in the dim air' can be seen as:",
+        options: ["A) A literal weight.", "B) A metaphor for the oppressive atmosphere.", "C) A sign of peace.", "D) A sound-absorbing quality of the room."],
+        answer: 1 // B
+    },
+    {
+        q: "16. The Traveller's second knocking is described as 'louder, and lifted his head.' This suggests:",
+        options: ["A) Growing frustration.", "B) Desperation for a reply.", "C) A more confident resolve.", "D) Fear."],
+        answer: 1 // B
+    },
+    {
+        q: "17. The 'stirring of the air' around the listeners is subtle, hinting at their:",
+        options: ["A) Physical exertion.", "B) Ethereal or ghostly nature.", "C) Agitation.", "D) Return to life."],
+        answer: 1 // B
+    },
+    {
+        q: "18. The poem's setting in a 'lone house' in a 'dark forest' contributes to a sense of:",
+        options: ["A) Danger and threat.", "B) Isolation and detachment from the living world.", "C) Natural beauty.", "D) Urban decay."],
+        answer: 1 // B
+    },
+    {
+        q: "19. The 'leaf-fringed sill' refers to:",
+        options: ["A) A window ledge covered in leaves.", "B) A type of tree branch.", "C) A path covered in leaves.", "D) A riverbank."],
+        answer: 0 // A
+    },
+    {
+        q: "20. The final image of the Traveller riding away, leaving the 'lone house' and its listeners, emphasizes:",
+        options: ["A) His failure.", "B) The enduring mystery and isolation of the house and its inhabitants.", "C) His relief.", "D) A successful mission."],
+        answer: 1 // B
+    },
+    {
+        q: "21. The poem primarily evokes a sense of:",
+        options: ["A) Excitement and adventure.", "B) Eerie mystery and suspense.", "C) Joy and wonder.", "D) Anger and conflict."],
+        answer: 1 // B
+    },
+    {
+        q: "22. The rhythm of the poem, often described as ballad-like, contributes to its:",
+        options: ["A) Modern, free-verse feel.", "B) Narrative quality and sense of timelessness.", "C) Scientific precision.", "D) Humorous tone."],
+        answer: 1 // B
+    },
+    {
+        q: "23. The phrase 'And the only sound was the fall of the dew' is an example of:",
+        options: ["A) Loud, clear sound.", "B) Extreme silence, emphasizing its depth.", "C) A natural disaster.", "D) A musical melody."],
+        answer: 1 // B
+    },
+    {
+        q: "24. The 'dark forest' functions as more than just a setting; it also acts as a symbol of:",
+        options: ["A) Untamed wilderness.", "B) The unknown, the subconscious, or the realm of the supernatural.", "C) Economic prosperity.", "D) A military stronghold."],
+        answer: 1 // B
+    },
+    {
+        q: "25. The Traveller's persistence in speaking despite the silence suggests:",
+        options: ["A) He is deaf.", "B) His message is of paramount importance to him.", "C) He is talking to himself.", "D) He expects a reply from echoes."],
+        answer: 1 // B
+    },
+    {
+        q: "26. What literary device is most prominent in the lines 'And a bird flew up out of the turret, / From the ivy-mantled wall'?",
+        options: ["A) Alliteration", "B) Visual Imagery", "C) Metaphor", "D) Personification"],
+        answer: 1 // B
+    },
+    {
+        q: "27. The 'silent listeners' are described as 'Standing in the faint moonbeams / Of the silent house.' This imagery emphasizes:",
+        options: ["A) Their physical solidity.", "B) Their insubstantial, ethereal nature.", "C) Their bright, glowing forms.", "D) Their hidden, dark presence."],
+        answer: 1 // B
+    },
+    {
+        q: "28. The poem's ambiguity regarding the nature of the 'listeners' contributes to its:",
+        options: ["A) Lack of clarity.", "B) Enduring mystique and power to intrigue.", "C) Historical accuracy.", "D) Scientific basis."],
+        answer: 1 // B
+    },
+    {
+        q: "29. The phrase 'thickening still the air' suggests the silence is:",
+        options: ["A) Getting louder.", "B) Becoming more dense and palpable.", "C) Filling with voices.", "D) Disappearing."],
+        answer: 1 // B
+    },
+    {
+        q: "30. The Traveller's purpose ('That I kept my word') remains vague, which implies:",
+        options: ["A) It's not important to the poem.", "B) Its specific nature is less important than the act of fulfilling it against odds.", "C) He has forgotten his own reason.", "D) The poem is unfinished."],
+        answer: 1 // B
+    },
+    {
+        q: "31. The 'lonely Traveller' is a symbolic figure, representing perhaps:",
+        options: ["A) Humanity's quest for meaning or connection.", "B) A lost tourist.", "C) A historical explorer.", "D) A delivery person."],
+        answer: 0 // A
+    },
+    {
+        q: "32. The 'empty hall' when the Traveller knocks reinforces the theme of:",
+        options: ["A) Abundance.", "B) Absence and void.", "C) Warmth.", "D) Hospitality."],
+        answer: 1 // B
+    },
+    {
+        q: "33. The 'plunging hoofs' of the horse suggest:",
+        options: ["A) A slow, hesitant departure.", "B) A rapid, determined exit.", "C) The horse is injured.", "D) The horse is playing."],
+        answer: 1 // B
+    },
+    {
+        q: "34. The lack of a response from the listeners primarily creates a sense of:",
+        options: ["A) Frustration.", "B) Impenetrable mystery and otherworldliness.", "C) Disappointment.", "D) Acceptance."],
+        answer: 1 // B
+    },
+    {
+        q: "35. The poem's narrative style is characterized by:",
+        options: ["A) First-person, subjective.", "B) Third-person, omniscient.", "C) Third-person, detached observer.", "D) Second-person, addressing the reader."],
+        answer: 2 // C
+    },
+    {
+        q: "36. The line 'And he felt in his heart their strangeness' indicates the Traveller's:",
+        options: ["A) Emotional connection to the listeners.", "B) Intuitive grasp of their unnatural quality.", "C) Fear of them.", "D) Joy in their company."],
+        answer: 1 // B
+    },
+    {
+        q: "37. The 'thronging' of the listeners in the moonbeams suggests they are:",
+        options: ["A) Physically crowding the space.", "B) Numerically abundant and subtly present.", "C) Disappearing quickly.", "D) Forming a solid barrier."],
+        answer: 1 // B
+    },
+    {
+        q: "38. What is the most significant characteristic of the house itself?",
+        options: ["A) Its luxuriousness.", "B) Its dilapidated and ancient nature, hinting at a forgotten past.", "C) Its modern design.", "D) Its small size."],
+        answer: 1 // B
+    },
+    {
+        q: "39. The poem uses sound imagery not only to describe what is heard but also to emphasize what is *not* heard, creating:",
+        options: ["A) Cacophony.", "B) Silence as a powerful presence.", "C) Harmony.", "D) Echoes."],
+        answer: 1 // B
+    },
+    {
+        q: "40. The 'lonely tree' in the yard functions as a symbol of:",
+        options: ["A) Abundance.", "B) Isolation and perhaps endurance.", "C) Growth.", "D) Forest life."],
+        answer: 1 // B
+    },
+    {
+        q: "41. The 'dark silence' that 'yielded not' implies its:",
+        options: ["A) Weakness.", "B) Immovability and unresponsiveness.", "C) Flexibility.", "D) Fragility."],
+        answer: 1 // B
+    },
+    {
+        q: "42. Walter de la Mare's poetry often explores themes related to:",
+        options: ["A) Industrialization and urban life.", "B) Childhood, dreams, and the supernatural.", "C) Political revolution.", "D) Scientific discovery."],
+        answer: 1 // B
+    },
+    {
+        q: "43. The phrase 'stared in to the still air' suggests the Traveller is looking into a space that is:",
+        options: ["A) Filled with movement.", "B) Empty and devoid of visible life or response.", "C) Bright and clear.", "D) Full of sound."],
+        answer: 1 // B
+    },
+    {
+        q: "44. The poem’s setting primarily uses which season's imagery?",
+        options: ["A) Spring", "B) Summer", "C) Autumn", "D) Winter"],
+        answer: 2 // C (implied by 'leaf-fringed sill' and overall atmosphere suggesting decay/end of season)
+    },
+    {
+        q: "45. The 'fresh wave of the silence' is a powerful sensory image because it:",
+        options: ["A) Represents a sudden burst of noise.", "B) Personifies silence as a dynamic, almost palpable entity.", "C) Describes a new breeze.", "D) Refers to a literal wave."],
+        answer: 1 // B
+    },
+    {
+        q: "46. The Traveller's journey and knocking can be metaphorically interpreted as:",
+        options: ["A) A historical expedition.", "B) Humanity's attempt to contact the past, the dead, or the unknown.", "C) A simple act of visiting.", "D) A hunting trip."],
+        answer: 1 // B
+    },
+    {
+        q: "47. The poem’s final lines leave the reader with a feeling of:",
+        options: ["A) Resolution and clarity.", "B) Enduring mystery and unresolved tension.", "C) Happiness and relief.", "D) Anger and frustration."],
+        answer: 1 // B
+    },
+    {
+        q: "48. The 'silent house' can symbolize:",
+        options: ["A) A forgotten memory.", "B) A place of death or the afterlife.", "C) A hidden treasure.", "D) A modern dwelling."],
+        answer: 1 // B
+    },
+    {
+        q: "49. The 'moonbeams' serve to:",
+        options: ["A) Illuminate the scene brightly.", "B) Provide a faint, eerie light that enhances mystery.", "C) Signal the time of day.", "D) Show the way for the Traveller."],
+        answer: 1 // B
+    },
+    {
+        q: "50. The ultimate answer to 'who are the listeners?' is left:",
+        options: ["A) Clearly defined.", "B) Ambiguous and open to interpretation.", "C) Provided in a footnote.", "D) Revealed by the Traveller."],
+        answer: 1 // B
+    }
+];
+
+let currentQuestionIndex = 0;
+let score = 0;
+let timer;
+let timeLeft = 30 * 60; // 30 minutes in seconds
+let quizStarted = false; // Flag to track if quiz has started
+
+const timerDisplay = document.getElementById('timer');
+const scoreDisplay = document.getElementById('score');
+const questionArea = document.getElementById('question-area');
+const startButton = document.getElementById('start-btn');
+const restartButton = document.getElementById('restart-btn');
+const finalResultDisplay = document.getElementById('finalResult');
+
+function formatTime(seconds) {
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = seconds % 60;
+    return `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
+}
+
+function updateTimer() {
+    if (timeLeft <= 0) {
+        clearInterval(timer);
+        endQuiz();
+    } else {
+        timeLeft--;
+        timerDisplay.textContent = `Time Left: ${formatTime(timeLeft)}`;
+    }
+}
+
+function startTimer() {
+    if (!quizStarted) { // Only start if not already started
+        timer = setInterval(updateTimer, 1000);
+        quizStarted = true;
+    }
+}
+
+function displayQuestion() {
+    if (currentQuestionIndex < quizQuestions.length) {
+        const qData = quizQuestions[currentQuestionIndex];
+        questionArea.innerHTML = `
+            <div class="question">${qData.q}</div>
+            <div id="options-container">
+                ${qData.options.map((option, i) => 
+                    `<button class="answer-btn" data-index="${i}">${option}</button>`
+                ).join('')}
+            </div>
+        `;
+        document.querySelectorAll('.answer-btn').forEach(button => {
+            button.onclick = (e) => checkAnswer(e.target);
+        });
+        updateScoreDisplay(); // Update score display as questions are presented
+    } else {
+        endQuiz();
+    }
+}
+
+function checkAnswer(selectedButton) {
+    const selectedAnswerIndex = parseInt(selectedButton.dataset.index);
+    const correctAnswerIndex = quizQuestions[currentQuestionIndex].answer;
+    
+    // Disable all buttons for the current question
+    document.querySelectorAll('.answer-btn').forEach(button => {
+        button.disabled = true;
+    });
+
+    if (selectedAnswerIndex === correctAnswerIndex) {
+        score++;
+        selectedButton.classList.add('correct');
+    } else {
+        selectedButton.classList.add('incorrect');
+        // Optionally show the correct answer
+        const optionsContainer = document.getElementById('options-container');
+        optionsContainer.children[correctAnswerIndex].classList.add('correct');
+    }
+    updateScoreDisplay();
+
+    // Move to the next question after a short delay
+    setTimeout(() => {
+        currentQuestionIndex++;
+        displayQuestion();
+    }, 1000); // 1 second delay
+}
+
+function updateScoreDisplay() {
+    scoreDisplay.textContent = `Score: ${score} / ${currentQuestionIndex}`;
+}
+
+function startQuiz() {
+    startButton.classList.add('hidden');
+    restartButton.classList.add('hidden'); // Hide restart button if visible
+    finalResultDisplay.textContent = ''; // Clear previous results
+    currentQuestionIndex = 0;
+    score = 0;
+    timeLeft = 30 * 60; // Reset timer
+    quizStarted = false; // Reset quiz started flag
+
+    startTimer();
+    displayQuestion();
+    updateScoreDisplay();
+}
+
+function endQuiz() {
+    clearInterval(timer);
+    questionArea.innerHTML = ''; // Clear questions
+    finalResultDisplay.textContent = `Quiz Over! Your Final Score: ${score} / ${quizQuestions.length}`;
+    restartButton.classList.remove('hidden'); // Show restart button
+    quizStarted = false; // Allow quiz to be restarted
+}
+
+startButton.addEventListener('click', startQuiz);
+restartButton.addEventListener('click', startQuiz); // Restart button just calls startQuiz again
+
+// Initialize timer display on load
+timerDisplay.textContent = `Time Left: ${formatTime(timeLeft)}`;
+</script>
+</body>
+</html>
