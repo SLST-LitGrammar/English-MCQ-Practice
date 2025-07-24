@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Wild Swans at Coole – 50 Challenging MCQ Quiz</title>
+    <style>
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            margin: 20px; 
+            background: #f0f8ff; /* Alice Blue */
+            color: #333;
+            line-height: 1.6;
+        }
+        .container { 
+            max-width: 900px; 
+            margin: 30px auto; 
+            background: #ffffff; 
+            padding: 30px 40px; 
+            border-radius: 12px; 
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); 
+            border: 1px solid #e0ffff; /* Light Cyan */
+        }
+        h1 { 
+            color: #2f4f4f; /* Dark Slate Gray */
+            text-align: center; 
+            margin-bottom: 30px;
+            font-size: 2.2em;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+        }
+        #timer, #score { 
+            font-size: 1.4em; 
+            font-weight: bold; 
+            text-align: center; 
+            margin-bottom: 15px; 
+            padding: 8px 15px;
+            border-radius: 6px;
+            display: inline-block;
+            width: 48%; /* Adjust width for side-by-side */
+            box-sizing: border-box;
+        }
+        #timer { 
+            color: #cd5c5c; /* Indian Red */
+            background: #fffafa; /* Snow */
+            border: 1px solid #f08080; /* Light Coral */
+            float: left; /* Align to left */
+        }
+        #score { 
+            color: #3cb371; /* Medium Sea Green */
+            background: #f0fff0; /* Honeydew */
+            border: 1px solid #98fb98; /* Pale Green */
+            float: right; /* Align to right */
+        }
+        .info-bar {
+            overflow: hidden; /* Clear floats */
+            margin-bottom: 25px;
+        }
+        .question { 
+            font-weight: 600; 
+            margin-top: 30px; 
+            margin-bottom: 15px;
+            font-size: 1.15em;
+            color: #4682b4; /* Steel Blue */
+        }
+        .answer-btn { 
+            margin: 8px 0; 
+            padding: 12px 20px; 
+            border: 1px solid #add8e6; /* Light Blue */
+            background: #6495ed; /* Cornflower Blue */
+            color: #fff; 
+            border-radius: 6px; 
+            cursor: pointer; 
+            font-size: 1em; 
+            width: 100%; 
+            text-align: left; 
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+        }
+        .answer-btn:hover:not(.correct):not(.incorrect) { 
+            background: #4169e1; /* Royal Blue */
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+        .answer-btn.correct { 
+            background: #28a745; 
+            border-color: #218838;
+            box-shadow: 0 2px 8px rgba(40, 167, 69, 0.4);
+            animation: pulse-green 0.5s forwards;
+        }
+        .answer-btn.incorrect { 
+            background: #dc3545; 
+            border-color: #c82333;
+            box-shadow: 0 2px 8px rgba(220, 53, 69, 0.4);
+            animation: shake 0.3s;
+        }
+        .answer-btn:disabled {
+            cursor: not-allowed;
+            opacity: 0.8;
+        }
+
+        #start-btn, #restart-btn { 
+            padding: 15px 30px; 
+            background: #5f9ea0; /* Cadet Blue */
+            color: #fff; 
+            border: none; 
+            border-radius: 8px; 
+            cursor: pointer; 
+            font-size: 1.2em;
+            margin: 30px auto;
+            display: block;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 4px 10px rgba(95, 158, 160, 0.3);
+        }
+        #start-btn:hover, #restart-btn:hover { 
+            background: #4682b4; /* Steel Blue */
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(70, 130, 180, 0.4);
+        }
+        #quiz-container { margin-top: 30px; }
+        .hidden { display: none; }
+        #finalResult { 
+            font-weight: bold; 
+            text-align: center; 
+            font-size: 1.8em; 
+            margin-top: 40px; 
+            color: #2f4f4f; /* Dark Slate Gray */
+        }
+
+        @keyframes pulse-green {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes shake {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            50% { transform: translateX(5px); }
+            75% { transform: translateX(-5px); }
+            100% { transform: translateX(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>The Wild Swans at Coole – 50 Challenging MCQ Quiz</h1>
+        <div id="quiz-container">
+            <div class="info-bar">
+                <div id="timer">Time Left: 30:00</div>
+                <div id="score">Score: 0 / 0</div>
+            </div>
+            <div style="clear: both;"></div> <div id="question-area">
+                <button id="start-btn">Start Quiz</button>
+            </div>
+            <button id="restart-btn" class="hidden">Restart Quiz</button>
+            <div id="finalResult"></div>
+        </div>
+    </div>
+
+<script>
+const quizQuestions = [
+    {
+        q: "1. 'The Wild Swans at Coole' was first published in which collection?",
+        options: ["A) The Tower (1928)", "B) The Green Helmet and Other Poems (1910)", "C) The Wild Swans at Coole (1917)", "D) Responsibilities and Other Poems (1914)"],
+        answer: 2 // C
+    },
+    {
+        q: "2. The poem is set in the 'nineteenth Autumn.' This specific detail primarily highlights:",
+        options: ["A) The exact date of the poem's composition.", "B) The speaker's precise emotional state.", "C) The passage of a significant period of time since the speaker first observed the swans.", "D) The cyclical nature of the seasons."],
+        answer: 2 // C
+    },
+    {
+        q: "3. Coole Park was the estate of which prominent figure in Yeats's life?",
+        options: ["A) Lady Gregory", "B) Maud Gonne", "C) George Hyde", "D) John Masefield"],
+        answer: 0 // A
+    },
+    {
+        q: "4. The opening lines, 'The trees are in their autumn beauty, / The woodland paths are dry,' establish a mood of:",
+        options: ["A) Vibrant joy and exuberance.", "B) Tranquil beauty mixed with a hint of melancholy or passing.", "C) Foreboding and fear.", "D) Indifference and apathy."],
+        answer: 1 // B
+    },
+    {
+        q: "5. What figure of speech is 'The bell-beat of their wings'?",
+        options: ["A) Simile", "B) Metaphor", "C) Onomatopoeia", "D) Synesthesia"],
+        answer: 2 // C
+    },
+    {
+        q: "6. 'My heart is sore' implies a feeling of:",
+        options: ["A) Physical pain.", "B) Emotional distress or sadness.", "C) Anger and frustration.", "D) Intense joy."],
+        answer: 1 // B
+    },
+    {
+        q: "7. The speaker states, 'All's changed since I, / First trod this path.' What is the most significant change implied for the speaker?",
+        options: ["A) A change in the park's landscape.", "B) A decline in his physical health and spirit.", "C) The loss of a loved one.", "D) A shift in political climate."],
+        answer: 1 // B
+    },
+    {
+        q: "8. The phrase 'Still they haunt upon the brimming water' suggests the swans are:",
+        options: ["A) Physically stuck in the water.", "B) Constantly present and timeless in their movements.", "C) Ghosts of former swans.", "D) Searching for something lost in the water."],
+        answer: 1 // B
+    },
+    {
+        q: "9. The swans are described as 'Unwearied still, lover by lover.' This highlights their:",
+        options: ["A) Eternal youth and paired constancy.", "B) Constant migrations and changing partners.", "C) Solitary nature.", "D) Weakness in old age."],
+        answer: 0 // A
+    },
+    {
+        q: "10. The speaker contrasts the swans' unchanging vitality with his own:",
+        options: ["A) Renewed energy.", "B) Physical and emotional weariness.", "C) Intellectual growth.", "D) Financial stability."],
+        answer: 1 // B
+    },
+    {
+        q: "11. 'Their hearts have not grown old.' This is an example of:",
+        options: ["A) Paradox", "B) Hyperbole", "C) Personification", "D) Irony"],
+        answer: 2 // C
+    },
+    {
+        q: "12. The speaker recalls counting the swans 'before I had well finished.' This implies:",
+        options: ["A) A childlike impatience.", "B) A profound spiritual connection.", "C) A rapid, almost overwhelming sense of their numbers.", "D) An academic exercise."],
+        answer: 2 // C
+    },
+    {
+        q: "13. The swans' 'passion' is described as 'still at the old pitch.' This suggests:",
+        options: ["A) Their unchanging intensity of life and love.", "B) Their predictable vocalizations.", "C) Their static physical appearance.", "D) Their preference for old habits."],
+        answer: 0 // A
+    },
+    {
+        q: "14. What does the phrase 'Their hearts have not grown old' contrast most sharply with in the speaker's implied experience?",
+        options: ["A) The political turmoil of Ireland.", "B) The speaker's personal aging and disillusionment.", "C) The changing seasons.", "D) The impermanence of human relationships."],
+        answer: 1 // B
+    },
+    {
+        q: "15. The line 'I have looked upon those brilliant creatures' emphasizes the speaker's:",
+        options: ["A) Envy of their beauty.", "B) Deep admiration and fascination.", "C) Casual observation.", "D) Scientific interest."],
+        answer: 1 // B
+    },
+    {
+        q: "16. The swans 'float midway on the living stream.' 'Living stream' is an example of:",
+        options: ["A) Metaphor for life's journey.", "B) Personification of the water.", "C) Oxymoron.", "D) Synecdoche."],
+        answer: 1 // B
+    },
+    {
+        q: "17. The swans are described as 'Mysterious, beautiful.' These adjectives convey their:",
+        options: ["A) Aloofness and unapproachability.", "B) Ethereal quality and aesthetic appeal.", "C) Unknown origin.", "D) Threatening presence."],
+        answer: 1 // B
+    },
+    {
+        q: "18. The speaker ponders where the swans will eventually 'build another nest.' This reflects on the theme of:",
+        options: ["A) The migratory patterns of birds.", "B) The future of nature.", "C) The swans' eventual departure and the speaker's mortality/legacy.", "D) Architectural design."],
+        answer: 2 // C
+    },
+    {
+        q: "19. The poem's setting at Coole Park symbolizes for Yeats:",
+        options: ["A) A place of political activism.", "B) A refuge of beauty, tradition, and intellectual solace amidst changing times.", "C) A symbol of industrial progress.", "D) A site of personal hardship."],
+        answer: 1 // B
+    },
+    {
+        q: "20. The final lines, 'Among what rushes will they build, / By what lake's edge or pool / Delight men's eyes when I awake some day / To find they have flown away?' indicate the speaker's awareness of:",
+        options: ["A) The swans' immortality.", "B) His own inevitable death or significant change.", "C) The cyclical nature of seasons.", "D) The impermanence of physical structures."],
+        answer: 1 // B
+    },
+    {
+        q: "21. The poem consists of how many stanzas?",
+        options: ["A) Three", "B) Four", "C) Five", "D) Six"],
+        answer: 2 // C
+    },
+    {
+        q: "22. What is the rhyme scheme of each stanza?",
+        options: ["A) AABBCCDD", "B) ABABCDCD", "C) ABCBCDDE", "D) ABCBDD"],
+        answer: 3 // D (Specifically, ABCBDD)
+    },
+    {
+        q: "23. The 'October twilight' setting contributes to the mood of:",
+        options: ["A) Vibrant morning.", "B) Dimming light and approaching end of day/season.", "C) Midday warmth.", "D) Bright moonlight."],
+        answer: 1 // B
+    },
+    {
+        q: "24. The speaker's observation of the swans takes place over how many years, as explicitly stated?",
+        options: ["A) Ten", "B) Nineteen", "C) Twenty", "D) Unknown"],
+        answer: 1 // B
+    },
+    {
+        q: "25. The swans are consistently presented as a symbol of:",
+        options: ["A) Human relationships and their frailties.", "B) Timelessness, grace, and unchanging vitality.", "C) The harshness of nature.", "D) Political turmoil."],
+        answer: 1 // B
+    },
+    {
+        q: "26. What does 'clamorous wings' (stanza 3) suggest about the swans' movement?",
+        options: ["A) They fly silently.", "B) Their wings make a loud, noisy sound.", "C) They are agitated.", "D) They move slowly."],
+        answer: 1 // B
+    },
+    {
+        q: "27. The speaker feels a sense of loss associated with:",
+        options: ["A) His youth and former vigor.", "B) The absence of the swans.", "C) His financial stability.", "D) His poetic inspiration."],
+        answer: 0 // A
+    },
+    {
+        q: "28. 'Their hearts have not grown old; / Passion or conquest, wander where they will, / Attend upon them still.' The word 'Attend' here means:",
+        options: ["A) To pay attention to.", "B) To wait upon or accompany.", "C) To participate in.", "D) To be present at."],
+        answer: 1 // B
+    },
+    {
+        q: "29. The speaker implies that, unlike the swans, human 'passion' and 'conquest' are subject to:",
+        options: ["A) Eternal renewal.", "B) Decay and change over time.", "C) Constant growth.", "D) Divine intervention."],
+        answer: 1 // B
+    },
+    {
+        q: "30. The phrase 'Delight men's eyes' in the final stanza indicates the swans' inherent:",
+        options: ["A) Aggressiveness.", "B) Aesthetic appeal and captivating nature.", "C) Ability to communicate.", "D) Utility for humans."],
+        answer: 1 // B
+    },
+    {
+        q: "31. The poem can be seen as an elegy for:",
+        options: ["A) Lady Gregory.", "B) The speaker's past self and youth.", "C) The natural world.", "D) A specific historical event."],
+        answer: 1 // B
+    },
+    {
+        q: "32. The 'nineteen Autumns' serve as a measure of time, emphasizing the speaker's:",
+        options: ["A) Steadfastness.", "B) Aging and the relentless march of time.", "C) Patience.", "D) Forgetfulness."],
+        answer: 1 // B
+    },
+    {
+        q: "33. The swans are portrayed as an ideal, almost mythical, representation of:",
+        options: ["A) Human love.", "B) Unchanging natural vitality.", "C) Political power.", "D) Artistic creation."],
+        answer: 1 // B
+    },
+    {
+        q: "34. The 'trodden paths' could metaphorically represent:",
+        options: ["A) Overused trails in a park.", "B) The familiar routines and habits of human life.", "C) Battlefields.", "D) Ancient pilgrimage routes."],
+        answer: 1 // B
+    },
+    {
+        q: "35. The poem's tone at the beginning is characterized by:",
+        options: ["A) Lightheartedness.", "B) Nostalgia and contemplation.", "C) Excitement.", "D) Anger."],
+        answer: 1 // B
+    },
+    {
+        q: "36. The phrase 'their hearts have not grown old' implies a spiritual or emotional:",
+        options: ["A) Immortality.", "B) Stagnation.", "C) Youthfulness and vigor.", "D) Immaturity."],
+        answer: 2 // C
+    },
+    {
+        q: "37. The 'solitary hillside' where the speaker stands suggests a feeling of:",
+        options: ["A) Isolation and personal reflection.", "B) Crowdedness and social engagement.", "C) Fear and danger.", "D) Indifference to surroundings."],
+        answer: 0 // A
+    },
+    {
+        q: "38. What type of poetic form is 'The Wild Swans at Coole'?",
+        options: ["A) Sonnet", "B) Ballad", "C) Lyric poem", "D) Epic poem"],
+        answer: 2 // C
+    },
+    {
+        q: "39. The speaker's statement, 'My heart is sore,' is a moment of:",
+        options: ["A) Physical exertion.", "B) Emotional vulnerability and self-awareness.", "C) Declaration of love.", "D) Political statement."],
+        answer: 1 // B
+    },
+    {
+        q: "40. The swans' ability to 'rise, / And mount, and scatter wheeling in great broken rings' shows their:",
+        options: ["A) Disorganization.", "B) Graceful yet powerful movement and freedom.", "C) Aggressive behavior.", "D) Need for guidance."],
+        answer: 1 // B
+    },
+    {
+        q: "41. The contrast between the 'brilliant creatures' and the speaker's 'changed' state highlights the theme of:",
+        options: ["A) The consistency of human nature.", "B) The relentless passage of time and its impact on individuals.", "C) The superiority of humans over animals.", "D) The joy of memory."],
+        answer: 1 // B
+    },
+    {
+        q: "42. The poem was written during a period of significant personal change for Yeats, including:",
+        options: ["A) His marriage to George Hyde-Lees.", "B) His first trip to America.", "C) His retirement from public life.", "D) His rejection from the Nobel Prize."],
+        **Correct Answer:** a) His marriage to George Hyde-Lees. (Published 1917, married 1917, reflecting this transition from longing for Maud Gonne to a new phase of life).
+
+43. **The phrase 'companionable streams' suggests:**
+    a) Rivers that are easy to navigate.
+    b) Streams that flow together.
+    c) A sense of peaceful coexistence and natural harmony.
+    d) Rivers that are suitable for travel.
+    **Correct Answer:** c) A sense of peaceful coexistence and natural harmony.
+
+44. **The 'still Sky' reflects a sense of:**
+    a) Impending storm.
+    b) Serenity and unchanging cosmic backdrop.
+    c) Motion and activity.
+    d) Darkness and gloom.
+    **Correct Answer:** b) Serenity and unchanging cosmic backdrop.
+
+45. **What is the significance of the speaker returning to Coole Park year after year to see the swans?**
+    a) It demonstrates a scientific interest in their migration.
+    b) It reflects a deep personal connection and a search for solace/continuity.
+    c) It's merely a casual pastime.
+    d) He is employed to count them.
+    **Correct Answer:** b) It reflects a deep personal connection and a search for solace/continuity.
+
+46. **The speaker's realization that the swans will 'Delight men's eyes when I awake some day / To find they have flown away' indicates his acceptance of:**
+    a) The swans' permanent departure.
+    b) His own transient presence in the world.
+    c) The changing nature of the park.
+    d) The need to travel and find them elsewhere.
+    **Correct Answer:** b) His own transient presence in the world.
+
+47. **The word 'myriad' in 'The myriad leaves' (though not explicitly in this poem, a common Yeatsian word for abundance) means:**
+    a) A small number.
+    b) A countless or extremely great number.
+    c) A variety of colors.
+    d) A specific type of leaf.
+    **Correct Answer:** b) A countless or extremely great number. (Testing general Yeats vocabulary here, even if not direct poem word). *Self-correction: Let's stick to words actually in the poem for "tough word meaning" to be fair. Replaced this with a word from the poem.*
+
+    **Corrected Q47:** **What is implied by 'their hearts have not grown old; / Passion or conquest, wander where they will, / Attend upon them still'?**
+    a) They are emotionally immature.
+    b) Their capacity for vital engagement remains undiminished regardless of their movements.
+    c) They are constantly fighting each other.
+    d) They are afraid of change.
+    **Correct Answer:** b) Their capacity for vital engagement remains undiminished regardless of their movements.
+
+48. **The 'nine-and-fifty swans' initially counted by the speaker implies an almost perfect pair, but the missing one could suggest:**
+    a) An error in counting.
+    b) A lost mate, hinting at the speaker's own emotional loneliness or a subtle imperfection.
+    c) A single, dominant leader.
+    d) A sign of good luck.
+    **Correct Answer:** b) A lost mate, hinting at the speaker's own emotional loneliness or a subtle imperfection.
+
+49. **The poem explores the theme of 'art and nature' by contrasting:**
+    a) Man-made structures with natural landscapes.
+    b) The speaker's artistic decline with nature's unchanging beauty.
+    c) The static nature of a painting with the dynamic life of the swans.
+    d) The ephemeral quality of human art with the enduring art of nature.
+    **Correct Answer:** b) The speaker's artistic decline with nature's unchanging beauty. (Though it's more about personal aging, artistic vitality can be linked).
+
+50. **The speaker's sense of 'being changed' is primarily emotional and psychological, stemming from:**
+    a) A sudden illness.
+    b) The cumulative effect of life's experiences and aging.
+    c) A major career shift.
+    d) A move to a new location.
+    **Correct Answer:** b) The cumulative effect of life's experiences and aging.
+];
+
+let currentQuestionIndex = 0;
+let score = 0;
+let timer;
+let timeLeft = 30 * 60; // 30 minutes in seconds
+let quizStarted = false; // Flag to track if quiz has started
+
+const timerDisplay = document.getElementById('timer');
+const scoreDisplay = document.getElementById('score');
+const questionArea = document.getElementById('question-area');
+const startButton = document.getElementById('start-btn');
+const restartButton = document.getElementById('restart-btn');
+const finalResultDisplay = document.getElementById('finalResult');
+
+function formatTime(seconds) {
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = seconds % 60;
+    return `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
+}
+
+function updateTimer() {
+    if (timeLeft <= 0) {
+        clearInterval(timer);
+        endQuiz();
+    } else {
+        timeLeft--;
+        timerDisplay.textContent = `Time Left: ${formatTime(timeLeft)}`;
+    }
+}
+
+function startTimer() {
+    if (!quizStarted) { // Only start if not already started
+        timer = setInterval(updateTimer, 1000);
+        quizStarted = true;
+    }
+}
+
+function displayQuestion() {
+    if (currentQuestionIndex < quizQuestions.length) {
+        const qData = quizQuestions[currentQuestionIndex];
+        questionArea.innerHTML = `
+            <div class="question">${qData.q}</div>
+            <div id="options-container">
+                ${qData.options.map((option, i) => 
+                    `<button class="answer-btn" data-index="${i}">${option}</button>`
+                ).join('')}
+            </div>
+        `;
+        document.querySelectorAll('.answer-btn').forEach(button => {
+            button.onclick = (e) => checkAnswer(e.target);
+        });
+        updateScoreDisplay(); // Update score display as questions are presented
+    } else {
+        endQuiz();
+    }
+}
+
+function checkAnswer(selectedButton) {
+    const selectedAnswerIndex = parseInt(selectedButton.dataset.index);
+    const correctAnswerIndex = quizQuestions[currentQuestionIndex].answer;
+    
+    // Disable all buttons for the current question
+    document.querySelectorAll('.answer-btn').forEach(button => {
+        button.disabled = true;
+    });
+
+    if (selectedAnswerIndex === correctAnswerIndex) {
+        score++;
+        selectedButton.classList.add('correct');
+    } else {
+        selectedButton.classList.add('incorrect');
+        // Optionally show the correct answer
+        const optionsContainer = document.getElementById('options-container');
+        optionsContainer.children[correctAnswerIndex].classList.add('correct');
+    }
+    updateScoreDisplay();
+
+    // Move to the next question after a short delay
+    setTimeout(() => {
+        currentQuestionIndex++;
+        displayQuestion();
+    }, 1000); // 1 second delay
+}
+
+function updateScoreDisplay() {
+    scoreDisplay.textContent = `Score: ${score} / ${currentQuestionIndex}`;
+}
+
+function startQuiz() {
+    startButton.classList.add('hidden');
+    restartButton.classList.add('hidden'); // Hide restart button if visible
+    finalResultDisplay.textContent = ''; // Clear previous results
+    currentQuestionIndex = 0;
+    score = 0;
+    timeLeft = 30 * 60; // Reset timer
+    quizStarted = false; // Reset quiz started flag
+
+    startTimer();
+    displayQuestion();
+    updateScoreDisplay();
+}
+
+function endQuiz() {
+    clearInterval(timer);
+    questionArea.innerHTML = ''; // Clear questions
+    finalResultDisplay.textContent = `Quiz Over! Your Final Score: ${score} / ${quizQuestions.length}`;
+    restartButton.classList.remove('hidden'); // Show restart button
+    quizStarted = false; // Allow quiz to be restarted
+}
+
+startButton.addEventListener('click', startQuiz);
+restartButton.addEventListener('click', startQuiz); // Restart button just calls startQuiz again
+
+// Initialize timer display on load
+timerDisplay.textContent = `Time Left: ${formatTime(timeLeft)}`;
+</script>
+</body>
+</html>
