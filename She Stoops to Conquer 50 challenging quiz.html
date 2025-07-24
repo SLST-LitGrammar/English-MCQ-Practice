@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>She Stoops to Conquer – 50 Challenging MCQ Quiz</title>
+    <style>
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            margin: 20px; 
+            background: #fdf5e6; /* Old Lace */
+            color: #333;
+            line-height: 1.6;
+        }
+        .container { 
+            max-width: 900px; 
+            margin: 30px auto; 
+            background: #ffffff; 
+            padding: 30px 40px; 
+            border-radius: 12px; 
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); 
+            border: 1px solid #d3d3d3; /* Light Grey */
+        }
+        h1 { 
+            color: #8b4513; /* Saddle Brown */
+            text-align: center; 
+            margin-bottom: 30px;
+            font-size: 2.2em;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+        }
+        #timer, #score { 
+            font-size: 1.4em; 
+            font-weight: bold; 
+            text-align: center; 
+            margin-bottom: 15px; 
+            padding: 8px 15px;
+            border-radius: 6px;
+            display: inline-block;
+            width: 48%; /* Adjust width for side-by-side */
+            box-sizing: border-box;
+        }
+        #timer { 
+            color: #a0522d; /* Sienna */
+            background: #fff8e1; /* Pale Goldenrod */
+            border: 1px solid #f0e68c; /* Khaki */
+            float: left; /* Align to left */
+        }
+        #score { 
+            color: #2e8b57; /* Sea Green */
+            background: #f0fff0; /* Honeydew */
+            border: 1px solid #98fb98; /* Pale Green */
+            float: right; /* Align to right */
+        }
+        .info-bar {
+            overflow: hidden; /* Clear floats */
+            margin-bottom: 25px;
+        }
+        .question { 
+            font-weight: 600; 
+            margin-top: 30px; 
+            margin-bottom: 15px;
+            font-size: 1.15em;
+            color: #556b2f; /* Olive Drab */
+        }
+        .answer-btn { 
+            margin: 8px 0; 
+            padding: 12px 20px; 
+            border: 1px solid #c0c0c0; /* Silver */
+            background: #a0522d; /* Sienna */
+            color: #fff; 
+            border-radius: 6px; 
+            cursor: pointer; 
+            font-size: 1em; 
+            width: 100%; 
+            text-align: left; 
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+        }
+        .answer-btn:hover:not(.correct):not(.incorrect) { 
+            background: #8b4513; /* Saddle Brown */
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+        .answer-btn.correct { 
+            background: #28a745; 
+            border-color: #218838;
+            box-shadow: 0 2px 8px rgba(40, 167, 69, 0.4);
+            animation: pulse-green 0.5s forwards;
+        }
+        .answer-btn.incorrect { 
+            background: #dc3545; 
+            border-color: #c82333;
+            box-shadow: 0 2px 8px rgba(220, 53, 69, 0.4);
+            animation: shake 0.3s;
+        }
+        .answer-btn:disabled {
+            cursor: not-allowed;
+            opacity: 0.8;
+        }
+
+        #start-btn, #restart-btn { 
+            padding: 15px 30px; 
+            background: #708090; /* Slate Gray */
+            color: #fff; 
+            border: none; 
+            border-radius: 8px; 
+            cursor: pointer; 
+            font-size: 1.2em;
+            margin: 30px auto;
+            display: block;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 4px 10px rgba(112, 128, 144, 0.3);
+        }
+        #start-btn:hover, #restart-btn:hover { 
+            background: #6a7c8a; 
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(106, 124, 138, 0.4);
+        }
+        #quiz-container { margin-top: 30px; }
+        .hidden { display: none; }
+        #finalResult { 
+            font-weight: bold; 
+            text-align: center; 
+            font-size: 1.8em; 
+            margin-top: 40px; 
+            color: #8b4513; /* Saddle Brown */
+        }
+
+        @keyframes pulse-green {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes shake {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            50% { transform: translateX(5px); }
+            75% { transform: translateX(-5px); }
+            100% { transform: translateX(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>She Stoops to Conquer – 50 Challenging MCQ Quiz</h1>
+        <div id="quiz-container">
+            <div class="info-bar">
+                <div id="timer">Time Left: 30:00</div>
+                <div id="score">Score: 0 / 0</div>
+            </div>
+            <div style="clear: both;"></div> <div id="question-area">
+                <button id="start-btn">Start Quiz</button>
+            </div>
+            <button id="restart-btn" class="hidden">Restart Quiz</button>
+            <div id="finalResult"></div>
+        </div>
+    </div>
+
+<script>
+const quizQuestions = [
+    {
+        q: "1. 'She Stoops to Conquer' was first performed in which year?",
+        options: ["A) 1750", "B) 1765", "C) 1773", "D) 1789"],
+        answer: 2
+    },
+    {
+        q: "2. Oliver Goldsmith subtitled the play 'The Mistakes of a Night.' This subtitle primarily refers to:",
+        options: ["A) Marlow's errors in judgment.", "B) Tony Lumpkin's mischievous prank.", "C) The numerous misinterpretations that drive the plot.", "D) Hastings' failed elopement."],
+        answer: 2
+    },
+    {
+        q: "3. Which literary genre was Goldsmith reacting against when writing 'She Stoops to Conquer'?",
+        options: ["A) Neoclassical Tragedy", "B) Sentimental Comedy", "C) Restoration Comedy", "D) Absurdist Theatre"],
+        answer: 1
+    },
+    {
+        q: "4. Mr. Hardcastle's greatest pride is in his:",
+        options: ["A) Wealth and social status.", "B) Taste for fine wines.", "C) Old, unfashionable home and traditional values.", "D) Collection of modern art."],
+        answer: 2
+    },
+    {
+        q: "5. 'I choose my wife as she chooses her wedding gown, by the light of a candle.' Who speaks this line, and what does it reveal?",
+        options: ["A) Mr. Hardcastle; his pragmatic view of marriage.", "B) Tony Lumpkin; his disregard for appearances.", "C) Charles Marlow; his discomfort with women of his own class.", "D) George Hastings; his superficial approach to love."],
+        answer: 2
+    },
+    {
+        q: "6. Kate Hardcastle's 'stooping' refers to her act of:",
+        options: ["A) Lowering her social status to engage Marlow.", "B) Physically bending to hide her identity.", "C) Deceiving her father.", "D) Accepting a lower dowry."],
+        answer: 0
+    },
+    {
+        q: "7. Why is Charles Marlow notoriously shy around 'modest' women of his own class?",
+        options: ["A) He fears their intellectual superiority.", "B) He is intimidated by their social standing.", "C) He lacks confidence and conversational skills with them.", "D) He finds them boring."],
+        answer: 2
+    },
+    {
+        q: "8. Tony Lumpkin's main ambition throughout the play is to:",
+        options: ["A) Marry Miss Neville.", "B) Gain control of his inheritance.", "C) Escape his mother and pursue his own interests.", "D) Become a respected country gentleman."],
+        answer: 2
+    },
+    {
+        q: "9. 'An hour or two's flirting at a pew is as good as three months' conversation over a cup of tea.' Who says this, and what does it suggest about their character?",
+        options: ["A) Kate Hardcastle; her playful approach to courtship.", "B) Charles Marlow; his preference for casual encounters.", "C) George Hastings; his cynical view of social interactions.", "D) Miss Neville; her desire for quick resolutions."],
+        answer: 1
+    },
+    {
+        q: "10. Miss Neville's fortune is primarily tied to:",
+        options: ["A) Her direct inheritance from her father.", "B) A necklace of jewels.", "C) A specific estate owned by her family.", "D) Her marriage to Tony Lumpkin."],
+        answer: 1
+    },
+    {
+        q: "11. The play satirizes the 'town vs. country' dichotomy by presenting:",
+        options: ["A) Country life as inherently superior to city life.", "B) City dwellers as uniformly sophisticated.", "C) Both town and country characters having their own follies and virtues.", "D) Country folk as universally uncivilized."],
+        answer: 2
+    },
+    {
+        q: "12. What is Mrs. Hardcastle's primary concern regarding Tony?",
+        options: ["A) His education and moral development.", "B) His eventual marriage to Miss Neville and the securing of her fortune.", "C) His health and well-being.", "D) His reputation in society."],
+        answer: 1
+    },
+    {
+        q: "13. 'I love everything that's old: old friends, old times, old manners, old books, old wine.' This quote is characteristic of which character?",
+        options: ["A) Mrs. Hardcastle", "B) Tony Lumpkin", "C) Mr. Hardcastle", "D) Charles Marlow"],
+        answer: 2
+    },
+    {
+        q: "14. How does Tony Lumpkin initially trick Marlow and Hastings?",
+        options: ["A) He steals their money.", "B) He misdirects them to a dilapidated inn.", "C) He tells them Mr. Hardcastle's house is an inn.", "D) He swaps their luggage."],
+        answer: 2
+    },
+    {
+        q: "15. Marlow's behavior when he believes he is at an inn, as opposed to a gentleman's house, reveals his:",
+        options: ["A) True polite nature.", "B) Arrogance and boorishness when dealing with perceived inferiors.", "C) Fear of authority.", "D) Excellent judgment."],
+        answer: 1
+    },
+    {
+        q: "16. 'The more of an ox, the more of a gentleman.' This ironic statement reflects whose view of Tony?",
+        options: ["A) Mr. Hardcastle's proud admiration.", "B) Mrs. Hardcastle's doting blindness.", "C) Kate's insightful observation.", "D) Hastings' dismissive contempt."],
+        answer: 1
+    },
+    {
+        q: "17. What is the main reason Miss Neville wishes to elope with Hastings?",
+        options: ["A) She genuinely loves him and wants to escape her family's control.", "B) She wants to spite Mrs. Hardcastle.", "C) She is pregnant.", "D) She is forced into it by Hastings."],
+        answer: 0
+    },
+    {
+        q: "18. What 'stooping' action does Marlow unintentionally perform in the play?",
+        options: ["A) He pretends to be a servant.", "B) He falls in love with a woman he believes to be beneath his social standing.", "C) He humbly apologizes to Mr. Hardcastle.", "D) He allows himself to be tricked by Tony."],
+        answer: 1
+    },
+    {
+        q: "19. The play features an important comedic device where characters are unaware of key information known to the audience. This is called:",
+        options: ["A) Situational irony", "B) Dramatic irony", "C) Verbal irony", "D) Farce"],
+        answer: 1
+    },
+    {
+        q: "20. Mrs. Hardcastle often praises Tony by saying he has 'more wit and humour than half the gentlemen in the country.' This is an example of:",
+        options: ["A) Foreshadowing", "B) Sarcasm", "C) Doting mother's bias", "D) Understatement"],
+        answer: 2
+    },
+    {
+        q: "21. Marlow's transformation from shy gentleman to assertive lover is primarily facilitated by:",
+        options: ["A) Alcohol consumption.", "B) His belief that Kate is a barmaid.", "C) Kate's direct confrontation.", "D) Hastings' advice."],
+        answer: 1
+    },
+    {
+        q: "22. 'I see, sir, you have got a good plain, natural, wholesome taste.' Mr. Hardcastle says this to Marlow, believing him to be:",
+        options: ["A) A connoisseur of fine art.", "B) An admirer of traditional country life.", "C) A simple, unpretentious man.", "D) A critical observer of his hospitality."],
+        answer: 3 // He says this ironically as Marlow criticizes his taste.
+    },
+    {
+        q: "23. What is the primary role of Sir Charles Marlow in the play?",
+        options: ["A) To act as a judge.", "B) To facilitate the elopement.", "C) To resolve the plot's confusions and approve the marriage.", "D) To challenge Mr. Hardcastle to a duel."],
+        answer: 2
+    },
+    {
+        q: "24. Tony Lumpkin's escape from home is symbolized by his frequent visits to:",
+        options: ["A) The local church.", "B) The Three Pigeons inn.", "C) His grandmother's house.", "D) The nearest city."],
+        answer: 1
+    },
+    {
+        q: "25. 'He has been tutored by his mother, and has learned all the fopperies and emptiness of the town.' Who says this about Marlow, and what does it reveal about their perspective?",
+        options: ["A) Mr. Hardcastle; his prejudice against city manners.", "B) Kate Hardcastle; her initial misjudgment.", "C) Hastings; his loyal defense of his friend.", "D) Miss Neville; her concern for Marlow's character."],
+        answer: 0
+    },
+    {
+        q: "26. The scene where Marlow mistakes Mr. Hardcastle for an innkeeper is an example of:",
+        options: ["A) Romantic comedy", "B) Domestic drama", "C) Farce", "D) Tragedy"],
+        answer: 2
+    },
+    {
+        q: "27. Mrs. Hardcastle's desire for Kate to wear the latest fashions and speak French indicates her:",
+        options: ["A) Progressive views on female education.", "B) Social climbing aspirations and disdain for country simplicity.", "C) Concern for Kate's happiness.", "D) Interest in foreign cultures."],
+        answer: 1
+    },
+    {
+        q: "28. 'There are few ladies who don't stoop to conquer with greater pretensions than mine.' Kate says this while disguised. What does it suggest about women's roles in courtship in the 18th century?",
+        options: ["A) Women were expected to be completely passive.", "B) Women often employed subtle strategies to secure desirable marriages.", "C) Open and direct communication was the norm.", "D) Women had complete control over their destinies."],
+        answer: 1
+    },
+    {
+        q: "29. The contrast between Marlow's behavior with Kate as a barmaid and Kate as herself highlights the theme of:",
+        options: ["A) Social class determining authentic personality.", "B) The power of disguise to reveal true character.", "C) The hypocrisy of urban gentlemen.", "D) The importance of first impressions."],
+        answer: 1
+    },
+    {
+        q: "30. 'Hence then, my Charlotte, let us learn to stoop / From these low scenes to heights of nobler hope.' This line from the Epilogue reflects Goldsmith's overall message about:",
+        options: ["A) The importance of humility and adaptability in love.", "B) The superiority of country life.", "C) The futility of social climbing.", "D) The need for dramatic reform."],
+        answer: 0
+    },
+    {
+        q: "31. Tony Lumpkin's illiteracy and love for lowbrow entertainment (e.g., horse racing) are presented to:",
+        options: ["A) Condemn his character entirely.", "B) Show the shortcomings of country education and the limitations of his upbringing.", "C) Make him completely unlikable.", "D) Portray him as a refined gentleman."],
+        answer: 1
+    },
+    {
+        q: "32. The 'jewels' that Miss Neville's fortune is tied to are symbolic of:",
+        options: ["A) True love.", "B) The material wealth and inheritance that dictate social power and marriage prospects.", "C) Friendship.", "D) Artistic beauty."],
+        answer: 1
+    },
+    {
+        q: "33. What is the function of the character Diggory in the play?",
+        options: ["A) He is a rival suitor for Kate.", "B) He is a loyal and intelligent servant.", "C) He serves as a humorous example of rustic, uncouth behavior.", "D) He is a wise mentor to Marlow."],
+        answer: 2
+    },
+    {
+        q: "34. Goldsmith used 'She Stoops to Conquer' to advocate for a return to which comedic style?",
+        options: ["A) Comedy of Manners", "B) Sentimental Comedy", "C) Tragicomedy", "D) Dark Comedy"],
+        answer: 0
+    },
+    {
+        q: "35. 'There's a sweet, blushing, modest creature, that you could have no fault with.' Who is this likely said about, and by whom?",
+        options: ["A) Kate by Mr. Hardcastle.", "B) Miss Neville by Mrs. Hardcastle.", "C) Kate by Hastings.", "D) A country girl by Tony."],
+        answer: 0
+    },
+    {
+        q: "36. The frequent use of soliloquies (speeches to oneself) in the play serves to:",
+        options: ["A) Slow down the plot.", "B) Reveal characters' true thoughts and motivations to the audience.", "C) Directly address the audience for moral lessons.", "D) Introduce new characters."],
+        answer: 1
+    },
+    {
+        q: "37. Marlow’s character challenges the 18th-century ideal of the 'man of feeling' by showing that:",
+        options: ["A) Sensitivity alone is not enough for true character.", "B) Emotional men are always weak.", "C) True feelings are always hidden.", "D) He is an ideal man."],
+        answer: 0
+    },
+    {
+        q: "38. The play's resolution emphasizes:",
+        options: ["A) The triumph of social rules over individual desires.", "B) The successful navigation of societal expectations through wit and adaptation.", "C) The failure of all romantic relationships.", "D) The power of parental control."],
+        answer: 1
+    },
+    {
+        q: "39. What is the significance of the fact that Marlow and Hastings travel to the countryside?",
+        options: ["A) It represents their rejection of urban life.", "B) It sets up the 'fish out of water' comedic scenario and highlights cultural clashes.", "C) They are seeking new business opportunities.", "D) They are avoiding legal trouble."],
+        answer: 1
+    },
+    {
+        q: "40. 'I am of opinion that the character of your mother, the lady Bountiful, is by far the most amiable of the whole. She is a fine woman, and a charming wife.' Who says this, and what does it reveal about the character's judgment?",
+        options: ["A) Marlow; his genuine admiration.", "B) Hastings; his flattery.", "C) Tony; his sarcastic observation.", "D) Mr. Hardcastle; his ironic misjudgment of Marlow's sincerity."],
+        answer: 3
+    },
+    {
+        q: "41. The theme of 'parental authority vs. youthful desires' is most clearly exemplified by the conflict between:",
+        options: ["A) Mr. Hardcastle and Marlow.", "B) Mrs. Hardcastle and Tony/Miss Neville.", "C) Kate and her father.", "D) Hastings and his own family."],
+        answer: 1
+    },
+    {
+        q: "42. Kate's dual identity (lady of fashion vs. barmaid) highlights the superficiality of:",
+        options: ["A) Her own character.", "B) Marlow's judgment based on outward appearances and perceived social status.", "C) Mr. Hardcastle's values.", "D) Country life."],
+        answer: 1
+    },
+    {
+        q: "43. 'Confound my stupid head, I have given them the wrong road!' Who says this, and what is the immediate consequence?",
+        options: ["A) Hastings; they get lost in the forest.", "B) Tony; Marlow and Hastings mistake the Hardcastle home for an inn.", "C) Marlow; they arrive at the wrong village.", "D) Mr. Hardcastle; they miss their dinner reservation."],
+        answer: 1
+    },
+    {
+        q: "44. The play's happy ending is achieved through:",
+        options: ["A) Accidental circumstances.", "B) Deception, mistaken identity, and eventual self-awareness leading to genuine affection.", "C) Strict adherence to social rules.", "D) The intervention of a deus ex machina."],
+        answer: 1
+    },
+    {
+        q: "45. 'A mere blockhead' is a description often applied to Tony by his mother, Mrs. Hardcastle. This is ironic because:",
+        options: ["A) Tony is actually highly intelligent.", "B) Mrs. Hardcastle is the true blockhead.", "C) While uneducated, Tony shows considerable cunning and wit in his schemes.", "D) Tony is a scholarly individual."],
+        answer: 2
+    },
+    {
+        q: "46. What is the role of the 'Post-boy' in the subplot involving Hastings and Miss Neville?",
+        options: ["A) He carries their secret letters.", "B) He is bribed by Tony to misdirect them during their elopement attempt.", "C) He witnesses their secret meeting.", "D) He helps them escape."],
+        answer: 1
+    },
+    {
+        q: "47. The play critiques the prevalent practice of arranged marriages for:",
+        options: ["A) Their emphasis on love over wealth.", "B) Their potential to disregard genuine affection and individual desires.", "C) Their efficiency in securing alliances.", "D) Their modern approach to courtship."],
+        answer: 1
+    },
+    {
+        q: "48. 'Our roots are in the soil, you know; and for trees and men, that is best.' This quote reflects whose conservative view on lineage and tradition?",
+        options: ["A) Mrs. Hardcastle's", "B) Tony Lumpkin's", "C) Mr. Hardcastle's", "D) Sir Charles Marlow's"],
+        answer: 2
+    },
+    {
+        q: "49. The comedic tension between Mr. and Mrs. Hardcastle primarily arises from:",
+        options: ["A) Their differing political views.", "B) Their contrasting opinions on education, social aspirations, and parenting Tony.", "C) Their financial disputes.", "D) Their romantic rivalry."],
+        answer: 1
+    },
+    {
+        q: "50. 'She Stoops to Conquer' remains popular because of its:",
+        options: ["A) Highly complex philosophical themes.", "B) Reliance on subtle humor and intellectual wit.", "C) Enduring appeal of its farcical situations, clever plotting, and relatable characters.", "D) Strict adherence to historical accuracy."],
+        answer: 2
+    }
+];
+
+let currentQuestionIndex = 0;
+let score = 0;
+let timer;
+let timeLeft = 30 * 60; // 30 minutes in seconds
+let quizStarted = false; // Flag to track if quiz has started
+
+const timerDisplay = document.getElementById('timer');
+const scoreDisplay = document.getElementById('score');
+const questionArea = document.getElementById('question-area');
+const startButton = document.getElementById('start-btn');
+const restartButton = document.getElementById('restart-btn');
+const finalResultDisplay = document.getElementById('finalResult');
+
+function formatTime(seconds) {
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = seconds % 60;
+    return `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
+}
+
+function updateTimer() {
+    if (timeLeft <= 0) {
+        clearInterval(timer);
+        endQuiz();
+    } else {
+        timeLeft--;
+        timerDisplay.textContent = `Time Left: ${formatTime(timeLeft)}`;
+    }
+}
+
+function startTimer() {
+    if (!quizStarted) { // Only start if not already started
+        timer = setInterval(updateTimer, 1000);
+        quizStarted = true;
+    }
+}
+
+function displayQuestion() {
+    if (currentQuestionIndex < quizQuestions.length) {
+        const qData = quizQuestions[currentQuestionIndex];
+        questionArea.innerHTML = `
+            <div class="question">${qData.q}</div>
+            <div id="options-container">
+                ${qData.options.map((option, i) => 
+                    `<button class="answer-btn" data-index="${i}">${option}</button>`
+                ).join('')}
+            </div>
+        `;
+        document.querySelectorAll('.answer-btn').forEach(button => {
+            button.onclick = (e) => checkAnswer(e.target);
+        });
+        updateScoreDisplay(); // Update score display as questions are presented
+    } else {
+        endQuiz();
+    }
+}
+
+function checkAnswer(selectedButton) {
+    const selectedAnswerIndex = parseInt(selectedButton.dataset.index);
+    const correctAnswerIndex = quizQuestions[currentQuestionIndex].answer;
+    
+    // Disable all buttons for the current question
+    document.querySelectorAll('.answer-btn').forEach(button => {
+        button.disabled = true;
+    });
+
+    if (selectedAnswerIndex === correctAnswerIndex) {
+        score++;
+        selectedButton.classList.add('correct');
+    } else {
+        selectedButton.classList.add('incorrect');
+        // Optionally show the correct answer
+        const optionsContainer = document.getElementById('options-container');
+        optionsContainer.children[correctAnswerIndex].classList.add('correct');
+    }
+    updateScoreDisplay();
+
+    // Move to the next question after a short delay
+    setTimeout(() => {
+        currentQuestionIndex++;
+        displayQuestion();
+    }, 1000); // 1 second delay
+}
+
+function updateScoreDisplay() {
+    scoreDisplay.textContent = `Score: ${score} / ${currentQuestionIndex}`;
+}
+
+function startQuiz() {
+    startButton.classList.add('hidden');
+    restartButton.classList.add('hidden'); // Hide restart button if visible
+    finalResultDisplay.textContent = ''; // Clear previous results
+    currentQuestionIndex = 0;
+    score = 0;
+    timeLeft = 30 * 60; // Reset timer
+    quizStarted = false; // Reset quiz started flag
+
+    startTimer();
+    displayQuestion();
+    updateScoreDisplay();
+}
+
+function endQuiz() {
+    clearInterval(timer);
+    questionArea.innerHTML = ''; // Clear questions
+    finalResultDisplay.textContent = `Quiz Over! Your Final Score: ${score} / ${quizQuestions.length}`;
+    restartButton.classList.remove('hidden'); // Show restart button
+    quizStarted = false; // Allow quiz to be restarted
+}
+
+startButton.addEventListener('click', startQuiz);
+restartButton.addEventListener('click', startQuiz); // Restart button just calls startQuiz again
+
+// Initialize timer display on load
+timerDisplay.textContent = `Time Left: ${formatTime(timeLeft)}`;
+</script>
+</body>
+</html>
