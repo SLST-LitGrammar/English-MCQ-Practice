@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Strange Meeting – 50 Challenging MCQ Quiz</title>
+    <style>
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            margin: 20px; 
+            background: #fdf5e6; /* Old Lace */
+            color: #333;
+            line-height: 1.6;
+        }
+        .container { 
+            max-width: 900px; 
+            margin: 30px auto; 
+            background: #ffffff; 
+            padding: 30px 40px; 
+            border-radius: 12px; 
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); 
+            border: 1px solid #d3d3d3; /* Light Grey */
+        }
+        h1 { 
+            color: #4f4f4f; /* Dim Gray */
+            text-align: center; 
+            margin-bottom: 30px;
+            font-size: 2.2em;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+        }
+        #timer, #score { 
+            font-size: 1.4em; 
+            font-weight: bold; 
+            text-align: center; 
+            margin-bottom: 15px; 
+            padding: 8px 15px;
+            border-radius: 6px;
+            display: inline-block;
+            width: 48%; /* Adjust width for side-by-side */
+            box-sizing: border-box;
+        }
+        #timer { 
+            color: #a0522d; /* Sienna */
+            background: #fff8e1; /* Pale Goldenrod */
+            border: 1px solid #f0e68c; /* Khaki */
+            float: left; /* Align to left */
+        }
+        #score { 
+            color: #2e8b57; /* Sea Green */
+            background: #f0fff0; /* Honeydew */
+            border: 1px solid #98fb98; /* Pale Green */
+            float: right; /* Align to right */
+        }
+        .info-bar {
+            overflow: hidden; /* Clear floats */
+            margin-bottom: 25px;
+        }
+        .question { 
+            font-weight: 600; 
+            margin-top: 30px; 
+            margin-bottom: 15px;
+            font-size: 1.15em;
+            color: #556b2f; /* Olive Drab */
+        }
+        .answer-btn { 
+            margin: 8px 0; 
+            padding: 12px 20px; 
+            border: 1px solid #c0c0c0; /* Silver */
+            background: #8b4513; /* Saddle Brown */
+            color: #fff; 
+            border-radius: 6px; 
+            cursor: pointer; 
+            font-size: 1em; 
+            width: 100%; 
+            text-align: left; 
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+        }
+        .answer-btn:hover:not(.correct):not(.incorrect) { 
+            background: #a0522d; /* Sienna */
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+        .answer-btn.correct { 
+            background: #28a745; 
+            border-color: #218838;
+            box-shadow: 0 2px 8px rgba(40, 167, 69, 0.4);
+            animation: pulse-green 0.5s forwards;
+        }
+        .answer-btn.incorrect { 
+            background: #dc3545; 
+            border-color: #c82333;
+            box-shadow: 0 2px 8px rgba(220, 53, 69, 0.4);
+            animation: shake 0.3s;
+        }
+        .answer-btn:disabled {
+            cursor: not-allowed;
+            opacity: 0.8;
+        }
+
+        #start-btn, #restart-btn { 
+            padding: 15px 30px; 
+            background: #708090; /* Slate Gray */
+            color: #fff; 
+            border: none; 
+            border-radius: 8px; 
+            cursor: pointer; 
+            font-size: 1.2em;
+            margin: 30px auto;
+            display: block;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 4px 10px rgba(112, 128, 144, 0.3);
+        }
+        #start-btn:hover, #restart-btn:hover { 
+            background: #6a7c8a; 
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(106, 124, 138, 0.4);
+        }
+        #quiz-container { margin-top: 30px; }
+        .hidden { display: none; }
+        #finalResult { 
+            font-weight: bold; 
+            text-align: center; 
+            font-size: 1.8em; 
+            margin-top: 40px; 
+            color: #4f4f4f; /* Dim Gray */
+        }
+
+        @keyframes pulse-green {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes shake {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            50% { transform: translateX(5px); }
+            75% { transform: translateX(-5px); }
+            100% { transform: translateX(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Strange Meeting – 50 Challenging MCQ Quiz</h1>
+        <div id="quiz-container">
+            <div class="info-bar">
+                <div id="timer">Time Left: 30:00</div>
+                <div id="score">Score: 0 / 0</div>
+            </div>
+            <div style="clear: both;"></div> <div id="question-area">
+                <button id="start-btn">Start Quiz</button>
+            </div>
+            <button id="restart-btn" class="hidden">Restart Quiz</button>
+            <div id="finalResult"></div>
+        </div>
+    </div>
+
+<script>
+const quizQuestions = [
+    {
+        q: "1. 'Strange Meeting' is set in a 'profound dull tunnel.' This setting is widely interpreted as:",
+        options: ["A) A literal trench on the battlefield.", "B) A dreamscape representing the underworld or hell.", "C) A hospital corridor.", "D) A bunker during an attack."],
+        answer: 1 // B
+    },
+    {
+        q: "2. Wilfred Owen is primarily known as a poet of which conflict?",
+        options: ["A) World War II", "B) The Crimean War", "C) World War I", "D) The Boer War"],
+        answer: 2 // C
+    },
+    {
+        q: "3. The poem is characterized by Owen's unique use of 'pararhyme' (half-rhyme). Which pair exemplifies this?",
+        options: ["A) groaned / moaned", "B) hall / fall", "C) escaped / scooped", "D) down / crown"],
+        answer: 2 // C
+    },
+    {
+        q: "4. The speaker escaped 'down some profound dull tunnel.' What did he escape from?",
+        options: ["A) The front lines of battle.", "B) A burning building.", "C) A prison.", "D) A dream."],
+        answer: 0 // A
+    },
+    {
+        q: "5. The lines 'No guns uplifted, no, nor half-aimed sniped, / No bagging straps, but on their faces shone / A piteous terror of some bounden sight' describe:",
+        options: ["A) Soldiers preparing for battle.", "B) Dead soldiers in the underworld.", "C) Civilians fleeing conflict.", "D) Wounded soldiers in a hospital."],
+        answer: 1 // B
+    },
+    {
+        q: "6. The speaker recognizes one of the faces in the tunnel. What is his immediate reaction?",
+        options: ["A) Joy and relief.", "B) A ghastly grin of recognition.", "C) Fear and anger.", "D) Disbelief."],
+        answer: 1 // B
+    },
+    {
+        q: "7. The voice that speaks to the narrator is described as 'piteous.' This implies:",
+        options: ["A) Strong and authoritative.", "B) Deserving of pity; sorrowful.", "C) Angry and resentful.", "D) Cheerful and optimistic."],
+        answer: 1 // B
+    },
+    {
+        q: "8. The newly recognized figure says, 'It is that some infernal twining glares / On all the stalled orчаty of the years.' 'Stalled orчаty' refers to:",
+        options: ["A) Stored food supplies.", "B) Unfulfilled potential and silenced eloquence.", "C) Military equipment.", "D) Heavenly prophecies."],
+        answer: 1 // B
+    },
+    {
+        q: "9. The speaker of the long monologue identifies himself indirectly as someone who 'with a piteous groan / For years and years ago, and I knew too well.' This line foreshadows:",
+        options: ["A) The speaker's own death.", "B) A shared past experience.", "C) The identity of the speaker's companion.", "D) A future battle."],
+        answer: 2 // C
+    },
+    {
+        q: "10. 'The pity of war, the pity war distilled.' This line implies that pity is:",
+        options: ["A) The main cause of war.", "B) A negative consequence of war, its essence.", "C) A rare feeling in wartime.", "D) The only positive outcome of war."],
+        answer: 1 // B
+    },
+    {
+        q: "11. The speaker of the monologue laments that he 'would have poured my spirit without stint / But not through wounds, nor from the anguished fixed star.' This expresses:",
+        options: ["A) A desire for vengeance.", "B) A longing for peaceful self-expression, not through violent death.", "C) A wish to escape his fate.", "D) A regret for not having fought harder."],
+        answer: 1 // B
+    },
+    {
+        q: "12. What specific artistic goal does the speaking dead soldier claim to have had?",
+        options: ["A) To paint grand landscapes.", "B) To write triumphant war songs.", "C) To warn future generations against war's futility and pity.", "D) To compose symphonies."],
+        answer: 2 // C
+    },
+    {
+        q: "13. The line 'And when I died, I heard no crying in the air' creates a sense of:",
+        options: ["A) Peace and tranquility.", "B) Utter desolation and lack of mourning.", "C) Heroic sacrifice.", "D) Victory."],
+        answer: 1 // B
+    },
+    {
+        q: "14. The speaking soldier refers to 'all the world's lament.' This is an example of:",
+        options: ["A) Understatement", "B) Hyperbole", "C) Irony", "D) Metaphor"],
+        answer: 1 // B
+    },
+    {
+        q: "15. The phrase 'grossly grimed' applied to the speaker's brow suggests:",
+        options: ["A) He is dirty from battle.", "B) He is a morally corrupt individual.", "C) He is physically strong.", "D) He is in disguise."],
+        answer: 0 // A
+    },
+    {
+        q: "16. 'Courage was mine, and I had mystery, / Wisdom was mine, and I had mastery.' These lines convey the speaking soldier's:",
+        options: ["A) Arrogance and self-importance.", "B) Realized potential cut short by death.", "C) Qualities that made him a good soldier.", "D) Past life as a philosopher."],
+        answer: 1 // B
+    },
+    {
+        q: "17. What is the significance of the phrase 'titanic wars'?",
+        options: ["A) Wars fought by giants.", "B) Wars of immense scale and destruction.", "C) Wars fought on ships.", "D) Wars that are mythological."],
+        answer: 1 // B
+    },
+    {
+        q: "18. The speaking soldier says he was trying to 'smother them' (the seeds of truth). This means he wanted to:",
+        options: ["A) Encourage them.", "B) Suppress or hide them.", "C) Plant them.", "D) Share them widely."],
+        answer: 1 // B
+    },
+    {
+        q: "19. The 'truth untold' that the speaking soldier wished to share is primarily about:",
+        options: ["A) The strategic details of the war.", "B) The personal suffering and futility of war.", "C) His private life.", "D) Religious doctrine."],
+        answer: 1 // B
+    },
+    {
+        q: "20. The final, shocking revelation in the poem is:",
+        options: ["A) The two soldiers are brothers.", "B) The speaker's companion is a ghost.", "C) The speaking soldier was killed by the narrator.", "D) The war has ended."],
+        answer: 2 // C
+    },
+    {
+        q: "21. The poem begins with the speaker having 'escaped' to a tunnel. This escape is best understood as:",
+        options: ["A) A retreat from immediate danger into a deeper, spiritual reality.", "B) A cowardly flight from duty.", "C) A successful tactical maneuver.", "D) A dream that offers true peace."],
+        answer: 0 // A
+    },
+    {
+        q: "22. The atmosphere of the tunnel is described as 'dull' and containing a 'sullen hall.' This contributes to a sense of:",
+        options: ["A) Heroic grandeur.", "B) Monotony and oppressive despair.", "C) Excitement and tension.", "D) Peaceful solitude."],
+        answer: 1 // B
+    },
+    {
+        q: "23. The phrase 'And no guns thumped, or down the flues made moan' describes the absence of:",
+        options: ["A) Artillery fire.", "B) Footsteps.", "C) Heartbeats.", "D) Human voices."],
+        answer: 0 // A
+    },
+    {
+        q: "24. The 'piteous terror' on the faces of the figures in the tunnel is attributed to:",
+        options: ["A) The presence of the living speaker.", "B) Their realization of their own death.", "C) 'Some bounden sight' (an inevitable, terrible vision).", "D) Fear of the tunnel collapsing."],
+        answer: 2 // C
+    },
+    {
+        q: "25. The speaker's 'ghastly grin' upon recognizing the other man is an example of:",
+        options: ["A) Pure joy.", "B) A macabre or unsettling reaction to a disturbing recognition.", "C) Relief.", "D) Confusion."],
+        answer: 1 // B
+    },
+    {
+        q: "26. The speaking soldier addresses the narrator with 'Sir.' This formality underscores:",
+        options: ["A) A difference in rank.", "B) A moment of polite but tense interaction between strangers.", "C) Mutual respect.", "D) A mocking tone."],
+        answer: 1 // B
+    },
+    {
+        q: "27. The speaking soldier declares, 'Here is no cause to mourn.' This is profoundly ironic because:",
+        options: ["A) They are in hell, where mourning is constant.", "B) He is dead, and the living are in despair.", "C) The entire context of war is one of immense grief and loss.", "D) They have achieved victory."],
+        answer: 2 // C
+    },
+    {
+        q: "28. 'None suffered there, save the undone years, / The hopelessness of War.' This highlights the primary suffering as:",
+        options: ["A) Physical wounds.", "B) Psychological and spiritual devastation, loss of potential.", "C) Hunger and thirst.", "D) Cold and exposure."],
+        answer: 1 // B
+    },
+    {
+        q: "29. The phrase 'anguished fixed star' is a complex image suggesting:",
+        options: ["A) A guiding light in darkness.", "B) A wound, particularly a fatal one, likened to a constant, painful gaze from the heavens or a permanent mark.", "C) A celestial body in distress.", "D) A reference to astronomy."],
+        answer: 1 // B
+    },
+    {
+        q: "30. The speaking soldier's purpose, had he lived, was to 'pierce and parry.' This metaphor implies he would have:",
+        options: ["A) Fought physically.", "B) Engaged in intellectual and moral combat, defending truth.", "C) Done needlework.", "D) Practiced fencing."],
+        answer: 1 // B
+    },
+    {
+        q: "31. The 'eternal cagèd soul' refers to:",
+        options: ["A) A soul trapped in a birdcage.", "B) The human spirit confined by the limitations of life or death.", "C) A specific prisoner of war.", "D) A soul suffering eternal damnation."],
+        answer: 1 // B
+    },
+    {
+        q: "32. The 'shrieking iron' is an example of:",
+        options: ["A) Alliteration", "B) Personification", "C) Onomatopoeia", "D) All of the above"],
+        answer: 3 // D (It has alliteration, 'shrieking' personifies, and it mimics sound)
+    },
+    {
+        q: "33. The speaking soldier claims he was 'a runner' in the 'sadly-splendid old world.' 'Sadly-splendid' is an example of:",
+        options: ["A) Metaphor", "B) Simile", "C) Oxymoron", "D) Pun"],
+        answer: 2 // C
+    },
+    {
+        q: "34. The 'trenched old men' who 'ran so swiftly' implies a tragic irony related to:",
+        options: ["A) Their physical speed in old age.", "B) The desperate, futile haste of war leaders leading youth to destruction.", "C) Their past athletic achievements.", "D) Their escape from battle."],
+        answer: 1 // B
+    },
+    {
+        q: "35. The speaking soldier asserts he would have 'withdrawn into the healing of calm lands, / To mend me.' This reveals a longing for:",
+        options: ["A) Medical treatment.", "B) Spiritual and psychological recovery in a peaceful environment.", "C) Agricultural work.", "D) Escape from responsibility."],
+        answer: 1 // B
+    },
+    {
+        q: "36. The 'gas' that 'outgassed' the speaking soldier highlights Owen's frequent theme of:",
+        options: ["A) Environmental pollution.", "B) The horrific and dehumanizing methods of modern warfare.", "C) Scientific discovery.", "D) Natural phenomena."],
+        answer: 1 // B
+    },
+    {
+        q: "37. The phrase 'And the yawn of the great space' refers to:",
+        options: ["A) The speaker's tiredness.", "B) The vast, empty expanse of death or the afterlife.", "C) A large chasm in the tunnel.", "D) The beginning of a new day."],
+        answer: 1 // B
+    },
+    {
+        q: "38. 'Let us sleep now...' is a poignant final line because it suggests:",
+        options: ["A) An escape from the horrors of war into death's peace.", "B) A surrender to despair.", "C) A temporary truce before more fighting.", "D) The end of a long journey."],
+        answer: 0 // A
+    },
+    {
+        q: "39. The poem's primary message about warfare is its:",
+        options: ["A) Glorious heroism.", "B) Inevitable necessity.", "C) Utter wastefulness and destruction of human potential.", "D) Moral clarity."],
+        answer: 2 // C
+    },
+    {
+        q: "40. Owen's use of a dream-like setting allows him to:",
+        options: ["A) Avoid censorship.", "B) Explore themes of death and the afterlife more profoundly and symbolically.", "C) Make the poem less realistic.", "D) Create a sense of confusion for the reader."],
+        answer: 1 // B
+    },
+    {
+        q: "41. The repetition of 'pity' throughout the poem emphasizes:",
+        options: ["A) A feeling of condescension.", "B) The core emotional and moral response Owen seeks to evoke regarding war.", "C) The speaker's self-pity.", "D) The lack of understanding between soldiers."],
+        answer: 1 // B
+    },
+    {
+        q: "42. The speaking soldier's unachieved purpose to 'warn future generations' connects the poem to a broader theme of:",
+        options: ["A) Historical cycles.", "B) The poet's duty to truth.", "C) The inevitability of human suffering.", "D) Scientific progress."],
+        answer: 1 // B
+    },
+    {
+        q: "43. The line 'I am the enemy you killed, my friend' is a powerful example of:",
+        options: ["A) Simple identification.", "B) Profound irony and reconciliation.", "C) A threat.", "D) A statement of regret only from the speaker."],
+        answer: 1 // B
+    },
+    {
+        q: "44. The relationship between the two soldiers, despite their roles in war, becomes one of:",
+        options: ["A) Continued hostility.", "B) Distant respect.", "C) Tragic brotherhood and shared understanding.", "D) Indifference."],
+        answer: 2 // C
+    },
+    {
+        q: "45. The 'undone years' refers to:",
+        options: ["A) Years that have not yet passed.", "B) The potential and future achievements lost due to early death.", "C) Years of inactivity.", "D) Years of peace before the war."],
+        answer: 1 // B
+    },
+    {
+        q: "46. The imagery of 'charred faces' and 'fierce frost' in the first stanza contributes to a sense of:",
+        options: ["A) Cozy domesticity.", "B) Utter devastation and chilling lifelessness.", "C) Vibrant nature.", "D) Warmth and comfort."],
+        answer: 1 // B
+    },
+    {
+        q: "47. The poem can be read as a criticism of:",
+        options: ["A) The soldiers fighting the war.", "B) The political rhetoric and societal glorification of war.", "C) The landscape of France.", "D) Specific military tactics."],
+        answer: 1 // B
+    },
+    {
+        q: "48. The phrase 'Through me, the slain, shall live again the Lie' uses 'Lie' to mean:",
+        options: ["A) A position of rest.", "B) A deliberate falsehood or deception perpetuated about war's glory.", "C) The act of falling down.", "D) A secret truth."],
+        answer: 1 // B
+    },
+    {
+        q: "49. The 'bounden sight' that fills the faces of the dead with terror is most likely:",
+        options: ["A) The sight of their killer.", "B) The realization of their own death and the futility of it.", "C) The return of living soldiers.", "D) A supernatural monster."],
+        answer: 1 // B
+    },
+    {
+        q: "50. Owen's overall purpose in writing 'Strange Meeting' was primarily to:",
+        options: ["A) Celebrate military victory.", "B) Entertain readers with a fantastical story.", "C) Expose the brutal reality and moral horror of war, especially its psychological toll.", "D) Document historical events accurately."],
+        answer: 2 // C
+    }
+];
+
+let currentQuestionIndex = 0;
+let score = 0;
+let timer;
+let timeLeft = 30 * 60; // 30 minutes in seconds
+let quizStarted = false; // Flag to track if quiz has started
+
+const timerDisplay = document.getElementById('timer');
+const scoreDisplay = document.getElementById('score');
+const questionArea = document.getElementById('question-area');
+const startButton = document.getElementById('start-btn');
+const restartButton = document.getElementById('restart-btn');
+const finalResultDisplay = document.getElementById('finalResult');
+
+function formatTime(seconds) {
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = seconds % 60;
+    return `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
+}
+
+function updateTimer() {
+    if (timeLeft <= 0) {
+        clearInterval(timer);
+        endQuiz();
+    } else {
+        timeLeft--;
+        timerDisplay.textContent = `Time Left: ${formatTime(timeLeft)}`;
+    }
+}
+
+function startTimer() {
+    if (!quizStarted) { // Only start if not already started
+        timer = setInterval(updateTimer, 1000);
+        quizStarted = true;
+    }
+}
+
+function displayQuestion() {
+    if (currentQuestionIndex < quizQuestions.length) {
+        const qData = quizQuestions[currentQuestionIndex];
+        questionArea.innerHTML = `
+            <div class="question">${qData.q}</div>
+            <div id="options-container">
+                ${qData.options.map((option, i) => 
+                    `<button class="answer-btn" data-index="${i}">${option}</button>`
+                ).join('')}
+            </div>
+        `;
+        document.querySelectorAll('.answer-btn').forEach(button => {
+            button.onclick = (e) => checkAnswer(e.target);
+        });
+        updateScoreDisplay(); // Update score display as questions are presented
+    } else {
+        endQuiz();
+    }
+}
+
+function checkAnswer(selectedButton) {
+    const selectedAnswerIndex = parseInt(selectedButton.dataset.index);
+    const correctAnswerIndex = quizQuestions[currentQuestionIndex].answer;
+    
+    // Disable all buttons for the current question
+    document.querySelectorAll('.answer-btn').forEach(button => {
+        button.disabled = true;
+    });
+
+    if (selectedAnswerIndex === correctAnswerIndex) {
+        score++;
+        selectedButton.classList.add('correct');
+    } else {
+        selectedButton.classList.add('incorrect');
+        // Optionally show the correct answer
+        const optionsContainer = document.getElementById('options-container');
+        optionsContainer.children[correctAnswerIndex].classList.add('correct');
+    }
+    updateScoreDisplay();
+
+    // Move to the next question after a short delay
+    setTimeout(() => {
+        currentQuestionIndex++;
+        displayQuestion();
+    }, 1000); // 1 second delay
+}
+
+function updateScoreDisplay() {
+    scoreDisplay.textContent = `Score: ${score} / ${currentQuestionIndex}`;
+}
+
+function startQuiz() {
+    startButton.classList.add('hidden');
+    restartButton.classList.add('hidden'); // Hide restart button if visible
+    finalResultDisplay.textContent = ''; // Clear previous results
+    currentQuestionIndex = 0;
+    score = 0;
+    timeLeft = 30 * 60; // Reset timer
+    quizStarted = false; // Reset quiz started flag
+
+    startTimer();
+    displayQuestion();
+    updateScoreDisplay();
+}
+
+function endQuiz() {
+    clearInterval(timer);
+    questionArea.innerHTML = ''; // Clear questions
+    finalResultDisplay.textContent = `Quiz Over! Your Final Score: ${score} / ${quizQuestions.length}`;
+    restartButton.classList.remove('hidden'); // Show restart button
+    quizStarted = false; // Allow quiz to be restarted
+}
+
+startButton.addEventListener('click', startQuiz);
+restartButton.addEventListener('click', startQuiz); // Restart button just calls startQuiz again
+
+// Initialize timer display on load
+timerDisplay.textContent = `Time Left: ${formatTime(timeLeft)}`;
+</script>
+</body>
+</html>
