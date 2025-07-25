@@ -1,321 +1,593 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Ode to a Nightingale – 50 Tough Questions</title>
-  <style>
-    body { font-family: Arial; padding: 20px; background: #f4f4f4; }
-    h1 { color: #2c3e50; }
-    .question { margin-bottom: 20px; padding: 15px; background: #fff; border-radius: 8px; }
-    button { padding: 10px 20px; font-size: 16px; }
-    #timer { font-weight: bold; color: red; font-size: 20px; margin-bottom: 20px; }
-    #result { font-size: 22px; font-weight: bold; color: green; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ode to a Nightingale – 50 Competitive MCQs</title>
+    <meta name="description" content="Challenge your knowledge of John Keats' 'Ode to a Nightingale' with 50 advanced, competitive-level MCQs.">
+    <meta name="keywords" content="Ode to a Nightingale, John Keats, MCQ, quiz, advanced, competitive, English literature, Romantic poetry, poetry analysis, literary devices, symbolism, philosophy">
+    <meta name="author" content="Your Name or Website Name">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #e0f2f7; /* Light blue background */
+            color: #333;
+            line-height: 1.6;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start; /* Align to top */
+            min-height: 100vh;
+            box-sizing: border-box;
+        }
+        .container {
+            max-width: 900px;
+            width: 100%;
+            background: #ffffff;
+            padding: 30px 40px;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            border: 1px solid #b3e5fc; /* Light blue border */
+            margin-bottom: 30px;
+        }
+        h1 {
+            color: #01579b; /* Darker blue heading */
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+        }
+        .info-bar {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 25px;
+            padding: 10px 0;
+            border-bottom: 1px solid #cfd8dc;
+        }
+        #timer, #score {
+            font-size: 1.3em;
+            font-weight: bold;
+            padding: 8px 15px;
+            border-radius: 6px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+        }
+        #timer {
+            color: #d32f2f; /* Red for timer */
+            background: #ffebee;
+            border: 1px solid #ef9a9a;
+        }
+        #score {
+            color: #2e7d32; /* Green for score */
+            background: #e8f5e9;
+            border: 1px solid #a5d6a7;
+        }
+        .question-block {
+            background: #e3f2fd;
+            margin-bottom: 20px;
+            padding: 20px;
+            border: 1px solid #bbdefb;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+        .question-text {
+            font-weight: 600;
+            margin-bottom: 12px;
+            font-size: 1.15em;
+            color: #01579b;
+        }
+        .options-group label {
+            display: block;
+            margin: 10px 0;
+            cursor: pointer;
+            padding: 8px 0;
+            transition: color 0.2s ease;
+        }
+        .options-group label:hover {
+            color: #0288d1;
+        }
+        .options-group input[type="radio"] {
+            margin-right: 10px;
+            transform: scale(1.1);
+        }
+
+        /* Feedback for correct/incorrect answers */
+        .question-block.correct .options-group label.selected-correct {
+            color: #2e7d32;
+            font-weight: bold;
+        }
+        .question-block.incorrect .options-group label.selected-incorrect {
+            color: #d32f2f;
+            font-weight: bold;
+        }
+        .question-block.incorrect .options-group label.correct-answer {
+            color: #2e7d32;
+            font-weight: bold;
+            background-color: #e8f5e9;
+            border-radius: 4px;
+            padding: 5px 8px;
+        }
+
+        button {
+            display: block;
+            width: 250px;
+            padding: 15px 25px;
+            margin: 30px auto;
+            background: #007bb5;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+        button:hover:not(:disabled) {
+            background: #005a8b;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+        }
+        button:disabled {
+            background: #cccccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        #result {
+            font-size: 2em;
+            font-weight: bold;
+            text-align: center;
+            margin-top: 30px;
+            color: #01579b;
+        }
+        .hidden {
+            display: none;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            .container {
+                padding: 20px;
+                margin-top: 10px;
+            }
+            h1 {
+                font-size: 1.8em;
+                margin-bottom: 20px;
+            }
+            .info-bar {
+                flex-direction: column;
+                align-items: center;
+            }
+            #timer, #score {
+                width: 90%;
+                margin-bottom: 10px;
+                text-align: center;
+            }
+            .question-text {
+                font-size: 1em;
+            }
+            button {
+                width: 80%;
+                font-size: 1.1em;
+                padding: 12px 20px;
+            }
+            #result {
+                font-size: 1.5em;
+            }
+        }
+    </style>
 </head>
 <body>
-  <h1>Ode to a Nightingale – 50 MCQs Quiz</h1>
-  <div id="timer">Time left: 30:00</div>
-  <form id="quizForm"></form>
-  <button onclick="submitQuiz()">Submit</button>
-  <div id="result"></div>
+    <div class="container">
+        <h1>Ode to a Nightingale – 50 Competitive MCQs</h1>
+        <div class="info-bar">
+            <div id="timer">Time left: 30:00</div>
+            <div id="score">Score: 0 / 0</div>
+        </div>
+        <form id="quizForm"></form>
+        <button id="submitBtn">Submit Quiz</button>
+        <button id="startQuizBtn" class="hidden">Start Quiz</button>
+        <div id="result" class="hidden"></div>
+    </div>
 
-  <script>
-    const questions = [
-      {
-        q: "1. Who is the poet of 'Ode to a Nightingale'?",
-        options: ["William Wordsworth", "John Keats", "Percy Shelley", "T.S. Eliot"],
-        answer: "John Keats"
-      },
-      {
-        q: "2. The line 'My heart aches, and a drowsy numbness pains' conveys:",
-        options: ["Euphoria", "Intellectual excitement", "A deathlike stupor", "Romantic joy"],
-        answer: "A deathlike stupor"
-      },
-      {
-        q: "3. What does the nightingale symbolize in the poem?",
-        options: ["Immortality", "Reality", "Time", "Artifice"],
-        answer: "Immortality"
-      },
-      {
-        q: "4. 'Lethe-wards had sunk' refers to:",
-        options: ["A river of joy", "A mythological bird", "A river of forgetfulness", "A Roman deity"],
-        answer: "A river of forgetfulness"
-      },
-      {
-        q: "5. The phrase 'viewless wings of Poesy' means:",
-        options: ["Wings of the imagination", "Literal wings", "Bird wings", "The poet's arms"],
-        answer: "Wings of the imagination"
-      },
-      {
-        q: "6. What kind of drink is described as 'a draught of vintage'?",
-        options: ["Beer", "Milk", "Wine", "Tea"],
-        answer: "Wine"
-      },
-      {
-        q: "7. The phrase 'tender is the night' was later used by:",
-        options: ["Tennyson", "Shakespeare", "F. Scott Fitzgerald", "Shelley"],
-        answer: "F. Scott Fitzgerald"
-      },
-      {
-        q: "8. What does the speaker wish to escape from?",
-        options: ["Old age and mortality", "Bird song", "Poetry", "Fame"],
-        answer: "Old age and mortality"
-      },
-      {
-        q: "9. Who is Ruth in the poem's biblical reference?",
-        options: ["A Greek muse", "A goddess", "A Moabite widow", "A Roman empress"],
-        answer: "A Moabite widow"
-      },
-      {
-        q: "10. 'Where youth grows pale, and spectre-thin, and dies' conveys:",
-        options: ["Eternal youth", "Decay and death", "Joy and music", "Hope"],
-        answer: "Decay and death"
-      },
-      {
-        q: "11. What sense dominates stanza V?",
-        options: ["Sight", "Hearing", "Touch", "Smell"],
-        answer: "Smell"
-      },
-      {
-        q: "12. What is meant by 'embalmed darkness'?",
-        options: ["Light that soothes", "Pleasant, fragrant darkness", "Death", "Memory"],
-        answer: "Pleasant, fragrant darkness"
-      },
-      {
-        q: "13. What type of diction does the poem use overall?",
-        options: ["Scientific", "Colloquial", "Archaic and lyrical", "Satirical"],
-        answer: "Archaic and lyrical"
-      },
-      {
-        q: "14. What does the poet wish for in stanza VI?",
-        options: ["Eternal life", "Instant fame", "Peace through death", "Success"],
-        answer: "Peace through death"
-      },
-      {
-        q: "15. 'Now more than ever seems it rich to die' means:",
-        options: ["He wants to become rich", "It is a good time to die", "Death feels heavy", "He fears death"],
-        answer: "It is a good time to die"
-      },
-      {
-        q: "16. What is 'easeful Death'?",
-        options: ["A slow death", "A painless death", "A romantic idea", "A deadly poison"],
-        answer: "A painless death"
-      },
-      {
-        q: "17. 'Thou wast not born for death, immortal Bird!' implies:",
-        options: ["The bird is biologically immortal", "The bird symbolizes eternal song", "Birds live long", "Reincarnation"],
-        answer: "The bird symbolizes eternal song"
-      },
-      {
-        q: "18. Whose voice is said to be heard by Ruth?",
-        options: ["Her own", "The nightingale's", "Keats'", "The gods’"],
-        answer: "The nightingale's"
-      },
-      {
-        q: "19. The nightingale’s voice travels to:",
-        options: ["The future", "The countryside only", "All times and places", "Only the sky"],
-        answer: "All times and places"
-      },
-      {
-        q: "20. What does 'magic casements' refer to?",
-        options: ["Shining swords", "Windows in fairy tales", "Ancient castles", "Moonlit fields"],
-        answer: "Windows in fairy tales"
-      },
-      {
-        q: "21. What literary device is used in 'the sad heart of Ruth'?",
-        options: ["Allusion", "Irony", "Metonymy", "Onomatopoeia"],
-        answer: "Allusion"
-      },
-      {
-        q: "22. 'Was it a vision, or a waking dream?' suggests:",
-        options: ["Hope", "Sleep", "Uncertainty", "Love"],
-        answer: "Uncertainty"
-      },
-      {
-        q: "23. What is the final word of the poem?",
-        options: ["Sleep", "Night", "Adieu", "Bird"],
-        answer: "Adieu"
-      },
-      {
-        q: "24. Who is Hippocrene?",
-        options: ["A Greek fountain", "A flower", "A goddess", "A nymph"],
-        answer: "A Greek fountain"
-      },
-      {
-        q: "25. The tone of the poem transitions from:",
-        options: ["Joy to grief", "Confusion to clarity", "Despair to transcendence", "Desire to disillusionment"],
-        answer: "Desire to disillusionment"
-      },
-      {
-        q: "26. Which of the following is NOT a theme in the poem?",
-        options: ["Mortality", "Imagination", "Industrial progress", "Art vs. Life"],
-        answer: "Industrial progress"
-      },
-      {
-        q: "27. What kind of poem is 'Ode to a Nightingale'?",
-        options: ["Sestina", "Ballad", "Pindaric ode", "Horatian ode"],
-        answer: "Horatian ode"
-      },
-      {
-        q: "28. The line 'Thou light-winged Dryad of the trees' addresses:",
-        options: ["The moon", "The bird", "A goddess", "The breeze"],
-        answer: "The bird"
-      },
-      {
-        q: "29. What happens to the speaker’s sense of sight in the dark?",
-        options: ["It improves", "It fades", "It grows sharper", "He sees ghosts"],
-        answer: "It fades"
-      },
-      {
-        q: "30. Why does the poet envy the nightingale?",
-        options: ["Its colorful feathers", "Its connection to gods", "Its eternal song", "Its physical speed"],
-        answer: "Its eternal song"
-      },
-      {
-        q: "31. What is the setting of the poem?",
-        options: ["A battlefield", "A forest glade", "A city tower", "A seaside cliff"],
-        answer: "A forest glade"
-      },
-      {
-        q: "32. What is the dominant mood in stanza VI?",
-        options: ["Jealousy", "Longing", "Ecstasy", "Fear"],
-        answer: "Longing"
-      },
-      {
-        q: "33. In which stanza does the speaker most desire death?",
-        options: ["Stanza III", "Stanza V", "Stanza VI", "Stanza VIII"],
-        answer: "Stanza VI"
-      },
-      {
-        q: "34. What does the speaker rely on to reach the nightingale?",
-        options: ["Love", "Wings of Poesy", "Wings of night", "The moonlight"],
-        answer: "Wings of Poesy"
-      },
-      {
-        q: "35. Why does the speaker reject wine as an escape?",
-        options: ["He is poor", "He prefers poetry", "It dulls the senses", "He fears Bacchus"],
-        answer: "He prefers poetry"
-      },
-      {
-        q: "36. 'Thou art pouring forth thy soul abroad / In such an ecstasy!' is an example of:",
-        options: ["Allusion", "Enjambment", "Metaphor", "Apostrophe"],
-        answer: "Apostrophe"
-      },
-      {
-        q: "37. 'And haply the Queen-Moon is on her throne' is a reference to:",
-        options: ["Elizabeth I", "Selene/Luna", "Hera", "Mary, Queen of Scots"],
-        answer: "Selene/Luna"
-      },
-      {
-        q: "38. The word 'haply' most nearly means:",
-        options: ["Sadly", "Surely", "Perhaps", "Frequently"],
-        answer: "Perhaps"
-      },
-      {
-        q: "39. What does the speaker say about 'Love' in stanza III?",
-        options: ["It is everlasting", "It leads to happiness", "It is filled with pain", "It is divine"],
-        answer: "It is filled with pain"
-      },
-      {
-        q: "40. What does 'fancy cannot cheat so well' mean?",
-        options: ["Imagination is unreliable", "Poetry is strong", "Reality is better", "Sleep is cheating"],
-        answer: "Imagination is unreliable"
-      },
-      {
-        q: "41. What does the nightingale's song transcend?",
-        options: ["Nature", "Culture", "Time", "Emotion"],
-        answer: "Time"
-      },
-      {
-        q: "42. The poet refers to what legendary sufferer?",
-        options: ["Ruth", "Orpheus", "Cain", "Achilles"],
-        answer: "Ruth"
-      },
-      {
-        q: "43. What breaks the speaker’s imaginative journey?",
-        options: ["The bird’s flight", "A sudden fear", "Daylight", "The fading song"],
-        answer: "The fading song"
-      },
-      {
-        q: "44. Why does the speaker feel disillusioned at the end?",
-        options: ["Because he falls asleep", "Because the bird dies", "Because he returns to reality", "Because love is lost"],
-        answer: "Because he returns to reality"
-      },
-      {
-        q: "45. Which poetic technique is used throughout the poem?",
-        options: ["Free verse", "Iambic pentameter", "Haiku", "Sonnet rhyme"],
-        answer: "Iambic pentameter"
-      },
-      {
-        q: "46. What does 'viewless wings of Poesy' mean?",
-        options: ["Hidden truth", "Invisible wings of imagination", "Fame", "Bird feathers"],
-        answer: "Invisible wings of imagination"
-      },
-      {
-        q: "47. 'With beaded bubbles winking at the brim' shows which device?",
-        options: ["Personification", "Assonance", "Alliteration", "Metonymy"],
-        answer: "Personification"
-      },
-      {
-        q: "48. Which season is hinted at in the poem?",
-        options: ["Spring", "Autumn", "Summer", "Winter"],
-        answer: "Summer"
-      },
-      {
-        q: "49. What contrast lies at the heart of the poem?",
-        options: ["Mind vs body", "Reality vs imagination", "Night vs day", "Love vs hate"],
-        answer: "Reality vs imagination"
-      },
-      {
-        q: "50. What happens when the poem ends?",
-        options: ["The speaker falls asleep", "He forgets the bird", "He questions if it was real", "He sees the nightingale"],
-        answer: "He questions if it was real"
-      }
-    ];
+    <script>
+        const questions = [
+            {
+                q: "1. The speaker's 'drowsy numbness' in Stanza I is likened to: ",
+                options: ["Having drunk heavily from the 'Lethe'", "Having consumed a powerful opiate", "Listening to the nightingale's song for too long", "A state of profound melancholy leading to sleep"],
+                answer: "Having consumed a powerful opiate"
+            },
+            {
+                q: "2. The 'Dryad of the trees' in Stanza I is an example of what literary device?",
+                options: ["Personification", "Metonymy", "Apostrophe", "Both A and C"],
+                answer: "Both A and C"
+            },
+            {
+                q: "3. 'Not that with envy of thy happy lot' (Stanza I) suggests the speaker is NOT jealous of the nightingale's:",
+                options: ["Lack of human suffering", "Musical talent", "Long lifespan", "Natural freedom"],
+                answer: "Long lifespan"
+            },
+            {
+                q: "4. The 'draught of vintage' (Stanza II) the speaker desires is associated with:",
+                options: ["The French Revolution", "Classical Greek mythology and revelry", "Biblical feasts", "Medieval banquets"],
+                answer: "Classical Greek mythology and revelry"
+            },
+            {
+                q: "5. What specific quality of the vintage makes it 'cool'd a long age in the deep-delved earth' (Stanza II)?",
+                options: ["Its refreshing temperature", "Its ancient, matured quality", "Its burial by ancient civilizations", "Its connection to subterranean deities"],
+                answer: "Its ancient, matured quality"
+            },
+            {
+                q: "6. The phrase 'beaded bubbles winking at the brim' (Stanza II) appeals primarily to which senses, creating synaesthesia?",
+                options: ["Sight and Touch", "Sight and Sound", "Sight and Taste", "Sight and Movement"],
+                answer: "Sight and Touch"
+            },
+            {
+                q: "7. The primary reason the speaker wishes to 'fade away into the forest dim' (Stanza III) is to escape:",
+                options: ["The beauty of the nightingale's song", "His personal sorrows and the human condition", "The harsh realities of nature", "The pressures of poetic composition"],
+                answer: "His personal sorrows and the human condition"
+            },
+            {
+                q: "8. 'Where youth grows pale, and spectre-thin, and dies' (Stanza III) highlights the theme of:",
+                options: ["Eternal spring", "The fleeting nature of beauty", "The inevitability of human mortality", "The transformative power of art"],
+                answer: "The inevitability of human mortality"
+            },
+            {
+                q: "9. The 'Beauty cannot keep her lustrous eyes, / Or new Love pine at them beyond to-morrow' (Stanza III) describes the transience of:",
+                options: ["Nature's cycles", "Poetic inspiration", "Physical beauty and passionate love", "Human fame and reputation"],
+                answer: "Physical beauty and passionate love"
+            },
+            {
+                q: "10. In Stanza IV, the speaker rejects wine as his vehicle for escape and instead chooses:",
+                options: ["Sleep", "Pure sensation", "The 'viewless wings of Poesy'", "A journey to a distant land"],
+                answer: "The 'viewless wings of Poesy'"
+            },
+            {
+                q: "11. The phrase 'tender is the night' (Stanza V) primarily emphasizes the night's:",
+                options: ["Gentleness and welcoming nature", "Coldness and harshness", "Mysterious and terrifying aspects", "Brief duration"],
+                answer: "Gentleness and welcoming nature"
+            },
+            {
+                q: "12. In Stanza V, the speaker struggles to discern the surrounding flora, relying heavily on:",
+                options: ["His memory of previous visits", "The distant sound of the sea", "His sense of touch", "His sense of smell"],
+                answer: "His sense of smell"
+            },
+            {
+                q: "13. The 'Queen-Moon' with her 'starry Fays' (Stanza V) represents:",
+                options: ["A benevolent deity", "A symbol of unchanging love", "The celestial realm's inhabitants", "The mythological figures attending the moon"],
+                answer: "The mythological figures attending the moon"
+            },
+            {
+                q: "14. The 'embalmed darkness' (Stanza V) suggests a darkness that is:",
+                options: ["Preserved and sacred", "Suffocating and funereal", "Fragrant and enveloping", "Deeply mysterious and frightening"],
+                answer: "Fragrant and enveloping"
+            },
+            {
+                q: "15. 'Now more than ever seems it rich to die' (Stanza VI) suggests that death is appealing because:",
+                options: ["It promises reunion with lost loved ones", "It offers a release from earthly pain and a merging with the bird's song", "It would guarantee poetic immortality", "It allows the speaker to observe the nightingale more closely"],
+                answer: "It offers a release from earthly pain and a merging with the bird's song"
+            },
+            {
+                q: "16. The 'high requiem' (Stanza VI) sung by the nightingale implies:",
+                options: ["A celebratory song for the living", "A mournful hymn for the dead", "A song of praise for nature", "A complex musical composition"],
+                answer: "A mournful hymn for the dead"
+            },
+            {
+                q: "17. 'Thou wast not born for death, immortal Bird!' (Stanza VII) means the bird is immortal in its:",
+                options: ["Biological lifespan", "Symbolic representation of enduring art and song", "Ability to escape human suffering", "Physical resilience against time"],
+                answer: "Symbolic representation of enduring art and song"
+            },
+            {
+                q: "18. The emperors and clowns (Stanza VII) symbolize:",
+                options: ["The extremes of human society", "Figures of power and entertainment", "The fleeting nature of human achievements, regardless of status", "Historical archetypes"],
+                answer: "The fleeting nature of human achievements, regardless of status"
+            },
+            {
+                q: "19. The song heard by Ruth (Stanza VII) is significant because it connects the nightingale's song to:",
+                options: ["Ancient Greek tragedy", "Medieval folklore", "Biblical antiquity and human sorrow", "Roman imperial power"],
+                answer: "Biblical antiquity and human sorrow"
+            },
+            {
+                q: "20. The 'magic casements, opening on the foam / Of perilous seas, in faery lands forlorn' (Stanza VII) evokes:",
+                options: ["Realistic maritime exploration", "Romantic escapism into exotic and dangerous fantasy realms", "The mundanity of everyday life", "Historical colonial ventures"],
+                answer: "Romantic escapism into exotic and dangerous fantasy realms"
+            },
+            {
+                q: "21. The word 'forlorn' (Stanza VIII), when echoed, primarily signifies:",
+                options: ["Hope and renewal", "Isolation and abandonment", "Joyful reminiscence", "Sudden enlightenment"],
+                answer: "Isolation and abandonment"
+            },
+            {
+                q: "22. What causes the speaker's return to reality in Stanza VIII?",
+                options: ["The sudden onset of dawn", "The nightingale's abrupt departure", "The realization that imagination cannot fully sustain him", "The fear of getting lost in the forest"],
+                answer: "The realization that imagination cannot fully sustain him"
+            },
+            {
+                q: "23. The final line, 'Was it a vision, or a waking dream?', emphasizes the poem's thematic tension between:",
+                options: ["Love and Hate", "Life and Death", "Art and Nature", "Reality and Imagination"],
+                answer: "Reality and Imagination"
+            },
+            {
+                q: "24. What mythological river is invoked in 'Lethe-wards had sunk'?",
+                options: ["Styx", "Acheron", "Lethe", "Phlegethon"],
+                answer: "Lethe"
+            },
+            {
+                q: "25. The overall tone of the poem can be best described as a journey from:",
+                options: ["Skepticism to belief", "Despair to transcendence and back to thoughtful uncertainty", "Ecstasy to melancholic resignation", "Ignorance to profound knowledge"],
+                answer: "Despair to transcendence and back to thoughtful uncertainty"
+            },
+            {
+                q: "26. Which of the following is a primary paradox explored in the poem?",
+                options: ["The beauty of ugliness", "The mortality of the speaker vs. the immortal song of the bird", "The silence of music", "The strength of weakness"],
+                answer: "The mortality of the speaker vs. the immortal song of the bird"
+            },
+            {
+                q: "27. The structure of 'Ode to a Nightingale' is characterized by:",
+                options: ["Irregular stanzas and free verse", "Eight ten-line stanzas with a consistent rhyme scheme and meter", "Couplets with varying line lengths", "A sonnet sequence"],
+                answer: "Eight ten-line stanzas with a consistent rhyme scheme and meter"
+            },
+            {
+                q: "28. The meter predominantly used in the poem is:",
+                options: ["Trochaic tetrameter", "Anapestic trimeter", "Iambic pentameter (with some variations)", "Dactylic hexameter"],
+                answer: "Iambic pentameter (with some variations)"
+            },
+            {
+                q: "29. The rhyme scheme of each stanza is generally:",
+                options: ["ABAB CDCD EE", "ABAB CDDE CE", "ABABCDECDE", "ABCABC DEFEF"],
+                answer: "ABABCDECDE"
+            },
+            {
+                q: "30. The speaker's desire to escape to the nightingale's world is an example of:",
+                options: ["Misanthropy", "Escapism", "Realism", "Stoicism"],
+                answer: "Escapism"
+            },
+            {
+                q: "31. Keats composed 'Ode to a Nightingale' in:",
+                options: ["1817", "1818", "1819", "1820"],
+                answer: "1819"
+            },
+            {
+                q: "32. The poem was first published in:",
+                options: ["Lamia, Isabella, The Eve of St. Agnes, and Other Poems", "Poems (1817)", "Annals of the Fine Arts", "The Examiner"],
+                answer: "Annals of the Fine Arts"
+            },
+            {
+                q: "33. The 'sad heart of Ruth' (Stanza VII) is an example of what literary device?",
+                options: ["Synecdoche", "Allusion", "Paradox", "Hyperbole"],
+                answer: "Allusion"
+            },
+            {
+                q: "34. The phrase 'Thy plaintive anthem fades' (Stanza VIII) uses 'plaintive' to describe the anthem's:",
+                options: ["Joyful quality", "Loudness", "Mournful, sorrowful tone", "Melodic complexity"],
+                answer: "Mournful, sorrowful tone"
+            },
+            {
+                q: "35. The 'waking dream' suggests a state between:",
+                options: ["Life and Death", "Joy and Sorrow", "Consciousness and unconsciousness", "Past and Future"],
+                answer: "Consciousness and unconsciousness"
+            },
+            {
+                q: "36. The description of the nightingale's song as having been heard by 'Charm'd magic casements' (Stanza VII) emphasizes its:",
+                options: ["Physical proximity", "Timeless and transcendent quality", "Ephemeral nature", "Limited audience"],
+                answer: "Timeless and transcendent quality"
+            },
+            {
+                q: "37. 'Fade far away, dissolve, and quite forget' (Stanza I) primarily expresses the speaker's desire for:",
+                options: ["A journey of exploration", "A cessation of consciousness and suffering", "A vivid imaginative experience", "A spiritual awakening"],
+                answer: "A cessation of consciousness and suffering"
+            },
+            {
+                q: "38. What is the symbolic significance of the speaker's inability to see the flowers in the 'embalmed darkness' (Stanza V)?",
+                options: ["It highlights his blindness", "It signifies his reliance on imagination over physical sight", "It suggests the oppressive nature of the night", "It foreshadows a loss of senses"],
+                answer: "It signifies his reliance on imagination over physical sight"
+            },
+            {
+                q: "39. The poem explores the Romantic ideal of:",
+                options: ["The supremacy of reason over emotion", "The human connection to industrial progress", "The power of imagination and art to transcend reality", "The pursuit of political revolution"],
+                answer: "The power of imagination and art to transcend reality"
+            },
+            {
+                q: "40. The 'darkling' (Stanza VI) indicates the speaker is:",
+                options: ["Stumbling blindly", "In a state of moral decay", "In the darkness, listening", "Concealing a secret"],
+                answer: "In the darkness, listening"
+            },
+            {
+                q: "41. The nightingale's song is presented as a contrast to human experience due to its:",
+                options: ["Loudness", "Simplicity", "Freedom from mortality and suffering", "Intricacy"],
+                answer: "Freedom from mortality and suffering"
+            },
+            {
+                q: "42. The poem is often read as an exploration of Keats's concept of:",
+                options: ["The Sublime", "Negative Capability", "Poetic Justice", "The Picturesque"],
+                answer: "Negative Capability"
+            },
+            {
+                q: "43. The speaker initially feels 'too happy' (Stanza I) due to:",
+                options: ["His recent good fortune", "The overwhelming joy produced by the nightingale's song", "His successful poetic career", "His deep love for another person"],
+                answer: "The overwhelming joy produced by the nightingale's song"
+            },
+            {
+                q: "44. The comparison of the nightingale's song to a 'light-winged Dryad' (Stanza I) suggests:",
+                options: ["Its heavy, earthy presence", "Its ethereal, supernatural quality", "Its slow, ponderous movement", "Its rigid adherence to classical forms"],
+                answer: "Its ethereal, supernatural quality"
+            },
+            {
+                q: "45. The poem's central conflict revolves around the speaker's yearning for:",
+                options: ["Material wealth and social status", "Political power and influence", "Escape from human suffering and the pursuit of ideal beauty/immortality", "Scientific discovery and technological advancement"],
+                answer: "Escape from human suffering and the pursuit of ideal beauty/immortality"
+            },
+            {
+                q: "46. What type of imagery is predominantly used to describe the night in Stanza V?",
+                options: ["Auditory and Tactile", "Visual and Olfactory", "Gustatory and Kinetic", "Thermal and Proprioceptive"],
+                answer: "Visual and Olfactory"
+            },
+            {
+                q: "47. The phrase 'charmed magic casements' (Stanza VII) suggests a world that is:",
+                options: ["Utterly mundane and realistic", "Rational and scientific", "Enchanted, mystical, and perilous", "Strictly historical and verifiable"],
+                answer: "Enchanted, mystical, and perilous"
+            },
+            {
+                q: "48. The nightingale's song is described as a 'song' but also an 'anthem' and a 'plaintive anthem.' This shift in terminology emphasizes:",
+                options: ["Its changing volume", "Its increasing sadness", "Its ceremonial and enduring nature, yet with a mournful undertone", "Its transformation into prose"],
+                answer: "Its ceremonial and enduring nature, yet with a mournful undertone"
+            },
+            {
+                q: "49. The overall effect of the poem's detailed sensory imagery is to:",
+                options: ["Distract the reader from the main themes", "Immerse the reader fully in the speaker's subjective experience", "Provide a scientific catalog of nature", "Create a sense of detachment and objectivity"],
+                answer: "Immerse the reader fully in the speaker's subjective experience"
+            },
+            {
+                q: "50. When the nightingale's song 'fades' (Stanza VIII), it symbolizes:",
+                options: ["The death of the bird", "The end of the speaker's imaginative flight and return to reality", "The arrival of another bird", "A shift in musical tempo"],
+                answer: "The end of the speaker's imaginative flight and return to reality"
+            }
+        ];
 
-    let timeLeft = 1800; // 30 minutes in seconds
-    const timerElement = document.getElementById("timer");
+        let timeLeft = 1800; // 30 minutes in seconds
+        let timerInterval;
+        const timerElement = document.getElementById("timer");
+        const quizForm = document.getElementById("quizForm");
+        const submitButton = document.getElementById("submitBtn");
+        const startQuizButton = document.getElementById("startQuizBtn");
+        const resultDiv = document.getElementById("result");
+        const scoreElement = document.getElementById("score");
 
-    function startTimer() {
-      const timerInterval = setInterval(() => {
-        if (timeLeft <= 0) {
-          clearInterval(timerInterval);
-          submitQuiz();
-        } else {
-          const minutes = Math.floor(timeLeft / 60);
-          const seconds = timeLeft % 60;
-          timerElement.textContent = `Time left: ${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
-          timeLeft--;
+        function formatTime(seconds) {
+            const minutes = Math.floor(seconds / 60);
+            const remainingSeconds = seconds % 60;
+            return `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
         }
-      }, 1000);
-    }
 
-    function loadQuiz() {
-      const form = document.getElementById("quizForm");
-      questions.forEach((q, index) => {
-        const div = document.createElement("div");
-        div.className = "question";
-        div.innerHTML = `<p><strong>${index + 1}. ${q.q}</strong></p>` +
-          q.options.map(opt => `
-            <label>
-              <input type="radio" name="q${index}" value="${opt}" required> ${opt}
-            </label><br>`
-          ).join("");
-        form.appendChild(div);
-      });
-    }
+        function startTimer() {
+            clearInterval(timerInterval); // Clear any existing timer
+            timerInterval = setInterval(() => {
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    submitQuiz();
+                } else {
+                    timeLeft--;
+                    timerElement.textContent = `Time left: ${formatTime(timeLeft)}`;
+                }
+            }, 1000);
+        }
 
-    function submitQuiz() {
-      const form = document.forms["quizForm"];
-      let score = 0;
-      questions.forEach((q, index) => {
-        const userAnswer = form[`q${index}`].value;
-        if (userAnswer === q.answer) score++;
-      });
-      document.getElementById("result").textContent = `You scored ${score} out of ${questions.length}`;
-    }
+        function loadQuiz() {
+            quizForm.innerHTML = ''; // Clear existing questions
+            questions.forEach((q, index) => {
+                const div = document.createElement("div");
+                div.className = "question-block";
+                div.setAttribute('data-question-index', index); // Add index for easy lookup
 
-    loadQuiz();
-    startTimer();
-  </script>
+                let optionsHtml = '';
+                // Shuffle options for each question to prevent memorization by position
+                const shuffledOptions = [...q.options].sort(() => Math.random() - 0.5);
+
+                shuffledOptions.forEach(opt => {
+                    optionsHtml += `
+                        <label>
+                            <input type="radio" name="q${index}" value="${opt}" required> ${opt}
+                        </label><br>
+                    `;
+                });
+
+                div.innerHTML = `
+                    <p class="question-text"><strong>${index + 1}. ${q.q}</strong></p>
+                    <div class="options-group">${optionsHtml}</div>
+                `;
+                quizForm.appendChild(div);
+            });
+            // Update initial score display
+            scoreElement.textContent = `Score: 0 / ${questions.length}`;
+        }
+
+        function submitQuiz() {
+            clearInterval(timerInterval); // Stop the timer immediately
+            submitButton.disabled = true; // Disable submit button
+
+            let score = 0;
+            questions.forEach((q, index) => {
+                const questionBlock = document.querySelector(`.question-block[data-question-index="${index}"]`);
+                const userAnswerInput = document.querySelector(`input[name="q${index}"]:checked`);
+                const userAnswer = userAnswerInput ? userAnswerInput.value : null;
+                
+                // Disable all radio buttons for this question
+                questionBlock.querySelectorAll('input[type="radio"]').forEach(radio => {
+                    radio.disabled = true;
+                });
+
+                // Clear any previous feedback classes
+                questionBlock.querySelectorAll('label').forEach(label => {
+                    label.classList.remove('selected-correct', 'selected-incorrect', 'correct-answer');
+                });
+
+                if (userAnswer === q.answer) {
+                    score++;
+                    questionBlock.classList.add('correct');
+                    if (userAnswerInput) {
+                        userAnswerInput.parentNode.classList.add('selected-correct');
+                    }
+                } else {
+                    questionBlock.classList.add('incorrect');
+                    if (userAnswerInput) {
+                        userAnswerInput.parentNode.classList.add('selected-incorrect');
+                    }
+                    // Highlight the correct answer
+                    const correctAnswerLabel = questionBlock.querySelector(`input[name="q${index}"][value="${q.answer}"]`).parentNode;
+                    if (correctAnswerLabel) {
+                        correctAnswerLabel.classList.add('correct-answer');
+                    }
+                }
+            });
+
+            resultDiv.textContent = `You scored ${score} out of ${questions.length}`;
+            resultDiv.classList.remove('hidden'); // Show final result
+            startQuizButton.textContent = "Restart Quiz"; // Change text to Restart
+            startQuizButton.classList.remove('hidden'); // Show restart button
+
+            // Update final score display
+            scoreElement.textContent = `Score: ${score} / ${questions.length}`;
+        }
+
+        function resetQuiz() {
+            timeLeft = 1800; // Reset time
+            score = 0; // Reset score
+            timerElement.textContent = `Time left: ${formatTime(timeLeft)}`;
+            scoreElement.textContent = `Score: 0 / ${questions.length}`;
+            resultDiv.classList.add('hidden'); // Hide result
+            submitButton.disabled = false; // Enable submit button
+            startQuizButton.classList.add('hidden'); // Hide restart button initially
+            loadQuiz(); // Reload questions to clear selections and feedback
+            startTimer(); // Start timer again
+        }
+
+        // Event Listeners
+        submitButton.addEventListener('click', submitQuiz);
+        // The startQuizButton's listener for restarting is handled within its initial setup
+
+        // Initial setup on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            // Hide quiz form and submit button initially
+            quizForm.classList.add('hidden');
+            submitButton.classList.add('hidden');
+            // Show only the start quiz button
+            startQuizButton.classList.remove('hidden');
+            startQuizButton.textContent = "Start Quiz";
+
+            // Add the event listener for the first "Start Quiz" click
+            startQuizButton.addEventListener('click', function handler() {
+                quizForm.classList.remove('hidden');
+                submitButton.classList.remove('hidden');
+                startQuizButton.classList.add('hidden'); // Hide the start button
+                loadQuiz();
+                startTimer();
+                this.removeEventListener('click', handler); // Remove this specific listener after first click
+                startQuizButton.addEventListener('click', resetQuiz); // Now, future clicks on this button will reset the quiz
+            });
+        });
+    </script>
 </body>
 </html>
