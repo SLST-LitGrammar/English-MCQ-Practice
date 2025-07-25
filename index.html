@@ -7,39 +7,39 @@
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0; /* Remove default body margin */
-            background: #e0f2f7; /* Light Blue Background */
+            margin: 0;
+            background: #e0f2f7;
             color: #333;
             line-height: 1.6;
             scroll-behavior: smooth;
-            display: flex; /* Use flexbox for main layout */
-            min-height: 100vh; /* Ensure body takes full viewport height */
+            display: flex;
+            min-height: 100vh;
         }
         .main-wrapper {
             display: flex;
             width: 100%;
-            max-width: 1200px; /* Max width for overall content */
-            margin: 30px auto; /* Center the wrapper */
+            max-width: 1200px;
+            margin: 30px auto;
             background: #ffffff;
             border-radius: 12px;
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-            border: 1px solid #b3e5fc; /* Light Blue Border */
-            overflow: hidden; /* Clear floats / contain children */
+            border: 1px solid #b3e5fc;
+            overflow: hidden;
         }
         .content {
-            flex: 3; /* Takes 3 parts of available space */
+            flex: 3;
             padding: 30px 40px;
-            box-sizing: border-box; /* Include padding in width calculation */
+            box-sizing: border-box;
         }
         .sidebar {
-            flex: 1; /* Takes 1 part of available space */
-            background: #f0f8ff; /* Alice Blue */
+            flex: 1;
+            background: #f0f8ff;
             border-left: 1px solid #b3e5fc;
             padding: 30px 20px;
             box-sizing: border-box;
         }
         h1, h2 {
-            color: #01579b; /* Dark Blue */
+            color: #01579b;
             text-align: center;
             margin-bottom: 25px;
             font-size: 2.2em;
@@ -47,20 +47,20 @@
         }
         .sidebar h2 {
             font-size: 1.5em;
-            color: #0277bd; /* Darker Blue */
+            color: #0277bd;
             margin-top: 20px;
             margin-bottom: 15px;
             border-bottom: 1px dashed #b3e5fc;
             padding-bottom: 5px;
-            text-align: left; /* Align sidebar headings left */
+            text-align: left;
         }
         .highlight {
-            color: #e65100; /* Deep Orange for emphasis */
+            color: #e65100;
             font-weight: bold;
             font-size: 1.1em;
         }
         .mcq {
-            background: #e3f2fd; /* Lighter Blue */
+            background: #e3f2fd;
             margin-bottom: 15px;
             padding: 15px;
             border: 1px solid #bbdefb;
@@ -83,22 +83,53 @@
         }
         .options input[type="radio"] {
             margin-right: 8px;
-            transform: scale(1.1); /* Slightly larger radio buttons */
+            transform: scale(1.1);
         }
         .options label {
             cursor: pointer;
-            display: block;
+            display: flex; /* Use flexbox for label content */
+            align-items: center; /* Vertically align items */
             padding: 3px 0;
+            position: relative; /* Needed for absolute positioning of ::after */
+            padding-right: 30px; /* Space for the tick mark */
         }
         .options label:hover {
-            color: #0288d1; /* Blue on hover */
+            color: #0288d1;
         }
+
+        /* Styling for the correct answer feedback */
+        .correct-answer-feedback {
+            color: green;
+            font-weight: bold;
+        }
+
+        .correct-answer-feedback::after {
+            content: "\2713"; /* Unicode for check mark */
+            color: green;
+            font-size: 1.2em;
+            margin-left: auto; /* Push to the right */
+            padding-left: 10px; /* Space between text and tick */
+        }
+
+        /* Disable radio buttons after submission */
+        .mcq.submitted input[type="radio"] {
+            pointer-events: none; /* Disables click events */
+            /* opacity: 0.7; Optional: visually dim them if you want */
+        }
+        .mcq.submitted label {
+            cursor: default; /* Change cursor to indicate no interaction */
+        }
+        .mcq.submitted label:hover {
+            color: inherit; /* Remove hover effect after submission */
+        }
+
+
         #submitQuiz {
             display: block;
             width: 200px;
             padding: 12px 20px;
             margin: 25px auto;
-            background: #007bb5; /* Cobalt Blue */
+            background: #007bb5;
             color: #fff;
             border: none;
             border-radius: 8px;
@@ -108,8 +139,14 @@
             box-shadow: 0 4px 10px rgba(0,0,0,0.15);
         }
         #submitQuiz:hover {
-            background: #005a8b; /* Darker Cobalt Blue */
+            background: #005a8b;
             transform: translateY(-2px);
+        }
+        #submitQuiz:disabled {
+            background: #cccccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
         }
         #finalResult {
             font-weight: bold;
@@ -119,7 +156,7 @@
             color: #01579b;
         }
         .sidebar ul {
-            list-style: none; /* Remove default bullet points */
+            list-style: none;
             padding: 0;
             margin-bottom: 25px;
         }
@@ -129,8 +166,8 @@
         .sidebar ul li a {
             display: block;
             padding: 10px 15px;
-            background: #81d4fa; /* Light Sky Blue */
-            color: #01579b; /* Dark Blue */
+            background: #81d4fa;
+            color: #01579b;
             text-decoration: none;
             border-radius: 6px;
             transition: background-color 0.3s ease, transform 0.2s ease;
@@ -138,7 +175,7 @@
             box-shadow: 0 1px 3px rgba(0,0,0,0.08);
         }
         .sidebar ul li a:hover {
-            background: #4fc3f7; /* Dodger Blue */
+            background: #4fc3f7;
             color: #fff;
             transform: translateY(-2px);
             box-shadow: 0 3px 8px rgba(0,0,0,0.15);
@@ -147,21 +184,24 @@
         /* Responsive adjustments */
         @media (max-width: 768px) {
             .main-wrapper {
-                flex-direction: column; /* Stack columns vertically */
+                flex-direction: column;
                 margin: 15px;
             }
             .content, .sidebar {
-                flex: none; /* Disable flex growth */
-                width: 100%; /* Take full width */
+                flex: none;
+                width: 100%;
                 padding: 20px;
             }
             .sidebar {
                 border-left: none;
-                border-top: 1px solid #b3e5fc; /* Add top border for separation */
+                border-top: 1px solid #b3e5fc;
                 margin-top: 20px;
             }
             h1 { font-size: 1.8em; }
-            .sidebar h2 { text-align: center; } /* Center sidebar headings on small screens */
+            .sidebar h2 { text-align: center; }
+            .options label {
+                padding-right: 25px;
+            }
         }
     </style>
 </head>
@@ -178,8 +218,8 @@
     <div class="sidebar">
         <h2><span class="highlight">FREE</span> MCQ of Poetry</h2>
         <ul>
-            <li><a href="Lucy Poems (MCQ Quiz).html" target="_blank">Lucy Poems (MCQ Quiz)</a></li>
-            <li><a href="THE DARKLING THRUS.HTML" target="_blank">The Darkling Thrush</a></li>
+            <li><a href="myquiz.html" target="_blank">Lucy Poems (MCQ Quiz)</a></li>
+            <li><a href="50 MCQ THE DARKLING THRUS.HTML" target="_blank">The Darkling Thrush</a></li>
             <li><a href="Ode to a Nightingale – 50 MCQs Quiz.html" target="_blank">Ode to a Nightingale</a></li>
             <li><a href="Ode to the West Wind.html" target="_blank">Ode to the West Wind</a></li>
             <li><a href="TO AUTUMN 50 mcq.html" target="_blank">To Autumn</a></li>
@@ -258,9 +298,9 @@ function loadQuiz() {
         const optionsList = document.createElement('ul');
         optionsList.classList.add('options');
 
-        mcq.options.forEach((option, optionIndex) => { // Added optionIndex
+        mcq.options.forEach((option, optionIndex) => {
             const li = document.createElement('li');
-            li.innerHTML = `<label><input type='radio' name='q${index}' value='${option}' data-option-index="${optionIndex}"> ${option}</label>`; // Added data-option-index
+            li.innerHTML = `<label><input type='radio' name='q${index}' value='${option}' data-option-index="${optionIndex}"> ${option}</label>`;
             optionsList.appendChild(li);
         });
 
@@ -271,21 +311,48 @@ function loadQuiz() {
 
 function calculateScore() {
     let score = 0;
+    const quizContainer = document.getElementById('quiz');
+    const submitButton = document.getElementById('submitQuiz');
+
     mcqs.forEach((mcq, index) => {
         const options = document.getElementsByName(`q${index}`);
+        const mcqDiv = quizContainer.children[index]; // Get the specific MCQ div
+
         let selectedOptionIndex = -1;
         options.forEach(option => {
             if (option.checked) {
-                selectedOptionIndex = parseInt(option.dataset.optionIndex); // Get index
+                selectedOptionIndex = parseInt(option.dataset.optionIndex);
             }
+            // Always disable radio buttons after submission
+            option.disabled = true;
         });
 
-        if (selectedOptionIndex === mcq.answerIndex) { // Compare indices
+        // Add 'submitted' class to the MCQ div to indicate it's been processed
+        mcqDiv.classList.add('submitted');
+
+        // Ensure all previous feedback is cleared (important for re-submission scenarios if quiz reset were added)
+        const allLabelsForQuestion = mcqDiv.querySelectorAll('label');
+        allLabelsForQuestion.forEach(label => {
+            label.classList.remove('correct-answer-feedback');
+        });
+
+        // ⭐ ALWAYS highlight the correct answer with green text and tick mark ⭐
+        const correctAnswerInput = mcqDiv.querySelector(`input[name="q${index}"][data-option-index="${mcq.answerIndex}"]`);
+        if (correctAnswerInput) {
+            const correctAnswerLabel = correctAnswerInput.closest('label'); // Get the parent label of the correct input
+            if (correctAnswerLabel) {
+                correctAnswerLabel.classList.add('correct-answer-feedback');
+            }
+        }
+
+        // Calculate score based on user's selection
+        if (selectedOptionIndex === mcq.answerIndex) {
             score++;
         }
     });
 
     document.getElementById('finalResult').textContent = `Your Score: ${score} / ${mcqs.length}`;
+    submitButton.disabled = true; // Disable the submit button after results are shown
 }
 
 document.getElementById('submitQuiz').addEventListener('click', calculateScore);
