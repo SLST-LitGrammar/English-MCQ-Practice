@@ -8,6 +8,7 @@
       font-family: Arial, sans-serif;
       padding: 2rem;
       background: #f4f4f4;
+      line-height: 1.6;
     }
     .quiz-container {
       max-width: 800px;
@@ -18,29 +19,35 @@
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
     .question {
-      margin-bottom: 1rem;
+      margin-bottom: 1.5rem;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 1rem;
     }
-    .options label {
-      display: block;
-      margin-bottom: 0.5rem;
+    .question:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
     }
-    #submit-btn {
-      margin-top: 1rem;
-      padding: 0.5rem 1rem;
-      cursor: pointer;
+    .options {
+      margin-top: 0.8rem;
     }
-    .result {
-      margin-top: 2rem;
-      font-weight: bold;
+    .options div {
+      margin-bottom: 0.4rem;
+    }
+    .options div span {
+      font-weight: normal; /* To ensure options don't look like strong text */
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 2rem;
+      color: #333;
     }
   </style>
 </head>
 <body>
   <div class="quiz-container">
     <h1>Ulysses – 50 MCQ Quiz</h1>
-    <div id="quiz"></div>
-    <button id="submit-btn">Submit</button>
-    <div class="result" id="result"></div>
+    <div id="quiz-display"></div>
   </div>
 
   <script>
@@ -297,38 +304,23 @@
         }
     ];
 
-    const quizContainer = document.getElementById("quiz");
-    const submitButton = document.getElementById("submit-btn");
-    const resultContainer = document.getElementById("result");
+    const quizDisplayContainer = document.getElementById("quiz-display");
 
-    function buildQuiz() {
+    function displayQuizQuestions() {
       const output = [];
 
       quizQuestionsUlysses.forEach((q, index) => {
-        const options = q.options.map((opt, i) =>
-          `<label><input type="radio" name="question${index}" value="${i}"> ${opt}</label>`
+        const optionsHtml = q.options.map((opt, i) =>
+          `<div><span>${String.fromCharCode(65 + i)}.</span> ${opt}</div>` // A., B., C., D.
         ).join("");
-        output.push(`<div class="question"><strong>${q.q}</strong><div class="options">${options}</div></div>`);
+        output.push(`<div class="question"><strong>${q.q}</strong><div class="options">${optionsHtml}</div></div>`);
       });
 
-      quizContainer.innerHTML = output.join("");
+      quizDisplayContainer.innerHTML = output.join("");
     }
 
-    function showResults() {
-      let score = 0;
-
-      quizQuestionsUlysses.forEach((q, index) => {
-        const selected = document.querySelector(`input[name="question${index}"]:checked`);
-        if (selected && parseInt(selected.value) === q.answer) {
-          score++;
-        }
-      });
-
-      resultContainer.innerHTML = `You scored ${score} out of ${quizQuestionsUlysses.length}`;
-    }
-
-    buildQuiz();
-    submitButton.addEventListener("click", showResults);
+    // Call the function to display the questions when the page loads
+    displayQuizQuestions();
   </script>
 </body>
 </html>
