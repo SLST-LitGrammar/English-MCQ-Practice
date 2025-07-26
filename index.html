@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <title>SLST English MCQ Practice | Literature & Grammar Quizzes</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SLST English MCQ Practice | Literature & Grammar Quizzes</title>
     <meta name="description" content="Practice English MCQs for WBSLST – Literature, Grammar, Poetry. 50+ MCQs with answers & explanations. Free for teachers & aspirants." />
     <link rel="canonical" href="https://slst-litgrammar.github.io/English-MCQ-Practice/" />
     <meta name="robots" content="index, follow" />
@@ -62,6 +63,13 @@
             font-weight: bold;
             font-size: 1.1em;
         }
+        .intro-paragraph {
+            margin-bottom: 30px;
+            text-align: center;
+            font-size: 1.1em;
+            color: #4a4a4a;
+            padding: 0 15px;
+        }
         .mcq {
             background: #e3f2fd;
             margin-bottom: 15px;
@@ -90,45 +98,38 @@
         }
         .options label {
             cursor: pointer;
-            display: flex; /* Use flexbox for label content */
-            align-items: center; /* Vertically align items */
+            display: flex;
+            align-items: center;
             padding: 3px 0;
-            position: relative; /* Needed for absolute positioning of ::after */
-            padding-right: 30px; /* Space for the tick mark */
+            position: relative;
+            padding-right: 30px;
         }
         .options label:hover {
             color: #0288d1;
         }
 
-        /* Styling for the correct answer feedback */
         .correct-answer-feedback {
             color: green;
             font-weight: bold;
         }
 
         .correct-answer-feedback::after {
-            content: "\2713"; /* Unicode for check mark */
+            content: "\2713";
             color: green;
             font-size: 1.2em;
-            margin-left: auto; /* Push to the right */
-            padding-left: 10px; /* Space between text and tick */
+            margin-left: auto;
+            padding-left: 10px;
         }
         
-        /* Styling for wrong answer feedback */
-        /* Note: This is handled by inline style in JS, but a class could also be used */
-
-        /* Disable radio buttons after submission */
         .mcq.submitted input[type="radio"] {
-            pointer-events: none; /* Disables click events */
-            /* opacity: 0.7; Optional: visually dim them if you want */
+            pointer-events: none;
         }
         .mcq.submitted label {
-            cursor: default; /* Change cursor to indicate no interaction */
+            cursor: default;
         }
         .mcq.submitted label:hover {
-            color: inherit; /* Remove hover effect after submission */
+            color: inherit;
         }
-
 
         #submitQuiz {
             display: block;
@@ -187,7 +188,6 @@
             box-shadow: 0 3px 8px rgba(0,0,0,0.15);
         }
 
-        /* Responsive adjustments */
         @media (max-width: 768px) {
             .main-wrapper {
                 flex-direction: column;
@@ -208,6 +208,10 @@
             .options label {
                 padding-right: 25px;
             }
+            .intro-paragraph {
+                font-size: 1em;
+                padding: 0;
+            }
         }
     </style>
 </head>
@@ -215,6 +219,8 @@
 
 <div class="main-wrapper">
     <div class="content">
+        <p class="intro-paragraph">Welcome to your ultimate resource for **WBSLST English Literature and Grammar MCQ practice**! Here, you'll find a comprehensive collection of **free multiple-choice questions** designed to help teachers and aspirants **excel in their exams**. Dive into quizzes covering essential poetry, drama, short stories, essays, and critical grammar concepts. Sharpen your skills and boost your scores with our interactive tests!</p>
+        
         <h1><span class="highlight">FREE</span> WBSLST English Literature and Grammar MCQ Practice</h1>
         <div id="quiz"></div>
         <button id="submitQuiz">Submit Quiz</button>
@@ -306,7 +312,6 @@ function loadQuiz() {
 
         mcq.options.forEach((option, optionIndex) => {
             const li = document.createElement('li');
-            // Assign a unique ID to the input and link the label's 'for' attribute to it
             const inputId = `q${index}-option${optionIndex}`;
             li.innerHTML = `<input type='radio' name='q${index}' id='${inputId}' value='${option}' data-option-index="${optionIndex}"><label for='${inputId}'>${option}</label>`;
             optionsList.appendChild(li);
@@ -324,45 +329,42 @@ function calculateScore() {
 
     mcqs.forEach((mcq, index) => {
         const options = document.getElementsByName(`q${index}`);
-        const mcqDiv = quizContainer.children[index]; // Get the specific MCQ div for the current question
+        const mcqDiv = quizContainer.children[index];
 
         let selectedOptionIndex = -1;
         
-        // Disable all radio buttons and remove previous feedback classes for this MCQ
         const allLabelsForQuestion = mcqDiv.querySelectorAll('label');
         allLabelsForQuestion.forEach(label => {
-            label.classList.remove('correct-answer-feedback', 'wrong-answer-feedback'); // Remove both
-            label.style.color = ''; // Reset color
-            label.style.fontWeight = ''; // Reset font weight
+            label.classList.remove('correct-answer-feedback', 'wrong-answer-feedback');
+            label.style.color = '';
+            label.style.fontWeight = '';
         });
         
         options.forEach(option => {
             if (option.checked) {
                 selectedOptionIndex = parseInt(option.dataset.optionIndex);
             }
-            option.disabled = true; // Disable all radio buttons
+            option.disabled = true;
         });
 
-        mcqDiv.classList.add('submitted'); // Mark the MCQ as submitted
+        mcqDiv.classList.add('submitted');
 
-        // Highlight the correct answer with green text and tick mark
         const correctAnswerInput = mcqDiv.querySelector(`input[name="q${index}"][data-option-index="${mcq.answerIndex}"]`);
         if (correctAnswerInput) {
-            const correctAnswerLabel = correctAnswerInput.nextElementSibling; // Get the label associated with the correct input
+            const correctAnswerLabel = correctAnswerInput.nextElementSibling;
             if (correctAnswerLabel) {
                 correctAnswerLabel.classList.add('correct-answer-feedback');
             }
         }
 
-        // Check if the selected answer is correct and provide feedback
         if (selectedOptionIndex === mcq.answerIndex) {
             score++;
-        } else if (selectedOptionIndex !== -1) { // If an answer was selected but it was wrong
+        } else if (selectedOptionIndex !== -1) {
             const wrongAnswerInput = mcqDiv.querySelector(`input[name="q${index}"][data-option-index="${selectedOptionIndex}"]`);
             if (wrongAnswerInput) {
                 const wrongAnswerLabel = wrongAnswerInput.nextElementSibling;
                 if (wrongAnswerLabel) {
-                    wrongAnswerLabel.style.color = 'red'; // Mark wrong answer in red
+                    wrongAnswerLabel.style.color = 'red';
                     wrongAnswerLabel.style.fontWeight = 'bold';
                 }
             }
@@ -370,7 +372,7 @@ function calculateScore() {
     });
 
     document.getElementById('finalResult').textContent = `Your Score: ${score} / ${mcqs.length}`;
-    submitButton.disabled = true; // Disable the submit button after results are shown
+    submitButton.disabled = true;
 }
 
 document.getElementById('submitQuiz').addEventListener('click', calculateScore);
