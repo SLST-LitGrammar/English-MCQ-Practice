@@ -1,64 +1,203 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
   <url>
-    <loc>https://slst-litgrammar.github.io/English-MCQ-Practice/index.html</loc>
-    <priority>1.00</priority>
+    <loc>https://slst-litgrammar.github.io/English-MCQ-Practice/</loc>
+    <lastmod>2025-07-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
   </url>
-  
+
   <url>
     <loc>https://slst-litgrammar.github.io/English-MCQ-Practice/myquiz.html</loc>
-    <priority>1.00</priority>
+    <lastmod>2025-07-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://slst-litgrammar.github.io/English-MCQ-Practice/50%20MCQ%20THE%20DARKLING%20THRUS.HTML</loc>
-    <priority>0.80</priority>
-  </url>
-  
-  <url>
-    <loc>https://slst-litgrammar.github.io/English-MCQ-Practice/ARMS%20AND%20THE%20MAN%2050%20MC.HTML</loc>
-    <priority>0.80</priority>
+    <loc>https://slst-litgrammar.github.io/English-MCQ-Practice/the-darkling-thrush.html</loc>
+    <lastmod>2025-07-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://slst-litgrammar.github.io/English-MCQ-Practice/Ode%20to%20a%20Nightingale%20%E2%80%93%2050%20MCQs%20Quiz.html</loc>
-    <priority>0.80</priority>
+    <loc>https://slst-litgrammar.github.io/English-MCQ-Practice/ode-to-a-nightingale-50-mcqs-quiz.html</loc>
+    <lastmod>2025-07-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://slst-litgrammar.github.io/English-MCQ-Practice/She%20Stoops%20to%20Conquer%2050%20challenging%20quiz.html</loc>
-    <priority>0.80</priority>
+    <loc>https://slst-litgrammar.github.io/English-MCQ-Practice/ode-to-the-west-wind.html</loc>
+    <lastmod>2025-07-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://slst-litgrammar.github.io/English-MCQ-Practice/Strange%20Meeting%2050%20challenging%20quiz.html</loc>
-    <priority>0.80</priority>
+    <loc>https://slst-litgrammar.github.io/English-MCQ-Practice/to-autumn-50-mcq.html</loc>
+    <lastmod>2025-07-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://slst-litgrammar.github.io/English-MCQ-Practice/TO%20AUTUMN%2050%20mcq.html</loc>
-    <priority>0.80</priority>
+    <loc>https://slst-litgrammar.github.io/English-MCQ-Practice/to-a-skylark.html</loc>
+    <lastmod>2025-07-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://slst-litgrammar.github.io/English-MCQ-Practice/TO%20a%20skylark.html</loc>
-    <priority>0.80</priority>
+    <loc>https://slst-litgrammar.github.io/English-MCQ-Practice/ulysses-50-challenging-quiz.html</loc>
+    <lastmod>2025-07-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://slst-litgrammar.github.io/English-MCQ-Practice/The%20Listeners%2050%20challenging%20quiz.html</loc>
-    <priority>0.80</priority>
+    <loc>https://slst-litgrammar.github.io/English-MCQ-Practice/the-last-ride-together.html</loc>
+    <lastmod>2025-07-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://slst-litgrammar.github.io/English-MCQ-Practice/The%20Wild%20Swans%20at%20Coole%2050%20MCQ.HTML</loc>
-    <priority>0.80</priority>
+    <loc>https://slst-litgrammar.github.io/English-MCQ-Practice/the-wild-swans-at-coole-50-mcq.html</loc>
+    <lastmod>2025-07-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://slst-litgrammar.github.io/English-MCQ-Practice/Ulysses%2050%20challenging%20quiz.html</loc>
-    <priority>0.80</priority>
+    <loc>https://slst-litgrammar.github.io/English-MCQ-Practice/strange-meeting-50-challenging-quiz.html</loc>
+    <lastmod>2025-07-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://slst-litgrammar.github.io/English-MCQ-Practice/the-listeners-50-challenging-quiz.html</loc>
+    <lastmod>2025-07-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://slst-litgrammar.github.io/English-MCQ-Practice/the-world-is-too-much-with-us.html</loc>
+    <lastmod>2025-07-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://slst-litgrammar.github.io/English-MCQ-Practice/she-stoops-to-conquer-50-challenging-quiz.html</loc>
+    <lastmod>2025-07-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://slst-litgrammar.github.io/English-MCQ-Practice/arms-and-the-man-50-mcq.html</loc>
+    <lastmod>2025-07-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Grammar, Prose, Essay Pages (Use hyphenated format) -->
+
+  <url>
+    <loc>https://slst-litgrammar.github.io/English-MCQ-Practice/justice.html</loc>
+    <lastmod>2025-07-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://slst-litgrammar.github.io/English-MCQ-Practice/the-lagoon.html</loc>
+    <lastmod>2025-07-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://slst-litgrammar.github.io/English-MCQ-Practice/the-lotus-eater.html</loc>
+    <lastmod>2025-07-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://slst-litgrammar.github.io/English-MCQ-Practice/the-gift-of-the-magi.html</loc>
+    <lastmod>2025-07-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://slst-litgrammar.github.io/English-MCQ-Practice/the-ox.html</loc>
+    <lastmod>2025-07-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://slst-litgrammar.github.io/English-MCQ-Practice/dream-children-a-reverie.html</loc>
+    <lastmod>2025-07-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://slst-litgrammar.github.io/English-MCQ-Practice/principles-of-good-writing.html</loc>
+    <lastmod>2025-07-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://slst-litgrammar.github.io/English-MCQ-Practice/common-errors.html</loc>
+    <lastmod>2025-07-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://slst-litgrammar.github.io/English-MCQ-Practice/tense-voice-mood.html</loc>
+    <lastmod>2025-07-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://slst-litgrammar.github.io/English-MCQ-Practice/articles-and-prepositions.html</loc>
+    <lastmod>2025-07-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://slst-litgrammar.github.io/English-MCQ-Practice/sentence-forms.html</loc>
+    <lastmod>2025-07-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://slst-litgrammar.github.io/English-MCQ-Practice/joining-and-splitting-sentences.html</loc>
+    <lastmod>2025-07-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://slst-litgrammar.github.io/English-MCQ-Practice/narration-direct-indirect-speech.html</loc>
+    <lastmod>2025-07-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
 
 </urlset>
+
