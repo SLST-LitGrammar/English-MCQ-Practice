@@ -2,52 +2,244 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ulysses - 50 MCQ Quiz</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
   <style>
+    /* Google Fonts */
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap');
+
+    :root {
+      --primary-color: #2c3e50; /* Dark Blue/Grey */
+      --secondary-color: #3498db; /* Bright Blue */
+      --accent-color: #e74c3c; /* Red for danger/timer */
+      --success-color: #27ae60; /* Green for correct answers */
+      --wrong-color: #e74c3c; /* Red for wrong answers */
+      --text-color: #333;
+      --bg-color: #ecf0f1; /* Light Grey */
+      --card-bg: #ffffff;
+      --border-color: #ddd;
+    }
+
     body {
-      font-family: Arial, sans-serif;
+      font-family: 'Open Sans', sans-serif;
       padding: 2rem;
-      background: #f4f4f4;
+      background: var(--bg-color);
+      color: var(--text-color);
       line-height: 1.6;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      margin: 0;
     }
     .quiz-container {
-      max-width: 800px;
-      margin: auto;
-      background: #fff;
-      padding: 2rem;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      max-width: 900px;
+      width: 100%;
+      margin: 2rem auto;
+      background: var(--card-bg);
+      padding: 2.5rem 3rem;
+      border-radius: 12px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+      position: relative;
     }
-    .question {
-      margin-bottom: 1.5rem;
-      border-bottom: 1px solid #eee;
-      padding-bottom: 1rem;
+    h1 {
+      font-family: 'Montserrat', sans-serif;
+      text-align: center;
+      margin-bottom: 2.5rem;
+      color: var(--primary-color);
+      font-weight: 700;
+      font-size: 2.5rem;
+      letter-spacing: -0.5px;
     }
-    .question:last-child {
-      border-bottom: none;
-      margin-bottom: 0;
-      padding-bottom: 0;
+    .timer-container {
+      text-align: center;
+      margin-bottom: 2rem;
+      padding: 0.8rem 1.5rem;
+      background: var(--secondary-color);
+      color: white;
+      border-radius: 8px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.8rem;
+      font-weight: 600;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      transition: background-color 0.3s ease;
+    }
+    .timer-container.low-time {
+      background-color: var(--accent-color);
+    }
+
+    /* Question display for one-by-one */
+    .question-slide {
+        display: none; /* Hidden by default */
+    }
+    .question-slide.active {
+        display: block; /* Show active question */
+    }
+
+    .question strong {
+      display: block;
+      font-size: 1.25rem;
+      margin-bottom: 1rem;
+      color: var(--primary-color);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
     }
     .options {
       margin-top: 0.8rem;
     }
-    .options div {
-      margin-bottom: 0.4rem;
+    .options label {
+      display: flex; /* Use flexbox for better alignment of radio and text */
+      align-items: flex-start;
+      margin-bottom: 0.7rem;
+      cursor: pointer;
+      font-size: 1.05rem;
+      padding: 0.5rem 0.8rem;
+      border-radius: 6px;
+      transition: background-color 0.2s ease, transform 0.1s ease;
     }
-    .options div span {
-      font-weight: normal; /* To ensure options don't look like strong text */
+    .options label:hover {
+      background-color: #f5f5f5;
+      transform: translateX(5px);
     }
-    h1 {
-      text-align: center;
-      margin-bottom: 2rem;
-      color: #333;
+    .options input[type="radio"] {
+      margin-right: 12px;
+      margin-top: 4px; /* Adjust vertical alignment of radio button */
+      accent-color: var(--secondary-color); /* Custom color for radio button */
+      transform: scale(1.1); /* Slightly larger radio button */
+    }
+    .options label span {
+      font-weight: normal; /* Ensure option text itself is not bold */
+    }
+
+    .controls {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 2.5rem;
+    }
+    .controls button {
+        padding: 0.8rem 1.5rem;
+        background: var(--secondary-color);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 1.1rem;
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    .controls button:hover {
+        background-color: #2980b9;
+        transform: translateY(-2px);
+    }
+    .controls button:active {
+        transform: translateY(0);
+    }
+    .controls button:disabled {
+        background-color: #cccccc;
+        cursor: not-allowed;
+        box-shadow: none;
+        transform: none;
+    }
+
+    #submit-btn {
+      display: block;
+      width: 100%;
+      padding: 1rem 1.5rem;
+      margin-top: 2.5rem;
+      background: var(--success-color); /* Green for submit */
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.3rem;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+    #submit-btn:hover {
+      background-color: #219d52;
+      transform: translateY(-2px);
+    }
+    #submit-btn:active {
+      transform: translateY(0);
+    }
+
+    /* Results styling */
+    .result-container {
+        display: none; /* Hidden by default */
+        margin-top: 2rem;
+        padding: 1.5rem;
+        background: #eaf7fd; /* Light blue background for results */
+        border: 1px solid #cceeff;
+        border-radius: 8px;
+        font-family: 'Montserrat', sans-serif;
+        color: var(--primary-color);
+    }
+    .result-score {
+        font-size: 1.6rem;
+        font-weight: 700;
+        text-align: center;
+        margin-bottom: 1.5rem;
+    }
+    .answer-feedback {
+        margin-bottom: 1rem;
+        padding: 0.8rem;
+        border-radius: 6px;
+        border: 1px solid var(--border-color);
+    }
+    .answer-feedback strong {
+        font-size: 1.1rem;
+        display: block;
+        margin-bottom: 0.5rem;
+    }
+    .answer-feedback .user-answer {
+        font-weight: 600;
+    }
+    .answer-feedback.correct {
+        background-color: #e6ffe6; /* Very light green */
+        border-color: var(--success-color);
+    }
+    .answer-feedback.incorrect {
+        background-color: #ffe6e6; /* Very light red */
+        border-color: var(--wrong-color);
+    }
+    .answer-feedback .correct-answer-text {
+        color: var(--success-color);
+        font-weight: 600;
+        margin-top: 0.3rem;
+    }
+    .answer-feedback .your-answer-text {
+      font-weight: 600;
     }
   </style>
 </head>
 <body>
   <div class="quiz-container">
     <h1>Ulysses – 50 MCQ Quiz</h1>
-    <div id="quiz-display"></div>
+
+    <div class="timer-container" id="timer">
+      30:00
+    </div>
+
+    <div id="quiz">
+      </div>
+
+    <div class="controls">
+      <button id="prev-btn" disabled>Previous</button>
+      <button id="next-btn">Next</button>
+    </div>
+
+    <button id="submit-quiz-btn" style="display: none;">Submit Quiz</button>
+
+    <div class="result-container" id="result-container">
+      <div class="result-score" id="result-score"></div>
+      <div id="answer-feedback-list"></div>
+      <button id="retake-quiz-btn" style="display: none; margin-top: 20px; padding: 10px 20px; background-color: var(--secondary-color); color: white; border: none; border-radius: 5px; cursor: pointer;">Retake Quiz</button>
+    </div>
   </div>
 
   <script>
@@ -304,23 +496,169 @@
         }
     ];
 
-    const quizDisplayContainer = document.getElementById("quiz-display");
+    const quizDiv = document.getElementById("quiz");
+    const timerDisplay = document.getElementById("timer");
+    const prevBtn = document.getElementById("prev-btn");
+    const nextBtn = document.getElementById("next-btn");
+    const submitQuizBtn = document.getElementById("submit-quiz-btn");
+    const resultContainer = document.getElementById("result-container");
+    const resultScore = document.getElementById("result-score");
+    const answerFeedbackList = document.getElementById("answer-feedback-list");
+    const retakeQuizBtn = document.getElementById("retake-quiz-btn");
 
-    function displayQuizQuestions() {
-      const output = [];
+    let currentQuestionIndex = 0;
+    const userAnswers = new Array(quizQuestionsUlysses.length).fill(null); // To store user's selected answers
+    const TIME_LIMIT_SECONDS = 30 * 60; // 30 minutes in seconds
+    let timeLeft = TIME_LIMIT_SECONDS;
+    let timerInterval;
 
-      quizQuestionsUlysses.forEach((q, index) => {
-        const optionsHtml = q.options.map((opt, i) =>
-          `<div><span>${String.fromCharCode(65 + i)}.</span> ${opt}</div>` // A., B., C., D.
-        ).join("");
-        output.push(`<div class="question"><strong>${q.q}</strong><div class="options">${optionsHtml}</div></div>`);
-      });
+    function startTimer() {
+        timerInterval = setInterval(() => {
+            timeLeft--;
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            timerDisplay.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
 
-      quizDisplayContainer.innerHTML = output.join("");
+            if (timeLeft <= 60) { // Less than or equal to 1 minute
+                timerDisplay.classList.add('low-time');
+            } else {
+                timerDisplay.classList.remove('low-time');
+            }
+
+            if (timeLeft <= 0) {
+                clearInterval(timerInterval);
+                timerDisplay.textContent = "Time's Up!";
+                submitQuiz(); // Automatically submit when time runs out
+            }
+        }, 1000);
     }
 
-    // Call the function to display the questions when the page loads
-    displayQuizQuestions();
+    function buildQuiz() {
+      const q = quizQuestionsUlysses[currentQuestionIndex];
+      const output = [];
+
+      const optionsHtml = q.options.map((opt, i) =>
+        `<label>
+            <input type="radio" name="question${currentQuestionIndex}" value="${i}" ${userAnswers[currentQuestionIndex] === i ? 'checked' : ''}>
+            <span>${String.fromCharCode(65 + i)}. ${opt}</span>
+        </label>`
+      ).join("");
+
+      output.push(`<div class="question"><strong>${q.q}</strong><div class="options">${optionsHtml}</div></div>`);
+      quizDiv.innerHTML = output.join("");
+
+      // Add event listeners to radio buttons to update userAnswers
+      const radioButtons = quizDiv.querySelectorAll(`input[name="question${currentQuestionIndex}"]`);
+      radioButtons.forEach(radio => {
+        radio.addEventListener('change', (event) => {
+          userAnswers[currentQuestionIndex] = parseInt(event.target.value);
+        });
+      });
+
+      updateNavigationButtons();
+    }
+
+    function updateNavigationButtons() {
+        prevBtn.disabled = currentQuestionIndex === 0;
+        nextBtn.disabled = currentQuestionIndex === quizQuestionsUlysses.length - 1;
+
+        if (currentQuestionIndex === quizQuestionsUlysses.length - 1) {
+            nextBtn.style.display = 'none'; // Hide next button on last question
+            submitQuizBtn.style.display = 'block'; // Show submit button
+        } else {
+            nextBtn.style.display = 'block';
+            submitQuizBtn.style.display = 'none';
+        }
+    }
+
+    function showNextQuestion() {
+      if (currentQuestionIndex < quizQuestionsUlysses.length - 1) {
+        currentQuestionIndex++;
+        buildQuiz();
+      }
+    }
+
+    function showPreviousQuestion() {
+      if (currentQuestionIndex > 0) {
+        currentQuestionIndex--;
+        buildQuiz();
+      }
+    }
+
+    function submitQuiz() {
+        clearInterval(timerInterval); // Stop the timer
+        quizDiv.style.display = 'none';
+        prevBtn.style.display = 'none';
+        nextBtn.style.display = 'none';
+        submitQuizBtn.style.display = 'none';
+        timerDisplay.style.display = 'none'; // Hide timer after submission
+
+        let score = 0;
+        answerFeedbackList.innerHTML = ''; // Clear previous feedback
+
+        quizQuestionsUlysses.forEach((q, index) => {
+            const userAnswer = userAnswers[index];
+            const correctAnswer = q.answer;
+            const isCorrect = userAnswer === correctAnswer;
+
+            if (isCorrect) {
+                score++;
+            }
+
+            const feedbackDiv = document.createElement('div');
+            feedbackDiv.classList.add('answer-feedback');
+            feedbackDiv.classList.add(isCorrect ? 'correct' : 'incorrect');
+
+            let userAnswerText = 'Not answered';
+            if (userAnswer !== null) {
+                userAnswerText = q.options[userAnswer];
+            }
+
+            feedbackDiv.innerHTML = `
+                <strong>${q.q}</strong><br>
+                <span class="your-answer-text">Your Answer: ${userAnswer !== null ? `(${String.fromCharCode(65 + userAnswer)}) ${userAnswerText}` : userAnswerText}</span><br>
+                <span class="correct-answer-text">Correct Answer: (${String.fromCharCode(65 + correctAnswer)}) ${q.options[correctAnswer]}</span>
+            `;
+            answerFeedbackList.appendChild(feedbackDiv);
+        });
+
+        resultScore.textContent = `You scored ${score} out of ${quizQuestionsUlysses.length}`;
+        resultContainer.style.display = 'block';
+        retakeQuizBtn.style.display = 'block'; // Show retake button
+    }
+
+    function retakeQuiz() {
+        // Reset state
+        currentQuestionIndex = 0;
+        userAnswers.fill(null);
+        timeLeft = TIME_LIMIT_SECONDS;
+
+        // Reset display
+        resultContainer.style.display = 'none';
+        quizDiv.style.display = 'block';
+        prevBtn.style.display = 'block';
+        nextBtn.style.display = 'block';
+        timerDisplay.style.display = 'block';
+        retakeQuizBtn.style.display = 'none';
+        timerDisplay.textContent = "30:00"; // Reset timer display text
+        timerDisplay.classList.remove('low-time');
+
+
+        // Start over
+        buildQuiz();
+        startTimer();
+    }
+
+    // Initial setup
+    buildQuiz();
+    startTimer();
+
+    // Event Listeners
+    prevBtn.addEventListener("click", showPreviousQuestion);
+    nextBtn.addEventListener("click", showNextQuestion);
+    submitQuizBtn.addEventListener("click", submitQuiz);
+    retakeQuizBtn.addEventListener("click", retakeQuiz);
+
   </script>
 </body>
 </html>
